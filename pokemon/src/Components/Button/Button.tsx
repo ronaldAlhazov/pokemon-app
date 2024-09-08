@@ -8,11 +8,11 @@ import {
 } from "./Style";
 import { ButtonProps, TYPE } from "./Tyeps";
 
-const Button: React.FC<ButtonProps> = ({ type, size, disabled }) => {
+const Button: React.FC<ButtonProps> = ({ type, size, disabled, onClick }) => {
   const [isPressed, setIsPressed] = useState(false);
-  const handlePress = () => {
+  const handlePress = (event: React.MouseEvent<HTMLButtonElement>) => {
     setIsPressed((prev) => !prev);
-    console.log(isPressed);
+    onClick(event);
   };
   const renderButton = () => {
     switch (type) {

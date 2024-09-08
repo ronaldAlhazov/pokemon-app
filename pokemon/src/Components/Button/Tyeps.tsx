@@ -16,4 +16,5 @@ export interface ButtonProps {
   type: TYPE;
   size: SIZE;
   disabled: boolean;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
