@@ -1,4 +1,4 @@
-import { ButtonSize } from "./Components/Button/buttonConsts";
+import { ButtonSize } from "./Components/Button/consts";
 
 export const colors = {
   NEUTRALS: {

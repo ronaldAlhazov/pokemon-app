@@ -1,4 +1,4 @@
-import { ButtonSize, ButtonType } from "./buttonConsts";
+import { ButtonSize, ButtonType } from "./consts";
 
 export type ButtonProps = {
   label: String;

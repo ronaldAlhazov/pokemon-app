@@ -1,5 +1,5 @@
 import { buttonSizes, colors } from "../../global-styles";
-import { ButtonSize, ButtonType } from "./buttonConsts";
+import { ButtonSize, ButtonType } from "./consts";
 
 export const getButtonStyles = (
   type: ButtonType,
