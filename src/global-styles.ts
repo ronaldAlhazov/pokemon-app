@@ -24,6 +24,12 @@ export const colors = {
     _400: "#CCA204",
     _500: "#4C3D01",
   },
+  CUSTOM: {
+    _100: "#c7cdd3",
+    _200: "#e3e6e9",
+    _300: "#a8aeb5",
+    _500: "#0000000D",
+  },
 };
 
 export const buttonSizes = {

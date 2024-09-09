@@ -13,7 +13,7 @@ const ButtonComponent = ({
   const [isPressed, setIsPressed] = useState(false);
 
   const handlePress = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setIsPressed(!isPressed);
+    setIsPressed((pervState) => !pervState);
     onClick(event);
   };
 

@@ -8,12 +8,7 @@ function App() {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     console.log("Button clicked!", event);
   };
-  return (
-    <div className="App">
-      <h1>hello world</h1>
-      <h1>hello world</h1>
-    </div>
-  );
+  return <div className="App"></div>;
 }
 
 export default App;

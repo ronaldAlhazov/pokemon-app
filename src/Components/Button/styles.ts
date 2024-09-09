@@ -10,7 +10,9 @@ export const getButtonStyles = (
     width: buttonSizes[size].width,
     height: buttonSizes[size].height,
     textTransform: "none",
-    boxShadow: isPressed ? "4px 4px 13px 0px #0000000D inset" : "none",
+    boxShadow: isPressed
+      ? `4px 4px 13px 0px ${colors.CUSTOM._500} inset`
+      : "none",
   };
 
   switch (type) {
@@ -18,15 +20,15 @@ export const getButtonStyles = (
       return {
         ...commonStyles,
         border: "1px solid",
-        color: "#ffffff",
+        color: colors.NEUTRALS.White,
         backgroundColor: isPressed ? colors.PRIMATY._500 : colors.PRIMATY._300,
         "&:hover": {
           backgroundColor: colors.PRIMATY._400,
         },
         "&:disabled": {
           border: "none",
-          color: "#a8aeb5",
-          backgroundColor: "#e3e6e9",
+          color: colors.NEUTRALS._200,
+          backgroundColor: colors.CUSTOM._200,
         },
       };
 
@@ -40,8 +42,8 @@ export const getButtonStyles = (
           backgroundColor: colors.PRIMATY._50,
         },
         "&:disabled": {
-          color: "#c7cdd3",
-          border: "1px solid #c7cdd3",
+          color: colors.CUSTOM._100,
+          border: `1px solid ${colors.CUSTOM._100}`,
           backgroundColor: colors.NEUTRALS._100,
         },
       };
@@ -57,8 +59,8 @@ export const getButtonStyles = (
           backgroundColor: colors.NEUTRALS._100,
         },
         "&:disabled": {
-          color: "#c7cdd3",
-          border: "1px solid #c7cdd3",
+          color: colors.CUSTOM._100,
+          border: `1px solid ${colors.CUSTOM._100}`,
           backgroundColor: colors.NEUTRALS._100,
         },
       };
@@ -73,7 +75,7 @@ export const getButtonStyles = (
           backgroundColor: colors.PRIMATY._50,
         },
         "&:disabled": {
-          color: "#c7cdd3",
+          color: colors.CUSTOM._100,
           backgroundColor: colors.NEUTRALS._100,
         },
       };
@@ -89,7 +91,7 @@ export const getButtonStyles = (
           backgroundColor: colors.NEUTRALS._100,
         },
         "&:disabled": {
-          color: "#c7cdd3",
+          color: colors.CUSTOM._100,
           backgroundColor: colors.NEUTRALS._100,
         },
       };
