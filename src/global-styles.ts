@@ -1,4 +1,4 @@
-import { Size } from "./Components/Button/consts";
+import { ButtonSize } from "./Components/Button/consts";
 
 export const colors = {
   NEUTRALS: {
@@ -18,17 +18,16 @@ export const colors = {
     _500: "#182442",
   },
   SECONDARY: {
-    White: "#FFFFFF",
-    _100: "#F2F5F7",
-    _200: "#A8AEB5",
-    _300: "#5A6066",
-    _400: "#44484C",
-    _500: "#2D3033",
+    _100: "#FFFAE6",
+    _200: "#FFE069",
+    _300: "#FFCB05",
+    _400: "#CCA204",
+    _500: "#4C3D01",
   },
 };
 
 export const buttonSizes = {
-  [Size.SMALL]: { width: "74px", height: "32px" },
-  [Size.MEDIUM]: { width: "80px", height: "36px" },
-  [Size.LARGE]: { width: "80px", height: "40px" },
+  [ButtonSize.SMALL]: { width: "74px", height: "32px" },
+  [ButtonSize.MEDIUM]: { width: "80px", height: "36px" },
+  [ButtonSize.LARGE]: { width: "80px", height: "40px" },
 };

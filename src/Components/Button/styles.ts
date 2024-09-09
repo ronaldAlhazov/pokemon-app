@@ -1,9 +1,9 @@
-import { buttonSizes } from "../../global-styles";
-import { Size, ButtonType } from "./consts";
+import { buttonSizes, colors } from "../../global-styles";
+import { ButtonSize, ButtonType } from "./consts";
 
 export const getButtonStyles = (
   type: ButtonType,
-  size: Size,
+  size: ButtonSize,
   isPressed: boolean
 ) => {
   const commonStyles = {
@@ -19,9 +19,9 @@ export const getButtonStyles = (
         ...commonStyles,
         border: "1px solid",
         color: "#ffffff",
-        backgroundColor: isPressed ? "#182442" : "#3b5aa6",
+        backgroundColor: isPressed ? colors.PRIMATY._500 : colors.PRIMATY._300,
         "&:hover": {
-          backgroundColor: "#293f74",
+          backgroundColor: colors.PRIMATY._400,
         },
         "&:disabled": {
           border: "none",
@@ -33,32 +33,33 @@ export const getButtonStyles = (
     case ButtonType.SECONDARY:
       return {
         ...commonStyles,
-        border: "1px solid #3b5aa6",
-        color: "#3b5aa6",
-        backgroundColor: isPressed ? "#B1BDDB" : "#F2F5F7",
+        border: `1px solid ${colors.NEUTRALS._300}`,
+        color: colors.PRIMATY._300,
+        backgroundColor: isPressed ? colors.PRIMATY._100 : colors.NEUTRALS._100,
         "&:hover": {
-          backgroundColor: "#ebeff6",
+          backgroundColor: colors.PRIMATY._50,
         },
         "&:disabled": {
           color: "#c7cdd3",
           border: "1px solid #c7cdd3",
-          backgroundColor: "#f2f5f7",
+          backgroundColor: colors.NEUTRALS._100,
         },
       };
 
     case ButtonType.SECONDARY_GRAY:
       return {
         ...commonStyles,
-        border: "1px solid #44484c",
-        color: "#44484c",
-        backgroundColor: isPressed ? "#F2F5F7" : "white",
+        border: `1px solid ${colors.NEUTRALS._400}`,
+        color: colors.NEUTRALS._400,
+        backgroundColor: isPressed ? colors.NEUTRALS._100 : "none",
         "&:hover": {
-          color: "#5a6066",
+          color: colors.NEUTRALS._300,
+          backgroundColor: colors.NEUTRALS._100,
         },
         "&:disabled": {
           color: "#c7cdd3",
           border: "1px solid #c7cdd3",
-          backgroundColor: "#f2f5f7",
+          backgroundColor: colors.NEUTRALS._100,
         },
       };
 
@@ -66,14 +67,14 @@ export const getButtonStyles = (
       return {
         ...commonStyles,
         border: "none",
-        color: "#3b5aa6",
-        backgroundColor: isPressed ? "#B1BDDB" : "#F2F5F7",
+        color: colors.PRIMATY._300,
+        backgroundColor: isPressed ? colors.PRIMATY._100 : colors.NEUTRALS._100,
         "&:hover": {
-          backgroundColor: "#ebeff6",
+          backgroundColor: colors.PRIMATY._50,
         },
         "&:disabled": {
           color: "#c7cdd3",
-          backgroundColor: "#f2f5f7",
+          backgroundColor: colors.NEUTRALS._100,
         },
       };
 
@@ -81,14 +82,15 @@ export const getButtonStyles = (
       return {
         ...commonStyles,
         border: "none",
-        color: "#44484c",
-        backgroundColor: isPressed ? "#F2F5F7" : "white",
+        color: colors.NEUTRALS._400,
+        backgroundColor: isPressed ? colors.NEUTRALS._100 : "none",
         "&:hover": {
-          color: "#5a6066",
+          color: colors.NEUTRALS._300,
+          backgroundColor: colors.NEUTRALS._100,
         },
         "&:disabled": {
           color: "#c7cdd3",
-          backgroundColor: "#f2f5f7",
+          backgroundColor: colors.NEUTRALS._100,
         },
       };
 

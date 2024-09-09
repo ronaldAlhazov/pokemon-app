@@ -6,7 +6,7 @@ export enum ButtonType {
   TERTIARY_GRAY = "tertiaryGray",
 }
 
-export enum Size {
+export enum ButtonSize {
   SMALL = "small",
   MEDIUM = "medium",
   LARGE = "large",
