@@ -3,20 +3,14 @@ import { CheckBoxType } from "./consts";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import { CustomCheckbox } from "./styles";
 import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/IndeterminateCheckBoxOutlined";
+import { CheckBoxProps } from "./types";
 
-export type CheckBoxProps = {
-  type?: CheckBoxType;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  label?: string;
-  disabled?: boolean;
-};
-
-const CheckBox: React.FC<CheckBoxProps> = ({
-  type = CheckBoxType.NOT_CHECKED,
+const CheckBox = ({
+  type,
   onChange,
-  label,
+  label = "",
   disabled = false,
-}) => {
+}: CheckBoxProps) => {
   return (
     <FormControlLabel
       control={
