@@ -1,4 +1,4 @@
-import { DropDownType } from "./consts";
+import { SxProps } from "@mui/material";
 
 export type DropdownOption = {
   label: string;
@@ -7,9 +7,9 @@ export type DropdownOption = {
 };
 
 export type DropdownProps = {
-  dropDownType: DropDownType;
   options: DropdownOption[];
   value: string;
   onChange: (value: string) => void;
   label: string;
+  style: SxProps;
 };
