@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { InputProps } from "./types";
 import { IconButton, InputBase, Paper } from "@mui/material";
 
@@ -67,7 +67,7 @@ const Input: React.FC<InputProps> = ({
         onChange={handleInputChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        sx={inputBaseStyle} // Adjust padding if start icon is shown
+        sx={inputBaseStyle}
       />
       {IconEnd && showIconEnd && (
         <IconButton

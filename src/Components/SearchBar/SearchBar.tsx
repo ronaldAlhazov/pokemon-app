@@ -10,15 +10,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
   disabled = false,
   onSearch,
   onClear,
-  isSearching = false,
 }) => {
   const [inputValue, setInputValue] = useState("");
   const [isInputBaseFouced, setIsPressed] = useState<boolean>(false);
   const [showClearIcon, setShowClearIcon] = useState<boolean>(false);
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
 
   const handleSearchClick = (inputValue: string) => {
     if (onSearch) {

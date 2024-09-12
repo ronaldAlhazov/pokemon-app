@@ -16,37 +16,41 @@ export const paperStyle = (isPressed: boolean, disabled: boolean): SxProps => ({
   borderStyle: "solid",
   transition: "border-color 0.3s ease",
   "&:hover": {
-    borderColor: isPressed ? colors.NEUTRALS._500 : "#71787F",
+    borderColor: isPressed ? colors.NEUTRALS._500 : colors.NEUTRALS._600,
   },
 });
 
 export const inputBaseStyle = (isPressed: boolean): SxProps => ({
   flex: 1,
-  color: isPressed ? colors.NEUTRALS._500 : "#71787F",
-  borderColor: "#71787F",
+  color: isPressed ? colors.NEUTRALS._500 : colors.NEUTRALS._600,
+  borderColor: colors.NEUTRALS._600,
   transition: "color 0.3s ease",
   "&:hover": {
-    color: isPressed ? colors.NEUTRALS._500 : "#44484C",
+    color: isPressed ? colors.NEUTRALS._500 : colors.NEUTRALS._400,
   },
   "&:disabled": {
-    color: "#C7CDD3",
+    color: colors.CUSTOM._100,
   },
 });
 
 export const startStyle = (isPressed: boolean, disabled: boolean): SxProps => ({
   p: "10px",
-  color: disabled ? "#C7CDD3" : isPressed ? colors.NEUTRALS._500 : "#71787F",
+  color: disabled
+    ? colors.CUSTOM._100
+    : isPressed
+      ? colors.NEUTRALS._500
+      : colors.NEUTRALS._600,
   transition: "color 0.3s ease",
   "&:hover": {
-    color: isPressed ? colors.NEUTRALS._500 : "#44484C",
+    color: isPressed ? colors.NEUTRALS._500 : colors.NEUTRALS._400,
   },
 });
 
 export const endStyle = (isPressed: boolean, disabled: boolean): SxProps => ({
   p: "10px",
-  color: "#71787F",
+  color: colors.NEUTRALS._600,
   transition: "color 0.3s ease",
   "&:hover": {
-    color: "#44484C",
+    color: colors.NEUTRALS._400,
   },
 });

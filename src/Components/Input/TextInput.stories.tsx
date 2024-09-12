@@ -12,14 +12,13 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-// Primary Button
 export const Primary: Story = {
   args: {
     placeHolder: "input here",
     disabled: false,
     onClickIconStart: (value: string) =>
-      console.log("Primary Button clicked:", value), // Log value
-    IconStart: SearchIcon, // Start icon for search
+      console.log("Primary Button clicked:", value),
+    IconStart: SearchIcon,
     IconEnd: ClearIcon,
     showIconStart: true,
     showIconEnd: false,

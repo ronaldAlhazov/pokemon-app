@@ -3,5 +3,4 @@ export interface SearchBarProps {
   disabled?: boolean;
   onSearch?: (query: string) => void;
   onClear?: () => void;
-  isSearching?: boolean;
 }
