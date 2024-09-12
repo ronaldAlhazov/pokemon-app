@@ -12,18 +12,16 @@ const CheckBox = ({
   disabled = false,
 }: CheckBoxProps) => {
   return (
-    <FormControlLabel
-      control={
-        <CustomCheckbox
-          checked={type === CheckBoxType.CHECKED}
-          indeterminate={type === CheckBoxType.HALF}
-          onChange={onChange}
-          disabled={disabled}
-          indeterminateIcon={<IndeterminateCheckBoxOutlinedIcon />}
-        />
-      }
-      label={label}
-    />
+    <div style={{ display: "flex", alignItems: "center" }}>
+      <CustomCheckbox
+        checked={type === CheckBoxType.CHECKED}
+        indeterminate={type === CheckBoxType.HALF}
+        onChange={onChange}
+        disabled={disabled}
+        indeterminateIcon={<IndeterminateCheckBoxOutlinedIcon />}
+      />
+      <div>{label}</div>
+    </div>
   );
 };
 
