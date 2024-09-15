@@ -1,20 +1,28 @@
 import { TextField, InputAdornment, Box } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { DropDownType } from "./consts";
 
 export const renderInput = (
+  type: DropDownType,
   params: any,
   label: string,
   style: any,
   showSearchIcon: boolean
 ) => {
-  return !showSearchIcon ? (
-    <TextField {...params} label={label} sx={style} variant="outlined" />
-  ) : (
+  return type == DropDownType.REGULAR ? (
+    <TextField
+      {...params}
+      label={label}
+      sx={style}
+      variant="outlined"
+      inputProps={{ ...params.inputProps, readOnly: true }}
+    />
+  ) : showSearchIcon ? (
     <TextField
       {...params}
       placeholder={label}
-      sx={style}
       variant="outlined"
+      sx={style}
       InputProps={{
         ...params.InputProps,
         startAdornment: (
@@ -24,6 +32,8 @@ export const renderInput = (
         ),
       }}
     />
+  ) : (
+    <TextField {...params} sx={style} placeholder={label} variant="outlined" />
   );
 };
 export const renderOption = (props: any, option: any) => {

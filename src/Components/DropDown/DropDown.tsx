@@ -15,13 +15,13 @@ const DropDown = ({
   const [showSearchIcon, setShowSearchIcon] = useState(
     type == DropDownType.SEARCH
   );
-  const handleChange = (event: any, newValue: DropdownOption | null) => {
+  const handleChange = (newValue: DropdownOption | null) => {
     setShowSearchIcon(false);
     if (onChange && newValue) {
       onChange(newValue.value);
     } else if (!newValue) {
       onChange("");
-      setShowSearchIcon(type == DropDownType.SEARCH);
+      setShowSearchIcon(type == DropDownType.SEARCH); // Show search icon again
     }
   };
 
@@ -30,9 +30,9 @@ const DropDown = ({
       options={options}
       getOptionLabel={(option) => option.label}
       value={options.find((option) => option.value === value) || null}
-      onChange={handleChange}
+      onChange={(_, newValue) => handleChange(newValue)}
       renderInput={(params) =>
-        renderInput(params, label, style, showSearchIcon)
+        renderInput(type, params, label, style, showSearchIcon)
       }
       renderOption={renderOption}
     />
