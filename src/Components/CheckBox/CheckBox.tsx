@@ -4,6 +4,8 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 import { CustomCheckbox } from "./styles";
 import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/IndeterminateCheckBoxOutlined";
 import { CheckBoxProps } from "./types";
+import Typography from "../Typography/Typography";
+import { TypographyTypes } from "../Typography/consts";
 
 const CheckBox = ({
   type,
@@ -20,7 +22,7 @@ const CheckBox = ({
         disabled={disabled}
         indeterminateIcon={<IndeterminateCheckBoxOutlinedIcon />}
       />
-      <div>{label}</div>
+      <Typography type={TypographyTypes.BODY_MEDIUM} label={label} />
     </div>
   );
 };
