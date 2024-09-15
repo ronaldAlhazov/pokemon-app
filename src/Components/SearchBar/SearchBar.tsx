@@ -5,14 +5,14 @@ import { SearchBarProps } from "./types";
 import Input from "../Input/Input";
 import { endStyle, inputBaseStyle, paperStyle, startStyle } from "./styles";
 
-const SearchBar: React.FC<SearchBarProps> = ({
+const SearchBar = ({
   placeHolder = "Search...",
   disabled = false,
   onSearch,
   onClear,
-}) => {
+}: SearchBarProps) => {
   const [inputValue, setInputValue] = useState("");
-  const [isInputBaseFouced, setIsPressed] = useState<boolean>(false);
+  const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
   const [showClearIcon, setShowClearIcon] = useState<boolean>(false);
 
   const handleSearchClick = (inputValue: string) => {
@@ -36,16 +36,16 @@ const SearchBar: React.FC<SearchBarProps> = ({
       setInputValue={setInputValue}
       placeHolder={placeHolder}
       disabled={disabled}
-      setIsPressed={setIsPressed}
+      setIsPressed={setIsInputFocused}
       onClickIconStart={handleSearchClick}
       onClickIconEnd={handleClearClick}
       IconStart={SearchIcon}
       IconEnd={ClearIcon}
       showIconEnd={showClearIcon}
-      inputBaseStyle={inputBaseStyle(isInputBaseFouced)}
-      paperStyle={paperStyle(isInputBaseFouced, disabled)}
-      startStyle={startStyle(isInputBaseFouced, disabled)}
-      endStyle={endStyle(isInputBaseFouced, disabled)}
+      inputBaseStyle={inputBaseStyle(isInputFocused)}
+      paperStyle={paperStyle(isInputFocused, disabled)}
+      startIconStyle={startStyle(isInputFocused, disabled)}
+      endIconStyle={endStyle(isInputFocused, disabled)}
     />
   );
 };

@@ -9,14 +9,13 @@ export interface InputProps {
   setIsPressed: (value: boolean) => void;
   onClickIconStart?: (value: string) => void;
   onClickIconEnd?: (value: string) => void;
-  onError?: () => void;
   IconStart?: React.ComponentType;
   IconEnd?: React.ComponentType;
   IconError?: React.ComponentType;
   showIconStart?: boolean;
   showIconEnd?: boolean;
-  startStyle?: SxProps;
-  endStyle?: SxProps;
+  startIconStyle?: SxProps;
+  endIconStyle?: SxProps;
   errorStyle?: SxProps;
   inputBaseStyle?: SxProps;
   paperStyle?: SxProps;

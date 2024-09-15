@@ -2,7 +2,7 @@ import React from "react";
 import { InputProps } from "./types";
 import { IconButton, InputBase, Paper } from "@mui/material";
 
-const Input: React.FC<InputProps> = ({
+const Input = ({
   inputValue,
   setInputValue,
   placeHolder = "Input content",
@@ -11,18 +11,17 @@ const Input: React.FC<InputProps> = ({
   setIsPressed,
   onClickIconStart,
   onClickIconEnd,
-  onError,
   IconStart,
   IconEnd,
   IconError,
   showIconStart = true,
   showIconEnd = true,
-  startStyle,
-  endStyle,
+  startIconStyle: startStyle,
+  endIconStyle: endStyle,
   errorStyle,
   inputBaseStyle,
   paperStyle,
-}) => {
+}: InputProps) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
