@@ -42,7 +42,7 @@ export const dropdown: Story = {
         value: "value 3",
         image:
           "https://cloudinary-marketing-res.cloudinary.com/images/w_1000,c_scale/v1679921049/Image_URL_header/Image_URL_header-png?_i=AA",
-      }, // No image for this option
+      },
     ],
     label: "search by",
     style: {
@@ -50,20 +50,20 @@ export const dropdown: Story = {
       height: 38,
       "& .MuiOutlinedInput-root": {
         "& fieldset": {
-          borderColor: "#A8AEB5", // Border color
+          borderColor: "#A8AEB5",
         },
         "&:hover fieldset": {
-          borderColor: "#A8AEB5", // Border color on hover
+          borderColor: "#A8AEB5",
         },
         "&.Mui-focused fieldset": {
-          borderColor: "#A8AEB5", // Border color when focused
+          borderColor: "#A8AEB5",
         },
       },
       "& .MuiInputLabel-root": {
-        color: "#44484C", // Label color
+        color: "#44484C",
       },
       "& .MuiInputLabel-root.Mui-focused": {
-        color: "#44484C", // Label color when focused
+        color: "#44484C",
       },
     },
   },
@@ -100,7 +100,7 @@ export const search: Story = {
         value: "value 3",
         image:
           "https://cloudinary-marketing-res.cloudinary.com/images/w_1000,c_scale/v1679921049/Image_URL_header/Image_URL_header-png?_i=AA",
-      }, // No image for this option
+      },
     ],
     label: "sort by",
     style: {
@@ -108,20 +108,20 @@ export const search: Story = {
       height: 38,
       "& .MuiOutlinedInput-root": {
         "& fieldset": {
-          borderColor: "#A8AEB5", // Border color
+          borderColor: "#A8AEB5",
         },
         "&:hover fieldset": {
-          borderColor: "#A8AEB5", // Border color on hover
+          borderColor: "#A8AEB5",
         },
         "&.Mui-focused fieldset": {
-          borderColor: "#A8AEB5", // Border color when focused
+          borderColor: "#A8AEB5",
         },
       },
       "& .MuiInputLabel-root": {
-        color: "#44484C", // Label color
+        color: "#44484C",
       },
       "& .MuiInputLabel-root.Mui-focused": {
-        color: "#44484C", // Label color when focused
+        color: "#44484C",
       },
     },
   },

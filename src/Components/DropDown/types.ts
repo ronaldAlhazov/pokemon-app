@@ -4,7 +4,7 @@ import { DropDownType } from "./consts";
 export type DropdownOption = {
   label: string;
   value: string;
-  image?: string; // Optional image URL
+  image?: string;
 };
 
 export type DropdownProps = {
