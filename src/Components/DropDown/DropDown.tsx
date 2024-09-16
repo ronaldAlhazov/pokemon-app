@@ -17,10 +17,9 @@ const DropDown = ({
   );
   const handleChange = (newValue: DropdownOption | null) => {
     setShowSearchIcon(false);
-    if (onChange && newValue) {
-      onChange(newValue.value);
-    } else if (!newValue) {
-      onChange("");
+    const valueToSearch = newValue?.value ?? "";
+    onChange(valueToSearch);
+    if (!newValue) {
       setShowSearchIcon(type == DropDownType.SEARCH); // Show search icon again
     }
   };
