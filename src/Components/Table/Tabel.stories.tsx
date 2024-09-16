@@ -14,13 +14,14 @@ type Story = StoryObj<typeof meta>;
 // Sample options data for the table
 const sampleOptions: TableCols[] = [
   {
-    name: "Pikachu",
+    name: "Bulbasaur",
     ID: "001",
-    description: "Electric type Pokémon",
-    Power: "Thunderbolt",
-    hp: "35",
+    description:
+      "Bulbasaur can be seen napping in bright sunlight. There is a seed on its back. By soaking up the sun’s rays, the seed grows progressively larger.",
+    Power: "power lever 1",
+    hp: "45",
     avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+      "https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/hires/001.png",
   },
   {
     name: "Charmander",

@@ -8,7 +8,7 @@ const Table = ({ options }: TableProps) => {
     {
       field: "avatar",
       headerName: "",
-      width: 150,
+      width: 70,
       renderCell: (params) => (
         <img
           src={params.value}
@@ -16,13 +16,15 @@ const Table = ({ options }: TableProps) => {
           style={{ width: "50px", height: "50px" }}
         />
       ),
+      cellClassName: "avatar-cell",
+      headerClassName: "avatar-header",
     },
-    { field: "name", headerName: "Name", width: 150 },
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "name", headerName: "Name", width: 350 },
+    { field: "id", headerName: "ID", width: 170 },
 
-    { field: "description", headerName: "Description", width: 200 },
-    { field: "Power", headerName: "Power", width: 100 },
-    { field: "hp", headerName: "HP", width: 100 },
+    { field: "description", headerName: "Description", width: 544 },
+    { field: "Power", headerName: "Power", width: 119 },
+    { field: "hp", headerName: "HP", width: 119 },
   ];
 
   const rows = options.map((item, index) => ({
@@ -37,9 +39,20 @@ const Table = ({ options }: TableProps) => {
     <Paper elevation={3} style={{ padding: 16, height: 450, width: "100%" }}>
       <DataGrid
         rows={rows}
+        rowHeight={70}
         columns={columns}
         paginationModel={paginationModel}
-        onPaginationModelChange={(model) => console.log(model)} // handle page change
+        onPaginationModelChange={(model) => console.log(model)}
+        sx={{
+          "& .avatar-cell": {
+            justifyContent: "center",
+            display: "flex",
+            alignItems: "center",
+          },
+          "& .avatar-header": {
+            justifyContent: "center",
+          },
+        }}
       />
     </Paper>
   );
