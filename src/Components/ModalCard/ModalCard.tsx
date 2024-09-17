@@ -1,12 +1,8 @@
-import React from "react";
 import { ModalCardProps } from "./types";
 import {
-  ContentContainer,
   FooterContainer,
   HeaderContainer,
   ImgContainer,
-  InfoContainer,
-  Separator,
   StyledCard,
   StyledCardActionArea,
   StyledImg,

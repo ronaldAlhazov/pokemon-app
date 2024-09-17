@@ -12,7 +12,7 @@ export const StyledCardActionArea = muiStyled(CardActionArea)`
   flex-direction: column;
   height: 100%;
   padding: 24px;
-  align-items: center; // Centers all content horizontally
+  align-items: center; 
   gap: 10px;
 `;
 
@@ -32,8 +32,8 @@ export const ImgContainer = styled.div`
 export const HeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center; // Centers header content vertically
-  align-items: center; // Centers header content horizontally
+  justify-content: center;
+  align-items: center;
 
   & > * + * {
     margin-top: 10px;
@@ -45,33 +45,33 @@ export const ContentContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #ebeff699;
+  background-color: ${colors.CUSTOM.GRAY};
   width: 454px;
   height: 210px;
 
   gap: 24px;
 `;
 export const ContentWrapper = styled.div`
-  padding: 24px 24px 0px 24px;
+  padding: 24px;
 `;
 
 export const FooterContainer = styled.div`
   display: flex;
-  justify-content: center; // Centers the button horizontally
-  align-items: center; // Centers the button vertically
+  justify-content: center;
+  align-items: center;
 `;
 export const Separator = styled.div`
   width: 100%;
   height: 1px;
-  background-color: ${colors.NEUTRALS._300}; // Adjust color as needed
-  margin: 16px 0; // Adds space above and below the line
+  background-color: ${colors.NEUTRALS._300};
+  margin: 16px 0;
 `;
 
 export const InfoContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between; // Distributes space between items
+  justify-content: space-between;
   width: 100%;
-  padding: 0 24px; // Adds padding to the sides
-  box-sizing: border-box; // Ensures padding is included in the width
+  padding: 0 24px;
+  box-sizing: border-box;
 `;
