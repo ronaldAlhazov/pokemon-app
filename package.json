@@ -7,6 +7,7 @@
     "@emotion/styled": "^11.13.0",
     "@fontsource/mulish": "^5.1.0",
     "@fontsource/train-one": "^5.1.0",
+    "@material/card": "^14.0.0",
     "@mui/icons-material": "^6.0.2",
     "@mui/material": "^6.0.2",
     "@testing-library/jest-dom": "^5.17.0",
