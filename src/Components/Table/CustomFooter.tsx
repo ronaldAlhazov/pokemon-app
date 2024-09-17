@@ -9,7 +9,6 @@ import {
 import {
   Box,
   FormControl,
-  InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -22,19 +21,16 @@ function CustomPagination() {
   const paginationModel = useGridSelector(apiRef, gridPaginationModelSelector);
   const pageCount = useGridSelector(apiRef, gridPageCountSelector);
   const pageSize = useGridSelector(apiRef, gridPageSizeSelector);
-  const rowsCount = apiRef.current.getRowsCount(); // Get the total number of rows
+  const rowsCount = apiRef.current.getRowsCount();
 
-  // Calculate the current range of items
   const start = paginationModel.page * pageSize + 1;
   const end = Math.min((paginationModel.page + 1) * pageSize, rowsCount);
 
-  // Default page size
   const defaultPageSize = 10;
 
-  // Generate page size options dynamically
   const generatePageSizeOptions = (count: number) => {
     const options = [10, 25, 50];
-    const maxOption = Math.min(count, 100); // Cap at 100 for practicality
+    const maxOption = Math.min(count, 100);
     if (!options.includes(maxOption)) {
       options.push(maxOption);
     }
@@ -46,13 +42,11 @@ function CustomPagination() {
 
   const pageSizeOptions = generatePageSizeOptions(rowsCount);
 
-  // Handle page size change
   const handlePageSizeChange = (event: SelectChangeEvent<number>) => {
     const value = event.target.value as number;
     apiRef.current.setPageSize(value);
   };
 
-  // Set default page size if not already set
   React.useEffect(() => {
     if (pageSize === undefined || pageSize === null) {
       apiRef.current.setPageSize(defaultPageSize);

@@ -31,7 +31,7 @@ const Table = ({
   }));
 
   const sortModel: GridSortModel = sortBy
-    ? [{ field: sortBy.col, sort: sortBy.order }] // Default to ascending order
+    ? [{ field: sortBy.col, sort: sortBy.order }]
     : [];
   const handleRowClick: GridEventListener<"rowClick"> = (params, event) => {
     onClick(params.row.name);
