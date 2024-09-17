@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Table from "./Table";
 import { TableCol } from "./types";
 import { GridSortModel } from "@mui/x-data-grid";
+import { sortType } from "./consts";
 
 const meta: Meta<typeof Table> = {
   component: Table,
@@ -164,7 +165,7 @@ export const Primary: Story = {
       { title: "HP", field: "hp", width: 119 },
     ],
     rows: sampleRows,
-    onClick: (row) => alert(`Row clicked: ${row}`),
+    onRowClick: (row) => alert(`Row clicked: ${row}`),
     style: {
       "& .MuiDataGrid-cell": {
         border: "none",
@@ -179,7 +180,7 @@ export const Primary: Story = {
         width: "100%",
       },
     },
-    sortBy: { col: "Power", order: "asc" },
+    sortBy: { col: "Power", order: sortType.ASC },
     headerClassName: "theme--header",
     headerTypo: (label: string) => (
       <div

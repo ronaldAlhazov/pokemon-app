@@ -7,17 +7,18 @@ import {
 import { Paper } from "@mui/material";
 import { TableProps } from "./types";
 import CustomFooter from "./CustomFooter";
+import { sortType } from "./consts";
 
 const Table = ({
   cols,
   rows,
-  onClick,
+  onRowClick: onClick,
   style,
   headerClassName,
   headerTypo,
   disableColumnMenu = true,
   disableColumnSorting = true,
-  sortBy = { col: "", order: "asc" },
+  sortBy = { col: "", order: sortType.ASC },
 }: TableProps) => {
   const columns: GridColDef[] = cols.map((col) => ({
     field: col.field,
