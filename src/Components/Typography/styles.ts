@@ -2,7 +2,7 @@ import "@fontsource/mulish";
 import styled from "styled-components";
 import { TypographyTypes } from "./consts";
 
-export const StyledTypography = styled.div<{ type: string }>`
+export const StyledTypography = styled.div<{ type: TypographyTypes }>`
   font-family: "Mulish", sans-serif;
   ${(props) => {
     switch (props.type) {
@@ -138,6 +138,12 @@ export const StyledTypography = styled.div<{ type: string }>`
             font-size: 14px;
             font-weight: normal;
             line-height: 14px;
+            `;
+      default:
+        return `  
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 22px;
             `;
     }
   }}
