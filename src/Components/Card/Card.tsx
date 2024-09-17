@@ -1,18 +1,39 @@
-import React from "react";
-import { Card as MuiCard } from "@mui/material";
-
 import { CardProps } from "./types";
-import { CardActionArea, CardContent, CardMedia } from "@mui/material";
 import Typography from "../Typography/Typography";
 import { TypographyTypes } from "../Typography/consts";
 import { colors } from "../../global-styles";
+import {
+  StyledCard,
+  StyledCardActionArea,
+  StyledImg,
+  ImgContainer,
+  ContentContainer,
+  IconContainer,
+  PowerText,
+} from "./styles";
+import StrengthIcon from "./strengthIcon";
 
 const Card = ({ id, img, name, power }: CardProps) => {
   return (
-    <MuiCard>
-      <CardActionArea>
-        <CardMedia component="img" height="140" image={img} />
-        <CardContent>
+    <StyledCard>
+      <StyledCardActionArea>
+        <ImgContainer>
+          <StyledImg src={img} />
+          <IconContainer>
+            <StrengthIcon />
+          </IconContainer>
+          <PowerText>
+            <Typography
+              label={`${power}px`}
+              type={TypographyTypes.CUSTOM}
+              weight={700}
+              size={12}
+              line={19}
+              color={colors.NEUTRALS._500}
+            />
+          </PowerText>
+        </ImgContainer>
+        <ContentContainer>
           <Typography
             label={id}
             type={TypographyTypes.CUSTOM}
@@ -28,9 +49,9 @@ const Card = ({ id, img, name, power }: CardProps) => {
             size={24}
             line={26}
           />
-        </CardContent>
-      </CardActionArea>
-    </MuiCard>
+        </ContentContainer>
+      </StyledCardActionArea>
+    </StyledCard>
   );
 };
 
