@@ -31,6 +31,8 @@ export const colors = {
     _200: "#e3e6e9",
     _300: "#a8aeb5",
     _500: "#0000000D",
+    GREEN: "#87C877",
+    RED: "red",
   },
 };
 
