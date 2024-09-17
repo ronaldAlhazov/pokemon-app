@@ -27,6 +27,15 @@ export const Secondary: Story = {
   args: {
     label: "Button",
     type: ButtonType.SECONDARY,
+    size: ButtonSize.SMALL,
+    disabled: false,
+    onClick: (event) => console.log("Secondary Button clicked"),
+  },
+};
+export const Secondary_MEDIUM: Story = {
+  args: {
+    label: "Button",
+    type: ButtonType.SECONDARY,
     size: ButtonSize.MEDIUM,
     disabled: false,
     onClick: (event) => console.log("Secondary Button clicked"),
