@@ -16,9 +16,12 @@ export const Primary: Story = {
     img: "https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/hires/001.png",
     name: "Bulbasaur",
     id: "#001",
-    power: 30,
 
-    health: 90,
-    minHealth: 40,
+    description:
+      "For some time after its birth, it uses the nutrients that are packed into the seed on its back in order to grow.",
+    hight: 2,
+    weight: 15.2,
+    category: "seed",
+    abilities: "Overgrow",
   },
 };

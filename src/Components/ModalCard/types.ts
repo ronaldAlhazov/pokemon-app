@@ -2,8 +2,10 @@ export type ModalCardProps = {
   id: string;
   img: string;
   name: string;
-  power: number;
-
-  health: number;
-  minHealth: number;
+  description: string;
+  hight: number;
+  weight: number;
+  category: string;
+  abilities: string;
+  onStartFightButton: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };

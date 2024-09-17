@@ -1,20 +1,19 @@
-import { CardActionArea, styled as muiStyled } from "@mui/material";
-import { Card as MuiCard } from "@mui/material";
+import { Card, CardActionArea, styled as muiStyled } from "@mui/material";
 import { styled } from "styled-components";
 import { colors } from "../../global-styles";
 
-export const StyledCard = muiStyled(MuiCard)`
-  width: 402px;
-  height: 396px;
+export const StyledCard = muiStyled(Card)`
+  width: 502px;
+  height: 569px;
 `;
 
 export const StyledCardActionArea = muiStyled(CardActionArea)`
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 32px;
-  align-items: center; 
-  gap:9px;
+  padding: 24px;
+  align-items: center; // Centers all content horizontally
+  gap: 10px;
 `;
 
 export const StyledImg = styled.img`
@@ -23,54 +22,56 @@ export const StyledImg = styled.img`
 `;
 
 export const ImgContainer = styled.div`
-  width: 290px;
-  height: 188px;
-  border-radius: 8px 8px 0 0;
-  background-color: #ebeff699;
+  width: 454px;
+  height: 158px;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-`;
-
-export const PowerText = styled.div`
-  display: flex;
-  position: absolute;
-  top: 7px;
-  right: 10px;
-`;
-
-export const ContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  & > * + * {
-    margin-top: 8px;
-  }
 `;
 
 export const HeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center; // Centers header content vertically
+  align-items: center; // Centers header content horizontally
+
+  & > * + * {
+    margin-top: 10px;
+  }
+`;
+
+export const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  background-color: #ebeff699;
+  width: 454px;
+  height: 210px;
+
+  gap: 24px;
+`;
+export const ContentWrapper = styled.div`
+  padding: 24px 24px 0px 24px;
 `;
 
-export const HealthBarContainer = styled.div`
+export const FooterContainer = styled.div`
+  display: flex;
+  justify-content: center; // Centers the button horizontally
+  align-items: center; // Centers the button vertically
+`;
+export const Separator = styled.div`
   width: 100%;
-  background-color: ${colors.NEUTRALS
-    ._200}; // Background color for missing health
-  border-radius: 4px;
-  overflow: hidden;
-  height: 10px;
-  margin-top: 8px;
+  height: 1px;
+  background-color: ${colors.NEUTRALS._300}; // Adjust color as needed
+  margin: 16px 0; // Adds space above and below the line
 `;
 
-export const HealthBarFill = styled.div<{ health: number; minHealth: number }>`
-  width: ${({ health }) => health}%; // Dynamic width based on health percentage
-  background-color: ${({ health, minHealth }) =>
-    health > minHealth
-      ? colors.CUSTOM.GREEN
-      : colors.CUSTOM.RED}; // Green when health > 50%, red otherwise
-  height: 100%;
-  transition: width 0.3s ease;
+export const InfoContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; // Distributes space between items
+  width: 100%;
+  padding: 0 24px; // Adds padding to the sides
+  box-sizing: border-box; // Ensures padding is included in the width
 `;
