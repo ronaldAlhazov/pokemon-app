@@ -1,9 +1,17 @@
 import "@fontsource/mulish";
 import styled from "styled-components";
 import { TypographyTypes } from "./consts";
-
-export const StyledTypography = styled.div<{ type: TypographyTypes }>`
+import "@fontsource/roboto";
+export const StyledTypography = styled.div<{
+  type: TypographyTypes;
+  weight?: number;
+  size?: number;
+  line?: number;
+  color?: string;
+}>`
   font-family: "Mulish", sans-serif;
+  color: ${(props) => props.color || "inherit"};
+
   ${(props) => {
     switch (props.type) {
       case TypographyTypes.HEADING_XLARGE_BOLD:
@@ -139,6 +147,19 @@ export const StyledTypography = styled.div<{ type: TypographyTypes }>`
             font-weight: normal;
             line-height: 14px;
             `;
+      case TypographyTypes.CUSTOM:
+        return `
+            font-size: ${props.size || 14}px;
+            font-weight: ${props.weight || "normal"};
+            line-height: ${props.line || 22}px;
+        `;
+      case TypographyTypes.BODY_REGULAR_14:
+        return `
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 22px;
+            font-family: "Roboto", sans-serif;
+        `;
       default:
         return `  
             font-size: 14px;

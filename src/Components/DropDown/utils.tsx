@@ -1,6 +1,8 @@
-import { TextField, InputAdornment, Box } from "@mui/material";
+import { TextField, InputAdornment, Box, Theme, Popper } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { DropDownType } from "./consts";
+import Typography from "../Typography/Typography";
+import { TypographyTypes } from "../Typography/consts";
 
 export const renderInput = (
   type: DropDownType,
@@ -14,6 +16,15 @@ export const renderInput = (
       {...params}
       label={label}
       sx={style}
+      InputLabelProps={{
+        style: {
+          fontFamily: "Roboto",
+          fontSize: "14px",
+          fontWeight: 400,
+          lineHeight: "22px",
+          textAlign: "center",
+        },
+      }}
       variant="outlined"
       inputProps={{ ...params.inputProps, readOnly: true }}
     />
@@ -52,7 +63,29 @@ export const renderOption = (props: any, option: any) => {
           style={{ width: 24, height: 24, borderRadius: "50%" }}
         />
       )}
-      {option.label} {option.value}
+      <Typography type={TypographyTypes.BODY_REGULAR} label={option.label} />
     </Box>
+  );
+};
+const styles = (theme: Theme) => ({
+  popper: {
+    maxWidth: "fit-content",
+  },
+});
+
+type OptionType = {
+  title: string;
+};
+
+interface PopperMyProps {}
+
+export const PopperMy: React.FC<PopperMyProps> = (props) => {
+  return (
+    <Popper
+      open={false}
+      {...props}
+      style={styles({} as Theme).popper}
+      placement="bottom-start"
+    />
   );
 };

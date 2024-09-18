@@ -27,4 +27,7 @@ export enum TypographyTypes {
 
   BUTTON_MEDIUM_BIG = "Button Medium & Big",
   BUTTON_SMALL = "Button Small",
+
+  CUSTOM = "Custom",
+  BODY_REGULAR_14 = "Body Regular 14",
 }
