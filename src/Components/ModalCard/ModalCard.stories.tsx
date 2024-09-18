@@ -23,5 +23,8 @@ export const Primary: Story = {
     weight: 15.2,
     category: "seed",
     abilities: "Overgrow",
+    onClose: () => {
+      console.log("close");
+    },
   },
 };

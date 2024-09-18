@@ -7,11 +7,12 @@ import {
   ContentWrapper,
   InfoContainer,
   Separator,
+  PairContainer,
 } from "./styles";
 
 interface ContentContainerProps {
   description: string;
-  hight: number;
+  height: number;
   weight: number;
   category: string;
   abilities: string;
@@ -19,7 +20,7 @@ interface ContentContainerProps {
 
 const Content: React.FC<ContentContainerProps> = ({
   description,
-  hight,
+  height,
   weight,
   category,
   abilities,
@@ -37,38 +38,78 @@ const Content: React.FC<ContentContainerProps> = ({
         />
         <Separator />
         <InfoContainer>
-          <Typography
-            label={`Height: ${hight}`}
-            type={TypographyTypes.CUSTOM}
-            weight={400}
-            size={14}
-            line={20}
-            color={colors.NEUTRALS._500}
-          />
-          <Typography
-            label={`Weight: ${weight}`}
-            type={TypographyTypes.CUSTOM}
-            weight={400}
-            size={14}
-            line={20}
-            color={colors.NEUTRALS._500}
-          />
-          <Typography
-            label={`Category: ${category}`}
-            type={TypographyTypes.CUSTOM}
-            weight={400}
-            size={14}
-            line={20}
-            color={colors.NEUTRALS._500}
-          />
-          <Typography
-            label={`Abilities: ${abilities}`}
-            type={TypographyTypes.CUSTOM}
-            weight={400}
-            size={14}
-            line={20}
-            color={colors.NEUTRALS._500}
-          />
+          <PairContainer>
+            <Typography
+              label={`Height`}
+              type={TypographyTypes.CUSTOM}
+              weight={400}
+              size={14}
+              line={18}
+              color={colors.NEUTRALS._400}
+            />
+            <Typography
+              label={`${height}`}
+              type={TypographyTypes.CUSTOM}
+              weight={400}
+              size={18}
+              line={22}
+              color={colors.NEUTRALS._500}
+            />
+          </PairContainer>
+          <PairContainer>
+            <Typography
+              label={`Weight`}
+              type={TypographyTypes.CUSTOM}
+              weight={400}
+              size={14}
+              line={18}
+              color={colors.NEUTRALS._400}
+            />
+            <Typography
+              label={`${weight}`}
+              type={TypographyTypes.CUSTOM}
+              weight={400}
+              size={18}
+              line={22}
+              color={colors.NEUTRALS._500}
+            />
+          </PairContainer>
+          <PairContainer>
+            <Typography
+              label={`Category`}
+              type={TypographyTypes.CUSTOM}
+              weight={400}
+              size={14}
+              line={18}
+              color={colors.NEUTRALS._400}
+            />
+            <Typography
+              label={`${category}`}
+              type={TypographyTypes.CUSTOM}
+              weight={400}
+              size={18}
+              line={22}
+              color={colors.NEUTRALS._500}
+            />
+          </PairContainer>
+          <PairContainer>
+            <Typography
+              label={`Abilities`}
+              type={TypographyTypes.CUSTOM}
+              weight={400}
+              size={14}
+              line={18}
+              color={colors.NEUTRALS._400}
+            />
+            <Typography
+              label={`${abilities}`}
+              type={TypographyTypes.CUSTOM}
+              weight={400}
+              size={18}
+              line={22}
+              color={colors.NEUTRALS._500}
+            />
+          </PairContainer>
         </InfoContainer>
       </ContentWrapper>
     </ContentContainer>

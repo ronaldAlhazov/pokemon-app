@@ -6,34 +6,39 @@ export const StyledCard = muiStyled(Card)`
   width: 502px;
   height: 569px;
 `;
+export const IconContainer = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
+export const getCloseIconStyles = () => ({
+  width: 24,
+  height: 24,
+  color: colors.NEUTRALS._400,
+  "&:hover": {
+    color: colors.NEUTRALS._500,
+  },
+});
 export const StyledCardActionArea = muiStyled(CardActionArea)`
   display: flex;
   flex-direction: column;
   height: 100%;
   padding: 24px;
-  align-items: center; 
+  align-items: flex-start; 
   gap: 10px;
-`;
-
-export const StyledImg = styled.img`
-  width: 190px;
-  height: 150px;
-`;
-
-export const ImgContainer = styled.div`
-  width: 454px;
-  height: 158px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  
 `;
 
 export const HeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 26px;
 
   & > * + * {
     margin-top: 10px;
@@ -57,8 +62,11 @@ export const ContentWrapper = styled.div`
 
 export const FooterContainer = styled.div`
   display: flex;
+
   justify-content: center;
   align-items: center;
+  width: 100%;
+  padding: 16px;
 `;
 export const Separator = styled.div`
   width: 100%;
@@ -70,8 +78,17 @@ export const Separator = styled.div`
 export const InfoContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+export const PairContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
   width: 100%;
   padding: 0 24px;
-  box-sizing: border-box;
+  gap: 8px;
 `;

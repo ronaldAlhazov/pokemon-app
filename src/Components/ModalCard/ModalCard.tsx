@@ -1,11 +1,11 @@
 import { ModalCardProps } from "./types";
 import {
   FooterContainer,
+  getCloseIconStyles,
   HeaderContainer,
-  ImgContainer,
+  IconContainer,
   StyledCard,
   StyledCardActionArea,
-  StyledImg,
 } from "./styles";
 import Typography from "../Typography/Typography";
 import { TypographyTypes } from "../Typography/consts";
@@ -13,6 +13,8 @@ import { colors } from "../../global-styles";
 import ButtonComponent from "../Button/ButtonComponent";
 import { ButtonSize, ButtonType } from "../Button/consts";
 import Content from "./Content";
+import Image from "../Image/Image";
+import CloseIcon from "@mui/icons-material/Close";
 
 const ModalCard = ({
   id,
@@ -24,10 +26,14 @@ const ModalCard = ({
   category,
   abilities,
   onStartFightButton,
+  onClose,
 }: ModalCardProps) => {
   return (
     <StyledCard>
       <StyledCardActionArea>
+        <IconContainer>
+          <CloseIcon onClick={onClose} sx={getCloseIconStyles} />
+        </IconContainer>
         <HeaderContainer>
           <Typography
             label={id}
@@ -45,12 +51,17 @@ const ModalCard = ({
             line={26}
           />
         </HeaderContainer>
-        <ImgContainer>
-          <StyledImg src={img} />
-        </ImgContainer>
+        <Image
+          src={img}
+          alt={name}
+          imgWidth="190px"
+          imgHeight="150px"
+          containerHeight="158px"
+          containerWidth="454px"
+        />
         <Content
           description={description}
-          hight={hight}
+          height={hight}
           weight={weight}
           category={category}
           abilities={abilities}

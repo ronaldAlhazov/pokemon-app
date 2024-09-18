@@ -8,4 +8,5 @@ export type ModalCardProps = {
   category: string;
   abilities: string;
   onStartFightButton: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClose: () => void;
 };
