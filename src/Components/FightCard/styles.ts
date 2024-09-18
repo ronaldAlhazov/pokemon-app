@@ -57,8 +57,7 @@ export const HeaderContainer = styled.div`
 
 export const HealthBarContainer = styled.div`
   width: 100%;
-  background-color: ${colors.NEUTRALS
-    ._200}; // Background color for missing health
+  background-color: ${colors.NEUTRALS._200};
   border-radius: 4px;
   overflow: hidden;
   height: 10px;
@@ -66,11 +65,9 @@ export const HealthBarContainer = styled.div`
 `;
 
 export const HealthBarFill = styled.div<{ health: number; minHealth: number }>`
-  width: ${({ health }) => health}%; // Dynamic width based on health percentage
+  width: ${({ health }) => health}%;
   background-color: ${({ health, minHealth }) =>
-    health > minHealth
-      ? colors.CUSTOM.GREEN
-      : colors.CUSTOM.RED}; // Green when health > 50%, red otherwise
+    health > minHealth ? colors.CUSTOM.GREEN : colors.CUSTOM.RED};
   height: 100%;
   transition: width 0.3s ease;
 `;

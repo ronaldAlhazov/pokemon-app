@@ -36,7 +36,7 @@ const FightCard = ({
           color={colors.NEUTRALS._400}
         />
         <ImgContainer>
-          <StyledImg src={img} />
+          <StyledImg src={img} alt={name} />
           <PowerText>
             <Typography
               label={`${power}pwr`}

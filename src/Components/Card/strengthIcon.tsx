@@ -1,5 +1,3 @@
-// src/Components/Card/StrengthIcon.tsx
-
 const StrengthIcon = () => (
   <svg
     width="20"

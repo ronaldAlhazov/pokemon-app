@@ -18,7 +18,7 @@ const Card = ({ id, img, name, power }: CardProps) => {
     <StyledCard>
       <StyledCardActionArea>
         <ImgContainer>
-          <StyledImg src={img} />
+          <StyledImg src={img} alt={name} />
           <IconContainer>
             <StrengthIcon />
           </IconContainer>
