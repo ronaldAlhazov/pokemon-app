@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Table from "./Table";
 import { TableCol } from "./types";
-import { GridSortModel } from "@mui/x-data-grid";
+import { GridEventListener, GridSortModel } from "@mui/x-data-grid";
 import { sortType } from "./consts";
 
 const meta: Meta<typeof Table> = {
@@ -134,6 +134,10 @@ const sampleRows = [
       "https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/hires/003.png",
   },
 ];
+const handleRowClick: GridEventListener<"rowClick"> = (params, event) => {
+  // Log the entire row object or any specific property from the row
+  alert(`Row clicked: ${params.row.name}`);
+};
 
 // Primary Story
 export const Primary: Story = {
@@ -165,16 +169,20 @@ export const Primary: Story = {
       { title: "HP", field: "hp", width: 119 },
     ],
     rows: sampleRows,
-    onRowClick: (row) => alert(`Row clicked: ${row}`),
+    handleRowClick: handleRowClick,
     style: {
       "& .MuiDataGrid-cell": {
         border: "none",
+        textAlign: "left",
       },
       "& .MuiDataGrid-columnSeparator": {
         display: "none",
       },
       "& .theme--header": {
         backgroundColor: "#EBEFF6",
+        textAlign: "left",
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
       },
       "& .MuiDataGrid-root": {
         width: "100%",
@@ -182,20 +190,5 @@ export const Primary: Story = {
     },
     sortBy: { col: "Power", order: sortType.ASC },
     headerClassName: "theme--header",
-    headerTypo: (label: string) => (
-      <div
-        style={{
-          fontFamily: "Mulish, sans-serif",
-          fontSize: "14px",
-          fontWeight: "bold",
-          lineHeight: "22px",
-          textAlign: "left",
-          padding: "10px",
-          backgroundColor: "#EBEFF6",
-        }}
-      >
-        {label}
-      </div>
-    ),
   },
 };

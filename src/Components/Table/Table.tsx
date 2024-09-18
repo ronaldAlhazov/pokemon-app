@@ -6,16 +6,15 @@ import {
 } from "@mui/x-data-grid";
 import { Paper } from "@mui/material";
 import { TableProps } from "./types";
-import CustomFooter from "./CustomFooter";
+import CustomFooter from "./Components/CustomFooter";
 import { sortType } from "./consts";
 
 const Table = ({
   cols,
   rows,
-  onRowClick: onClick,
+  handleRowClick,
   style,
   headerClassName,
-  headerTypo,
   disableColumnMenu = true,
   disableColumnSorting = true,
   sortBy = { col: "", order: sortType.ASC },
@@ -28,15 +27,24 @@ const Table = ({
     minWidth: col.minWidth || 0,
     flex: col.flex || 0,
     renderCell: col.renderCell || ((params) => params.value),
-    renderHeader: () => headerTypo(col.title),
+    renderHeader: () => (
+      <div
+        style={{
+          fontFamily: "Mulish, sans-serif",
+          fontSize: "14px",
+          fontWeight: "bold",
+          lineHeight: "22px",
+          textAlign: "left",
+        }}
+      >
+        {col.title}
+      </div>
+    ),
   }));
 
   const sortModel: GridSortModel = sortBy
     ? [{ field: sortBy.col, sort: sortBy.order }]
     : [];
-  const handleRowClick: GridEventListener<"rowClick"> = (params, event) => {
-    onClick(params.row.name);
-  };
 
   return (
     <Paper>

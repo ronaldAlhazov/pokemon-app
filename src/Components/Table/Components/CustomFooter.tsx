@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   useGridApiContext,
   useGridSelector,
@@ -16,7 +16,7 @@ import {
   Pagination,
 } from "@mui/material";
 
-function CustomPagination() {
+const CustomFooter = () => {
   const apiRef = useGridApiContext();
   const paginationModel = useGridSelector(apiRef, gridPaginationModelSelector);
   const pageCount = useGridSelector(apiRef, gridPageCountSelector);
@@ -28,26 +28,12 @@ function CustomPagination() {
 
   const defaultPageSize = 10;
 
-  const generatePageSizeOptions = (count: number) => {
-    const options = [10, 25, 50];
-    const maxOption = Math.min(count, 100);
-    if (!options.includes(maxOption)) {
-      options.push(maxOption);
-    }
-    if (!options.includes(defaultPageSize)) {
-      options.push(defaultPageSize);
-    }
-    return Array.from(new Set(options)).sort((a, b) => a - b);
-  };
-
-  const pageSizeOptions = generatePageSizeOptions(rowsCount);
-
   const handlePageSizeChange = (event: SelectChangeEvent<number>) => {
     const value = event.target.value as number;
     apiRef.current.setPageSize(value);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (pageSize === undefined || pageSize === null) {
       apiRef.current.setPageSize(defaultPageSize);
     }
@@ -93,6 +79,6 @@ function CustomPagination() {
       </Box>
     </Box>
   );
-}
+};
 
-export default CustomPagination;
+export default CustomFooter;

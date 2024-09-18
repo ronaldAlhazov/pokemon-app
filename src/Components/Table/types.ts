@@ -1,6 +1,10 @@
 import { SxProps } from "@mui/material";
 import { MouseEvent } from "react";
-import { GridRenderCellParams, GridSortModel } from "@mui/x-data-grid";
+import {
+  GridEventListener,
+  GridRenderCellParams,
+  GridSortModel,
+} from "@mui/x-data-grid";
 import { sortType } from "./consts";
 export type TableCol = {
   title: string;
@@ -14,10 +18,9 @@ export type TableCol = {
 export type TableProps = {
   cols: TableCol[];
   rows: any[];
-  onRowClick: (event: MouseEvent<HTMLElement>) => void;
+  handleRowClick: GridEventListener<"rowClick">;
   style?: SxProps;
   headerClassName?: string;
-  headerTypo: (label: string) => React.ReactNode;
   disableColumnSorting?: boolean;
   disableColumnMenu?: boolean;
   sortBy?: { col: string; order: sortType };
