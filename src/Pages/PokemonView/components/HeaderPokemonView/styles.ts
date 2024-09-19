@@ -4,6 +4,7 @@ import { colors } from "../../../../global-styles";
 export const getDropdownStyle = (sortByLength: number) => ({
   width: Math.max(120, sortByLength * 13),
   height: 38,
+  paddingBottom: "16px",
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
       borderColor: colors.NEUTRALS._200,

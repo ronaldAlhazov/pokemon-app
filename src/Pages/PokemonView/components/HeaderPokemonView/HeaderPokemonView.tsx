@@ -28,19 +28,21 @@ const HeaderPokemonView = ({
         setSortOrder({ col: "name", order: sortType.DESC });
         break;
       case SortBy.POWER_HL:
-        setSortOrder({ col: "power", order: sortType.DESC });
+        setSortOrder({ col: "Power", order: sortType.DESC });
         break;
       case SortBy.POWER_LH:
-        setSortOrder({ col: "power", order: sortType.ASC });
+        setSortOrder({ col: "Power", order: sortType.ASC });
         break;
       case SortBy.HP_HL:
+        console.log("DESC");
         setSortOrder({ col: "hp", order: sortType.DESC });
         break;
       case SortBy.HP_LH:
+        console.log("ASC");
         setSortOrder({ col: "hp", order: sortType.ASC });
         break;
       default:
-        setSortOrder({ col: "", order: sortType.ASC });
+        setSortOrder({ col: "ID", order: sortType.ASC });
     }
   }, [sortBy]);
   return (

@@ -11,7 +11,7 @@ export const paperStyle = (isPressed: boolean, disabled: boolean): SxProps => ({
     ? "none"
     : isPressed
       ? colors.NEUTRALS._500
-      : colors.NEUTRALS._200, // Change border color on press
+      : colors.NEUTRALS._200,
   borderWidth: disabled ? "0px" : "1px",
   borderStyle: "solid",
   transition: "border-color 0.3s ease",

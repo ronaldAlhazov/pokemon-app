@@ -1,6 +1,7 @@
 import { SxProps } from "@mui/material";
 import { MouseEvent } from "react";
 import {
+  GridComparatorFn,
   GridEventListener,
   GridRenderCellParams,
   GridSortModel,
@@ -12,6 +13,7 @@ export type TableCol = {
   width?: number;
   flex?: number;
   minWidth?: number;
+  sortComparator?: GridComparatorFn<string>;
   renderCell?: (params: GridRenderCellParams) => React.ReactNode;
 };
 

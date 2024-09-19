@@ -9,7 +9,7 @@ export enum SortBy {
   POWER_HL = "Power (High to low)",
   POWER_LH = "Power (Low to high)",
   HP_HL = "HP (High to low)",
-  HP_LH = "HP (High to low)",
+  HP_LH = "HP (Low to High)",
 }
 
 export const sortByOptions = [
