@@ -3,6 +3,15 @@ export enum viewType {
   CARDS = "Cards",
 }
 
+export const SortBy = {
+  NAME_AZ: ["name", "asc"] as const,
+  NAME_ZA: ["name", "desc"] as const,
+  POWER_HL: ["power", "asc"] as const,
+  POWER_LH: ["power", "desc"] as const,
+  HP_HL: ["HP", "asc"] as const,
+  HP_LH: ["HP", "desc"] as const,
+};
+
 export const sortByOptions = [
   {
     label: "Alphabetical A-Z",

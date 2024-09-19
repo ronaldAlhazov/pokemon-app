@@ -2,7 +2,12 @@ import React, { useEffect } from "react";
 import { sortByOptions, viewType } from "./consts";
 import SearchBar from "../SearchBar/SearchBar";
 import DropDown from "../DropDown/DropDown";
-import { getDropdownStyle } from "./styles";
+import {
+  DropDownContainer,
+  getDropdownStyle,
+  HeaderContainer,
+  TabAndSearchBarContainer,
+} from "./styles";
 import Tab from "./Tab/Tab";
 import { SxProps, Theme } from "@mui/material";
 
@@ -27,19 +32,24 @@ const HeaderPokemonView = ({
 }: HeaderPokemonViewProps) => {
   useEffect(() => {
     console.log(viewType);
+    console.log(sortBy);
   });
   return (
-    <div>
-      <SearchBar placeHolder="Search Pokemon" onSearch={setSearchBy} />
-      <Tab setTypeView={setViewType} />
-      <DropDown
-        options={sortByOptions}
-        value={sortBy}
-        onChange={setSortBy}
-        label="Sort By"
-        style={getDropdownStyle(sortBy.length)}
-      />
-    </div>
+    <HeaderContainer>
+      <TabAndSearchBarContainer>
+        <SearchBar placeHolder="Search Pokemon" onSearch={setSearchBy} />
+        <Tab setTypeView={setViewType} />
+      </TabAndSearchBarContainer>
+      <DropDownContainer>
+        <DropDown
+          options={sortByOptions}
+          value={sortBy}
+          onChange={setSortBy}
+          label="Sort By"
+          style={getDropdownStyle(sortBy.length)}
+        />
+      </DropDownContainer>
+    </HeaderContainer>
   );
 };
 
