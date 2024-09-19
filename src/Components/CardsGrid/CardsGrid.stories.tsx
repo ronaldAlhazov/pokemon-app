@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import CardsGrid from "./CardsGrid";
 import { CardProps } from "../Card/types";
+import { sortType } from "../Table/consts";
 
 const meta: Meta<typeof CardsGrid> = {
   component: CardsGrid,
@@ -53,6 +54,6 @@ const sampleCards: CardProps[] = [
 // Primary Story
 export const Primary: Story = {
   args: {
-    cards: sampleCards, // Pass the array of card objects
+    cards: sampleCards,
   },
 };

@@ -15,7 +15,7 @@ import { GridEventListener } from "@mui/x-data-grid";
 import { Pokemon } from "./Pokemon";
 import { getTableStyle, MainContainer } from "./styles";
 import { CardProps } from "../../Components/Card/types";
-import CardsView from "./components/CradsView/CardsView";
+import CardsView, { sortCards } from "./components/CradsView/CardsView";
 
 type PokemoneViewProps = {
   title: string;
@@ -24,7 +24,8 @@ type PokemoneViewProps = {
 const PokemonView = ({ title }: PokemoneViewProps) => {
   const [searchBy, setSearchBy] = useState("");
   const [pokemonCards, setPokemonCards] = useState<CardProps[]>([]);
-
+  const [defaultCards, setDefaultCards] = useState<CardProps[]>([]);
+  const [clickedPokemon, setClickedPokemon] = useState("");
   const [isSearchButtonClicked, setIsSearchButtonClicked] = useState(false);
   const [sortBy, setSortBy] = useState({ col: "ID", order: sortType.ASC });
   const [viewOption, setViewOption] = useState<ViewType>(ViewType.TABLE);
@@ -36,22 +37,37 @@ const PokemonView = ({ title }: PokemoneViewProps) => {
       const data = await fetchPokemonData();
       setPokemons(data);
       setRows(getRows(data));
-      setPokemonCards(createPokemonCards(data));
-      console.log("on useEffect");
+      setPokemonCards(createPokemonCards(data, setClickedPokemon));
     };
 
     loadData();
   }, []);
 
   useEffect(() => {
-    console.log(sortBy.col);
-  }, [sortBy]);
-  useEffect(() => {
-    console.log(searchBy);
-  }, [searchBy]);
-  useEffect(() => {
-    console.log(viewOption);
-  }, [viewOption]);
+    const filteredCards =
+      searchBy.trim() === ""
+        ? createPokemonCards(pokemons, setClickedPokemon)
+        : pokemonCards.filter((card) =>
+            card.name.toLowerCase().includes(searchBy.toLowerCase())
+          );
+    const sortedCards = filteredCards.sort((a, b) => {
+      const { col, order } = sortBy;
+      const key = col.toLowerCase() as keyof CardProps;
+      const valueA = a[key];
+      const valueB = b[key];
+
+      if (typeof valueA === "string" && typeof valueB === "string") {
+        return order === sortType.ASC
+          ? valueA.localeCompare(valueB)
+          : valueB.localeCompare(valueA);
+      } else if (typeof valueA === "number" && typeof valueB === "number") {
+        return order === sortType.ASC ? valueA - valueB : valueB - valueA;
+      }
+      return 0;
+    });
+
+    setPokemonCards(sortedCards);
+  }, [searchBy, sortBy]);
 
   const filteredRows = rows.filter((row) => {
     if (searchBy.trim() === "") {
@@ -61,7 +77,7 @@ const PokemonView = ({ title }: PokemoneViewProps) => {
   });
 
   const handleRowClick: GridEventListener<"rowClick"> = (params, event) => {
-    alert(`Row clicked: ${params.row.name}`);
+    setClickedPokemon(params.row.name);
   };
   return (
     <MainContainer>

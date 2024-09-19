@@ -48,14 +48,17 @@ export const getCols = (): TableCol[] => [
   { title: "HP level", field: "hp", width: 119 },
 ];
 
-export const createPokemonCards = (pokemonData: Pokemon[]): CardProps[] => {
+export const createPokemonCards = (
+  pokemonData: Pokemon[],
+  setClickedPokemon: (card: string) => void
+): CardProps[] => {
   return pokemonData.map((pokemon) => ({
     id: `#${pokemon.id.toString().padStart(3, "0")}`,
     img: pokemon.image.hires,
     name: pokemon.name.english,
     power: pokemon.base?.["Sp. Attack"] ? pokemon.base.Attack : 0,
     onCardClick: (val: string) => {
-      console.log(val);
+      setClickedPokemon(val);
     },
   }));
 };

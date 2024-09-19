@@ -13,7 +13,6 @@ export type TableCol = {
   width?: number;
   flex?: number;
   minWidth?: number;
-  sortComparator?: GridComparatorFn<string>;
   renderCell?: (params: GridRenderCellParams) => React.ReactNode;
 };
 

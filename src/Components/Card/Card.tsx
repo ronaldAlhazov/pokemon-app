@@ -18,7 +18,7 @@ const Card = ({ id, img, name, power, onCardClick }: CardProps) => {
     <StyledCard>
       <StyledCardActionArea
         onClick={() => {
-          onCardClick(id);
+          onCardClick(name);
         }}
       >
         <ImgContainer>

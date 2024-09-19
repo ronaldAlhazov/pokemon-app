@@ -21,8 +21,8 @@ const CardsGrid = ({ cards }: CardsGridProps) => {
               justifyContent: "center",
               alignItems: "center",
               "& .MuiPaper-root": {
-                width: "322px", // Fixed width for cards
-                boxSizing: "border-box", // Ensure padding and border are included in the width
+                width: "322px",
+                boxSizing: "border-box",
               },
             }}
           >
