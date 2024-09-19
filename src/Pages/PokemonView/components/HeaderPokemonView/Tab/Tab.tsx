@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Tabs, Tab as MuiTab } from "@mui/material";
 import CalendarViewMonthIcon from "@mui/icons-material/CalendarViewMonth";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-import { viewType } from "../consts";
-import { colors } from "../../../global-styles";
+import { ViewType } from "../consts";
+import { colors } from "../../../../../global-styles";
 import { getTabStyle } from "./styles";
-import Typography from "../../Typography/Typography";
-import { TypographyTypes } from "../../Typography/consts";
+import Typography from "../../../../../Components/Typography/Typography";
+import { TypographyTypes } from "../../../../../Components/Typography/consts";
 import { CustomTabsProps } from "./types";
 
 const Tab = ({ setTypeView }: CustomTabsProps) => {
@@ -14,7 +14,7 @@ const Tab = ({ setTypeView }: CustomTabsProps) => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setTypeView(newValue === 0 ? viewType.TABLE : viewType.CARDS);
+    setTypeView(newValue === 0 ? ViewType.TABLE : ViewType.CARDS);
     setCurrentView(newValue);
   };
 

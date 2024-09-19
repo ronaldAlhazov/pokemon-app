@@ -1,25 +1,25 @@
-import { SxProps, Theme } from "@mui/material";
 import { styled } from "styled-components";
+import { colors } from "../../../../global-styles";
 
 export const getDropdownStyle = (sortByLength: number) => ({
   width: Math.max(120, sortByLength * 13),
   height: 38,
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
-      borderColor: "#A8AEB5",
+      borderColor: colors.NEUTRALS._200,
     },
     "&:hover fieldset": {
-      borderColor: "#A8AEB5",
+      borderColor: colors.NEUTRALS._200,
     },
     "&.Mui-focused fieldset": {
-      borderColor: "#A8AEB5",
+      borderColor: colors.NEUTRALS._200,
     },
   },
   "& .MuiInputLabel-root": {
-    color: "#44484C",
+    color: colors.NEUTRALS._400,
   },
   "& .MuiInputLabel-root.Mui-focused": {
-    color: "#44484C",
+    color: colors.NEUTRALS._400,
   },
 });
 
@@ -37,7 +37,7 @@ export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  height: 38px;
   width: 100%;
 `;
 
@@ -46,4 +46,5 @@ export const DropDownContainer = styled.div`
   justify-content: flex-end;
   align-items: center;
   width: auto;
+  height: 38px;
 `;

@@ -1,4 +1,4 @@
-import { colors } from "../../../global-styles";
+import { colors } from "../../../../../global-styles";
 
 export const getTabStyle = () => ({
   width: "71px",
