@@ -26,7 +26,6 @@ const Table = ({
     width: col.width || 150,
     minWidth: col.minWidth || 0,
     flex: col.flex || 0,
-    sortComparator: col.sortComparator,
     renderCell: col.renderCell || ((params) => params.value),
     renderHeader: () => (
       <div

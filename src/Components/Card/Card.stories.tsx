@@ -17,5 +17,8 @@ export const Primary: Story = {
     name: "Bulbasaur",
     id: "#001",
     power: 30,
+    onCardClick: (val: string) => {
+      console.log(val);
+    },
   },
 };

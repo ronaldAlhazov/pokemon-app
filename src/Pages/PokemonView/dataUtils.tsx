@@ -1,6 +1,7 @@
 import { GridRenderCellParams } from "@mui/x-data-grid";
 import { TableCol } from "../../Components/Table/types";
 import { Pokemon } from "./Pokemon";
+import { CardProps } from "../../Components/Card/types";
 
 export const fetchPokemonData = async (): Promise<Pokemon[]> => {
   const response = await fetch("/pokemon.json");
@@ -46,3 +47,15 @@ export const getCols = (): TableCol[] => [
   { title: "Power level", field: "Power", width: 130 },
   { title: "HP level", field: "hp", width: 119 },
 ];
+
+export const createPokemonCards = (pokemonData: Pokemon[]): CardProps[] => {
+  return pokemonData.map((pokemon) => ({
+    id: `#${pokemon.id.toString().padStart(3, "0")}`,
+    img: pokemon.image.hires,
+    name: pokemon.name.english,
+    power: pokemon.base?.["Sp. Attack"] ? pokemon.base.Attack : 0,
+    onCardClick: (val: string) => {
+      console.log(val);
+    },
+  }));
+};

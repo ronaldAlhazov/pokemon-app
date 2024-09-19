@@ -4,11 +4,18 @@ import { TypographyTypes } from "../../Components/Typography/consts";
 import HeaderPokemonView from "./components/HeaderPokemonView/HeaderPokemonView";
 import { ViewType } from "./components/HeaderPokemonView/consts";
 import { sortType } from "../../Components/Table/consts";
-import { fetchPokemonData, getCols, getRows } from "./dataUtils";
+import {
+  fetchPokemonData,
+  getCols,
+  getRows,
+  createPokemonCards,
+} from "./dataUtils";
 import Table from "../../Components/Table/Table";
 import { GridEventListener } from "@mui/x-data-grid";
 import { Pokemon } from "./Pokemon";
 import { getTableStyle, MainContainer } from "./styles";
+import { CardProps } from "../../Components/Card/types";
+import CardsView from "./components/CradsView/CardsView";
 
 type PokemoneViewProps = {
   title: string;
@@ -16,7 +23,7 @@ type PokemoneViewProps = {
 
 const PokemonView = ({ title }: PokemoneViewProps) => {
   const [searchBy, setSearchBy] = useState("");
-  const [data, setData] = useState(null);
+  const [pokemonCards, setPokemonCards] = useState<CardProps[]>([]);
 
   const [isSearchButtonClicked, setIsSearchButtonClicked] = useState(false);
   const [sortBy, setSortBy] = useState({ col: "ID", order: sortType.ASC });
@@ -29,6 +36,7 @@ const PokemonView = ({ title }: PokemoneViewProps) => {
       const data = await fetchPokemonData();
       setPokemons(data);
       setRows(getRows(data));
+      setPokemonCards(createPokemonCards(data));
       console.log("on useEffect");
     };
 
@@ -64,14 +72,18 @@ const PokemonView = ({ title }: PokemoneViewProps) => {
         viewType={viewOption}
         setViewType={setViewOption}
       />
-      <Table
-        rows={filteredRows}
-        cols={getCols()}
-        handleRowClick={handleRowClick}
-        style={getTableStyle}
-        sortBy={sortBy}
-        headerClassName={"theme--header"}
-      />
+      {viewOption == ViewType.TABLE ? (
+        <Table
+          rows={filteredRows}
+          cols={getCols()}
+          handleRowClick={handleRowClick}
+          style={getTableStyle}
+          sortBy={sortBy}
+          headerClassName={"theme--header"}
+        />
+      ) : (
+        <CardsView cards={pokemonCards} />
+      )}
     </MainContainer>
   );
 };
