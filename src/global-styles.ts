@@ -33,6 +33,9 @@ export const colors = {
     _500: "#0000000D",
     _600: "#1C1B1F",
     BLACK: "#000000",
+    GREEN: "#87C877",
+    RED: "red",
+    GRAY: "#ebeff699",
   },
 };
 
