@@ -13,10 +13,8 @@ export const getRows = (data: Pokemon[]) => {
     id: pokemon.id,
     name: pokemon.name.english,
     ID: pokemon.id,
-    hp: pokemon.base?.HP ? `${pokemon.base?.HP} HP` : "N/A",
-    Power: pokemon.base?.["Sp. Attack"]
-      ? `Power level ${pokemon.base?.["Sp. Attack"]}`
-      : "N/A",
+    hp: pokemon.base?.HP ? pokemon.base?.HP : null,
+    Power: pokemon.base?.["Sp. Attack"] ? pokemon.base?.["Sp. Attack"] : null,
     description: pokemon.description,
     avatar: pokemon.image.hires,
   }));
@@ -44,19 +42,35 @@ export const getCols = (): TableCol[] => [
     flex: 2,
     minWidth: 300,
   },
-  { title: "Power level", field: "Power", width: 130 },
-  { title: "HP level", field: "hp", width: 119 },
+  {
+    title: "Power level",
+    field: "Power",
+    width: 130,
+    renderCell: (params) => {
+      return params.value !== null && params.value !== undefined
+        ? `power level ${params.value}`
+        : "N/A";
+    },
+  },
+  {
+    title: "HP level",
+    field: "hp",
+    width: 119,
+    renderCell: (params) => `${params.value} HP`,
+  },
 ];
 
 export const createPokemonCards = (
   pokemonData: Pokemon[],
   setClickedPokemon: (card: string) => void
 ): CardProps[] => {
+  console.log("Pkemon cards created");
   return pokemonData.map((pokemon) => ({
     id: `#${pokemon.id.toString().padStart(3, "0")}`,
     img: pokemon.image.hires,
     name: pokemon.name.english,
-    power: pokemon.base?.["Sp. Attack"] ? pokemon.base.Attack : 0,
+    power: pokemon.base?.["Sp. Attack"] ? pokemon.base.Attack : undefined,
+    hp: pokemon.base?.HP ? pokemon.base?.HP : undefined,
     onCardClick: (val: string) => {
       setClickedPokemon(val);
     },

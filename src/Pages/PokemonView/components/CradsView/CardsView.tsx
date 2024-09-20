@@ -2,24 +2,17 @@ import React, { useEffect, useState } from "react";
 import CardsGrid from "../../../../Components/CardsGrid/CardsGrid";
 import { CardProps } from "../../../../Components/Card/types";
 import { sortType } from "../../../../Components/Table/consts";
+import { CardKeys, CardsViewProps } from "./types";
 
-type CardsViewProps = {
-  cards: CardProps[];
-};
-type CardKeys = "id" | "name" | "power";
 export const sortCards = (
   cards: CardProps[],
-  sortBy: { col: string; order: sortType }
+  sortBy: { col: string; order: string }
 ) => {
-  if (!sortBy) return cards;
-
-  const { col, order } = sortBy;
-  const normalizedCol = col.toLocaleLowerCase();
-  if (!["id", "name", "power"].includes(normalizedCol)) return cards;
-
-  return [...cards].sort((a, b) => {
-    const valueA = a[normalizedCol as CardKeys];
-    const valueB = b[normalizedCol as CardKeys];
+  return cards.sort((a, b) => {
+    const { col, order } = sortBy;
+    const key = col.toLowerCase() as keyof CardProps;
+    const valueA = a[key];
+    const valueB = b[key];
 
     if (typeof valueA === "string" && typeof valueB === "string") {
       return order === sortType.ASC
@@ -28,11 +21,9 @@ export const sortCards = (
     } else if (typeof valueA === "number" && typeof valueB === "number") {
       return order === sortType.ASC ? valueA - valueB : valueB - valueA;
     }
-
     return 0;
   });
 };
-
 const CardsView = ({ cards }: CardsViewProps) => {
   return <CardsGrid cards={cards}></CardsGrid>;
 };

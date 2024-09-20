@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Typography from "../../Components/Typography/Typography";
 import { TypographyTypes } from "../../Components/Typography/consts";
 import HeaderPokemonView from "./components/HeaderPokemonView/HeaderPokemonView";
@@ -16,6 +16,7 @@ import { Pokemon } from "./Pokemon";
 import { getTableStyle, MainContainer } from "./styles";
 import { CardProps } from "../../Components/Card/types";
 import CardsView, { sortCards } from "./components/CradsView/CardsView";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 type PokemoneViewProps = {
   title: string;
@@ -24,9 +25,7 @@ type PokemoneViewProps = {
 const PokemonView = ({ title }: PokemoneViewProps) => {
   const [searchBy, setSearchBy] = useState("");
   const [pokemonCards, setPokemonCards] = useState<CardProps[]>([]);
-  const [defaultCards, setDefaultCards] = useState<CardProps[]>([]);
   const [clickedPokemon, setClickedPokemon] = useState("");
-  const [isSearchButtonClicked, setIsSearchButtonClicked] = useState(false);
   const [sortBy, setSortBy] = useState({ col: "ID", order: sortType.ASC });
   const [viewOption, setViewOption] = useState<ViewType>(ViewType.TABLE);
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -43,28 +42,18 @@ const PokemonView = ({ title }: PokemoneViewProps) => {
     loadData();
   }, []);
 
+  const pokemonMemoCards = useMemo(() => {
+    return createPokemonCards(pokemons, setClickedPokemon);
+  }, [pokemonCards]);
+
   useEffect(() => {
     const filteredCards =
       searchBy.trim() === ""
-        ? createPokemonCards(pokemons, setClickedPokemon)
+        ? pokemonMemoCards
         : pokemonCards.filter((card) =>
             card.name.toLowerCase().includes(searchBy.toLowerCase())
           );
-    const sortedCards = filteredCards.sort((a, b) => {
-      const { col, order } = sortBy;
-      const key = col.toLowerCase() as keyof CardProps;
-      const valueA = a[key];
-      const valueB = b[key];
-
-      if (typeof valueA === "string" && typeof valueB === "string") {
-        return order === sortType.ASC
-          ? valueA.localeCompare(valueB)
-          : valueB.localeCompare(valueA);
-      } else if (typeof valueA === "number" && typeof valueB === "number") {
-        return order === sortType.ASC ? valueA - valueB : valueB - valueA;
-      }
-      return 0;
-    });
+    const sortedCards = sortCards(filteredCards, sortBy);
 
     setPokemonCards(sortedCards);
   }, [searchBy, sortBy]);
@@ -78,29 +67,50 @@ const PokemonView = ({ title }: PokemoneViewProps) => {
 
   const handleRowClick: GridEventListener<"rowClick"> = (params, event) => {
     setClickedPokemon(params.row.name);
+    //need to add for modal option
   };
+
   return (
-    <MainContainer>
-      <Typography type={TypographyTypes.HEADING_LARGE_MEDIUM} label={title} />
-      <HeaderPokemonView
-        setSearchBy={setSearchBy}
-        setSortOrder={setSortBy}
-        viewType={viewOption}
-        setViewType={setViewOption}
-      />
-      {viewOption == ViewType.TABLE ? (
-        <Table
-          rows={filteredRows}
-          cols={getCols()}
-          handleRowClick={handleRowClick}
-          style={getTableStyle}
-          sortBy={sortBy}
-          headerClassName={"theme--header"}
+    <BrowserRouter>
+      <MainContainer>
+        <Typography type={TypographyTypes.HEADING_LARGE_MEDIUM} label={title} />
+        <HeaderPokemonView
+          setSearchBy={setSearchBy}
+          setSortOrder={setSortBy}
+          viewType={viewOption}
+          setViewType={setViewOption}
         />
-      ) : (
-        <CardsView cards={pokemonCards} />
-      )}
-    </MainContainer>
+        <Routes>
+          <Route
+            path="/table"
+            element={
+              <Table
+                rows={filteredRows}
+                cols={getCols()}
+                handleRowClick={handleRowClick}
+                style={getTableStyle}
+                sortBy={sortBy}
+                headerClassName={"theme--header"}
+              />
+            }
+          />
+          <Route path="/cards" element={<CardsView cards={pokemonCards} />} />
+          <Route
+            path="*"
+            element={
+              <Table
+                rows={filteredRows}
+                cols={getCols()}
+                handleRowClick={handleRowClick}
+                style={getTableStyle}
+                sortBy={sortBy}
+                headerClassName={"theme--header"}
+              />
+            }
+          />
+        </Routes>
+      </MainContainer>
+    </BrowserRouter>
   );
 };
 

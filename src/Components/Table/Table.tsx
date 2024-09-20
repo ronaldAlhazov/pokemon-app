@@ -2,7 +2,9 @@ import {
   DataGrid,
   GridColDef,
   GridEventListener,
+  GridSortDirection,
   GridSortModel,
+  gridStringOrNumberComparator,
 } from "@mui/x-data-grid";
 import { Paper } from "@mui/material";
 import { TableProps } from "./types";
@@ -26,6 +28,21 @@ const Table = ({
     width: col.width || 150,
     minWidth: col.minWidth || 0,
     flex: col.flex || 0,
+    getSortComparator: (sortDirection) => {
+      const modifier = sortDirection === "desc" ? -1 : 1;
+      return (value1, value2, cellParams1, cellParams2) => {
+        if (value1 === null) {
+          return 1;
+        }
+        if (value2 === null) {
+          return -1;
+        }
+        return (
+          modifier *
+          gridStringOrNumberComparator(value1, value2, cellParams1, cellParams2)
+        );
+      };
+    },
     renderCell: col.renderCell || ((params) => params.value),
     renderHeader: () => (
       <div

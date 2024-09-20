@@ -8,14 +8,15 @@ import { getTabStyle } from "./styles";
 import Typography from "../../../../../Components/Typography/Typography";
 import { TypographyTypes } from "../../../../../Components/Typography/consts";
 import { CustomTabsProps } from "./types";
+import { Link } from "react-router-dom"; // Import Link
 
 const Tab = ({ setTypeView }: CustomTabsProps) => {
   const [currentView, setCurrentView] = useState<number>(0);
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setTypeView(newValue === 0 ? ViewType.TABLE : ViewType.CARDS);
     setCurrentView(newValue);
+    setTypeView(newValue === 0 ? ViewType.TABLE : ViewType.CARDS);
   };
 
   const handleMouseEnter = (index: number) => setHoverIndex(index);
@@ -30,6 +31,8 @@ const Tab = ({ setTypeView }: CustomTabsProps) => {
       }}
     >
       <MuiTab
+        component={Link}
+        to="/table"
         icon={<FormatListBulletedIcon sx={{ color: colors.CUSTOM._600 }} />}
         iconPosition="start"
         label={
@@ -50,6 +53,8 @@ const Tab = ({ setTypeView }: CustomTabsProps) => {
         onMouseLeave={handleMouseLeave}
       />
       <MuiTab
+        component={Link}
+        to="/cards"
         icon={<CalendarViewMonthIcon sx={{ color: colors.CUSTOM._600 }} />}
         iconPosition="start"
         label={

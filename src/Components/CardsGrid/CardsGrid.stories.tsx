@@ -18,6 +18,7 @@ const sampleCards: CardProps[] = [
     name: "Bulbasaur",
     id: "#001",
     power: 30,
+    hp: 30,
     onCardClick: (val: string) => {
       console.log(val);
     },
@@ -27,6 +28,7 @@ const sampleCards: CardProps[] = [
     name: "Ivysaur",
     id: "#002",
     power: 50,
+    hp: 30,
     onCardClick: (val: string) => {
       console.log(val);
     },
@@ -36,6 +38,7 @@ const sampleCards: CardProps[] = [
     name: "Venusaur",
     id: "#003",
     power: 70,
+    hp: 30,
     onCardClick: (val: string) => {
       console.log(val);
     },
@@ -45,6 +48,7 @@ const sampleCards: CardProps[] = [
     name: "Venusaur",
     id: "#003",
     power: 70,
+    hp: 30,
     onCardClick: (val: string) => {
       console.log(val);
     },
