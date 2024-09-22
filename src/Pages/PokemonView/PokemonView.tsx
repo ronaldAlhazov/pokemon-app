@@ -19,7 +19,7 @@ import CardsView, { sortCards } from "./components/CradsView/CardsView";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { PokemoneViewProps } from "./types";
 
-const PokemonView = ({ title, onPkemonClick }: PokemoneViewProps) => {
+const PokemonView = ({ title, onPokemonClick }: PokemoneViewProps) => {
   const [searchBy, setSearchBy] = useState("");
   const [pokemonCards, setPokemonCards] = useState<CardProps[]>([]);
   const [clickedPokemon, setClickedPokemon] = useState("");
@@ -33,14 +33,14 @@ const PokemonView = ({ title, onPkemonClick }: PokemoneViewProps) => {
       const data = await fetchPokemonData();
       setPokemons(data);
       setRows(getRows(data));
-      setPokemonCards(createPokemonCards(data, onPkemonClick));
+      setPokemonCards(createPokemonCards(data, onPokemonClick));
     };
 
     loadData();
   }, []);
 
   const pokemonMemoCards = useMemo(() => {
-    return createPokemonCards(pokemons, onPkemonClick);
+    return createPokemonCards(pokemons, onPokemonClick);
   }, [pokemonCards]);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const PokemonView = ({ title, onPkemonClick }: PokemoneViewProps) => {
   });
 
   const handleRowClick: GridEventListener<"rowClick"> = (params, event) => {
-    onPkemonClick(params.row.name);
+    onPokemonClick(params.row.name);
     //need to add for modal option
   };
 

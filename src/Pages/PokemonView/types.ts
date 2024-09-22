@@ -1,4 +1,4 @@
 export type PokemoneViewProps = {
   title: string;
-  onPkemonClick: (event: string) => void;
+  onPokemonClick: (event: string) => void;
 };
