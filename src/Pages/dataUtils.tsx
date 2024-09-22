@@ -1,7 +1,7 @@
 import { GridRenderCellParams } from "@mui/x-data-grid";
-import { TableCol } from "../../Components/Table/types";
-import { Pokemon } from "./Pokemon";
-import { CardProps } from "../../Components/Card/types";
+import { TableCol } from "../Components/Table/types";
+import { Pokemon } from "./PokemonView/Pokemon";
+import { CardProps } from "../Components/Card/types";
 
 export const fetchPokemonData = async (): Promise<Pokemon[]> => {
   const response = await fetch("/pokemon.json");
@@ -64,7 +64,6 @@ export const createPokemonCards = (
   pokemonData: Pokemon[],
   setClickedPokemon: (card: string) => void
 ): CardProps[] => {
-  console.log("Pkemon cards created");
   return pokemonData.map((pokemon) => ({
     id: `#${pokemon.id.toString().padStart(3, "0")}`,
     img: pokemon.image.hires,

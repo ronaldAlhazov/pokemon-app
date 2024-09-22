@@ -9,7 +9,7 @@ import {
   getCols,
   getRows,
   createPokemonCards,
-} from "./dataUtils";
+} from "../dataUtils";
 import Table from "../../Components/Table/Table";
 import { GridEventListener } from "@mui/x-data-grid";
 import { Pokemon } from "./Pokemon";
@@ -17,12 +17,9 @@ import { getTableStyle, MainContainer } from "./styles";
 import { CardProps } from "../../Components/Card/types";
 import CardsView, { sortCards } from "./components/CradsView/CardsView";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { PokemoneViewProps } from "./types";
 
-type PokemoneViewProps = {
-  title: string;
-};
-
-const PokemonView = ({ title }: PokemoneViewProps) => {
+const PokemonView = ({ title, onPkemonClick }: PokemoneViewProps) => {
   const [searchBy, setSearchBy] = useState("");
   const [pokemonCards, setPokemonCards] = useState<CardProps[]>([]);
   const [clickedPokemon, setClickedPokemon] = useState("");
@@ -36,14 +33,14 @@ const PokemonView = ({ title }: PokemoneViewProps) => {
       const data = await fetchPokemonData();
       setPokemons(data);
       setRows(getRows(data));
-      setPokemonCards(createPokemonCards(data, setClickedPokemon));
+      setPokemonCards(createPokemonCards(data, onPkemonClick));
     };
 
     loadData();
   }, []);
 
   const pokemonMemoCards = useMemo(() => {
-    return createPokemonCards(pokemons, setClickedPokemon);
+    return createPokemonCards(pokemons, onPkemonClick);
   }, [pokemonCards]);
 
   useEffect(() => {
@@ -66,7 +63,7 @@ const PokemonView = ({ title }: PokemoneViewProps) => {
   });
 
   const handleRowClick: GridEventListener<"rowClick"> = (params, event) => {
-    setClickedPokemon(params.row.name);
+    onPkemonClick(params.row.name);
     //need to add for modal option
   };
 
