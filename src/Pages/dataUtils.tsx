@@ -2,6 +2,8 @@ import { GridRenderCellParams } from "@mui/x-data-grid";
 import { TableCol } from "../Components/Table/types";
 import { Pokemon } from "./PokemonView/Pokemon";
 import { CardProps } from "../Components/Card/types";
+import { colors } from "../global-styles";
+import { Circle, CircleContainer } from "../Components/Image/styles";
 
 export const fetchPokemonData = async (): Promise<Pokemon[]> => {
   const response = await fetch("/pokemon.json");
@@ -26,11 +28,15 @@ export const getCols = (): TableCol[] => [
     field: "avatar",
     width: 70,
     renderCell: (params: GridRenderCellParams) => (
-      <img
-        src={params.value as string}
-        alt={params.row.name}
-        style={{ width: "50px", height: "50px" }}
-      />
+      <CircleContainer>
+        <Circle>
+          <img
+            src={params.value as string}
+            alt={params.row.name}
+            style={{ width: "44px", height: "44px" }}
+          />
+        </Circle>
+      </CircleContainer>
     ),
   },
   { title: "Pokemon name", field: "name", width: 150 },
@@ -38,7 +44,7 @@ export const getCols = (): TableCol[] => [
   {
     title: "Description",
     field: "description",
-    width: 544,
+    width: 500,
     flex: 2,
     minWidth: 300,
   },

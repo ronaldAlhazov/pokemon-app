@@ -1,8 +1,6 @@
 import {
   DataGrid,
   GridColDef,
-  GridEventListener,
-  GridSortDirection,
   GridSortModel,
   gridStringOrNumberComparator,
 } from "@mui/x-data-grid";
@@ -64,7 +62,7 @@ const Table = ({
     : [];
 
   return (
-    <Paper>
+    <Paper sx={{ height: 850, width: "100%" }}>
       <DataGrid
         initialState={{
           pagination: { paginationModel: { pageSize: 10 } },
@@ -72,6 +70,7 @@ const Table = ({
         disableColumnMenu={disableColumnMenu}
         disableColumnSorting={disableColumnSorting}
         rows={rows}
+        rowHeight={72}
         columns={columns}
         onRowClick={handleRowClick}
         slots={{

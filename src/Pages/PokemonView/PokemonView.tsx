@@ -13,7 +13,7 @@ import {
 import Table from "../../Components/Table/Table";
 import { GridEventListener } from "@mui/x-data-grid";
 import { Pokemon } from "./Pokemon";
-import { getTableStyle, MainContainer } from "./styles";
+import { getTableStyle, MainContainer, TitleContainer } from "./styles";
 import { CardProps } from "../../Components/Card/types";
 import CardsView, { sortCards } from "./components/CradsView/CardsView";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -68,46 +68,30 @@ const PokemonView = ({ title, onPokemonClick }: PokemoneViewProps) => {
   };
 
   return (
-    <BrowserRouter>
-      <MainContainer>
+    <MainContainer>
+      <TitleContainer>
         <Typography type={TypographyTypes.HEADING_LARGE_MEDIUM} label={title} />
-        <HeaderPokemonView
-          setSearchBy={setSearchBy}
-          setSortOrder={setSortBy}
-          viewType={viewOption}
-          setViewType={setViewOption}
+      </TitleContainer>
+      <HeaderPokemonView
+        setSearchBy={setSearchBy}
+        setSortOrder={setSortBy}
+        viewType={viewOption}
+        setViewType={setViewOption}
+      />
+
+      {viewOption == ViewType.TABLE ? (
+        <Table
+          rows={filteredRows}
+          cols={getCols()}
+          handleRowClick={handleRowClick}
+          style={getTableStyle}
+          sortBy={sortBy}
+          headerClassName={"theme--header"}
         />
-        <Routes>
-          <Route
-            path="/table"
-            element={
-              <Table
-                rows={filteredRows}
-                cols={getCols()}
-                handleRowClick={handleRowClick}
-                style={getTableStyle}
-                sortBy={sortBy}
-                headerClassName={"theme--header"}
-              />
-            }
-          />
-          <Route path="/cards" element={<CardsView cards={pokemonCards} />} />
-          <Route
-            path="*"
-            element={
-              <Table
-                rows={filteredRows}
-                cols={getCols()}
-                handleRowClick={handleRowClick}
-                style={getTableStyle}
-                sortBy={sortBy}
-                headerClassName={"theme--header"}
-              />
-            }
-          />
-        </Routes>
-      </MainContainer>
-    </BrowserRouter>
+      ) : (
+        <CardsView cards={pokemonCards} />
+      )}
+    </MainContainer>
   );
 };
 

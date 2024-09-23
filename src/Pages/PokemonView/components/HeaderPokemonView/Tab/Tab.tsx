@@ -31,8 +31,6 @@ const Tab = ({ setTypeView }: CustomTabsProps) => {
       }}
     >
       <MuiTab
-        component={Link}
-        to="/table"
         icon={<FormatListBulletedIcon sx={{ color: colors.CUSTOM._600 }} />}
         iconPosition="start"
         label={
@@ -53,8 +51,6 @@ const Tab = ({ setTypeView }: CustomTabsProps) => {
         onMouseLeave={handleMouseLeave}
       />
       <MuiTab
-        component={Link}
-        to="/cards"
         icon={<CalendarViewMonthIcon sx={{ color: colors.CUSTOM._600 }} />}
         iconPosition="start"
         label={

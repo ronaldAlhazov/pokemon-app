@@ -14,7 +14,9 @@ import {
   SelectChangeEvent,
   Typography,
   Pagination,
+  PaginationItem,
 } from "@mui/material";
+import { colors } from "../../../global-styles";
 
 const CustomFooter = () => {
   const apiRef = useGridApiContext();
@@ -46,17 +48,42 @@ const CustomFooter = () => {
         justifyContent: "space-between",
         alignItems: "center",
         padding: 2,
+        height: 34,
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <Typography variant="body2" sx={{ marginRight: 1 }}>
           Rows per page:
         </Typography>
-        <FormControl size="small" sx={{ minWidth: 120 }}>
+        <FormControl
+          size="small"
+          sx={{
+            minWidth: 70,
+            backgroundColor: "transparent",
+            border: "none",
+            boxShadow: "none",
+            "& .MuiOutlinedInput-root": {
+              border: "none",
+              "& fieldset": {
+                border: "none",
+              },
+            },
+          }}
+        >
           <Select
             value={pageSize || defaultPageSize}
             onChange={handlePageSizeChange}
             size="small"
+            sx={{
+              backgroundColor: "transparent",
+              border: "none",
+              "& .MuiSelect-select": {
+                border: "none",
+              },
+              "&:before, &:after": {
+                border: "none",
+              },
+            }}
           >
             {[10, 25, 50, 100].map((size) => (
               <MenuItem key={size} value={size}>
@@ -75,6 +102,22 @@ const CustomFooter = () => {
           count={pageCount}
           page={paginationModel.page + 1}
           onChange={(event, value) => apiRef.current.setPage(value - 1)}
+          renderItem={(item) => {
+            if (
+              item.type === "start-ellipsis" ||
+              item.type === "end-ellipsis"
+            ) {
+              return null;
+            }
+            return (
+              <PaginationItem
+                {...item}
+                sx={{
+                  display: item.type === "page" ? "none" : "inline-flex",
+                }}
+              />
+            );
+          }}
         />
       </Box>
     </Box>
