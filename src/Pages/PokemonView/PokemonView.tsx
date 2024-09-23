@@ -79,14 +79,16 @@ const PokemonView = ({ title, onPokemonClick }: PokemoneViewProps) => {
       />
 
       {viewOption == ViewType.TABLE ? (
-        <Table
-          rows={filteredRows}
-          cols={getCols()}
-          handleRowClick={handleRowClick}
-          style={getTableStyle}
-          sortBy={sortBy}
-          headerClassName={"theme--header"}
-        />
+        <div style={{ height: "80vh" }}>
+          <Table
+            rows={filteredRows}
+            cols={getCols()}
+            handleRowClick={handleRowClick}
+            style={getTableStyle}
+            sortBy={sortBy}
+            headerClassName={"theme--header"}
+          />
+        </div>
       ) : (
         <CardsView cards={pokemonCards} />
       )}

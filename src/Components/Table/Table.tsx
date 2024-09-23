@@ -62,7 +62,7 @@ const Table = ({
     : [];
 
   return (
-    <Paper sx={{ height: 850, width: "100%" }}>
+    <Paper sx={{ maxHeight: 700, height: "100%", width: "100%" }}>
       <DataGrid
         initialState={{
           pagination: { paginationModel: { pageSize: 10 } },
