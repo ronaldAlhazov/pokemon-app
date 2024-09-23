@@ -16,7 +16,6 @@ import { Pokemon } from "./Pokemon";
 import { getTableStyle, MainContainer, TitleContainer } from "./styles";
 import { CardProps } from "../../Components/Card/types";
 import CardsView, { sortCards } from "./components/CradsView/CardsView";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { PokemoneViewProps } from "./types";
 
 const PokemonView = ({ title, onPokemonClick }: PokemoneViewProps) => {
