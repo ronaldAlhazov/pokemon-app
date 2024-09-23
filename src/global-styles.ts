@@ -42,4 +42,5 @@ export const buttonSizes = {
   [ButtonSize.MEDIUM]: { width: "80px", height: "36px" },
   [ButtonSize.LARGE]: { width: "80px", height: "40px" },
   [ButtonSize.XLARGE]: { width: "237px", height: "90px" },
+  [ButtonSize.CIRCULAR]: { width: "237px", height: "232px" },
 };

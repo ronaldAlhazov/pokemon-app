@@ -23,7 +23,7 @@ const sampleRows: PokemonFightData[] = [
       SpDefense: 65,
       Speed: 45,
     },
-    currentHP: 45,
+
     isFainted: false,
     abilities: [
       { name: "Overgrow", hidden: false },
@@ -43,7 +43,7 @@ const sampleRows: PokemonFightData[] = [
       SpDefense: 80,
       Speed: 60,
     },
-    currentHP: 60,
+
     isFainted: false,
     abilities: [
       { name: "Overgrow", hidden: false },
@@ -63,7 +63,6 @@ const sampleRows: PokemonFightData[] = [
       SpDefense: 100,
       Speed: 80,
     },
-    currentHP: 80,
     isFainted: false,
     abilities: [
       { name: "Overgrow", hidden: false },

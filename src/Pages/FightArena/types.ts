@@ -12,7 +12,6 @@ export type PokemonFightData = {
     Speed: number;
   };
   abilities?: { name: string; hidden: boolean }[];
-  currentHP: number;
   isFainted: boolean;
 };
 

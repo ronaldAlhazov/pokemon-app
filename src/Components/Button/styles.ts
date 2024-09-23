@@ -1,18 +1,12 @@
 import { buttonSizes, colors } from "../../global-styles";
 import { ButtonSize, ButtonType } from "./consts";
 
-export const getButtonStyles = (
-  type: ButtonType,
-  size: ButtonSize,
-  isPressed: boolean
-) => {
+export const getButtonStyles = (type: ButtonType, size: ButtonSize) => {
   const commonStyles = {
     width: buttonSizes[size].width,
     height: buttonSizes[size].height,
     textTransform: "none",
-    boxShadow: isPressed
-      ? `4px 4px 13px 0px ${colors.CUSTOM._500} inset`
-      : "none",
+    boxShadow: "none",
   };
 
   switch (type) {
@@ -21,9 +15,12 @@ export const getButtonStyles = (
         ...commonStyles,
         border: "1px solid",
         color: colors.NEUTRALS.White,
-        backgroundColor: isPressed ? colors.PRIMATY._500 : colors.PRIMATY._300,
+        backgroundColor: colors.PRIMATY._300,
         "&:hover": {
           backgroundColor: colors.PRIMATY._400,
+        },
+        "&:active": {
+          backgroundColor: colors.PRIMATY._500,
         },
         "&:disabled": {
           border: "none",
@@ -37,9 +34,12 @@ export const getButtonStyles = (
         ...commonStyles,
         border: `1px solid ${colors.NEUTRALS._300}`,
         color: colors.PRIMATY._300,
-        backgroundColor: isPressed ? colors.PRIMATY._100 : colors.NEUTRALS._100,
+        backgroundColor: colors.NEUTRALS._100,
         "&:hover": {
           backgroundColor: colors.PRIMATY._50,
+        },
+        "&:active": {
+          backgroundColor: colors.PRIMATY._100,
         },
         "&:disabled": {
           color: colors.CUSTOM._100,
@@ -53,10 +53,13 @@ export const getButtonStyles = (
         ...commonStyles,
         border: `1px solid ${colors.NEUTRALS._400}`,
         color: colors.NEUTRALS._400,
-        backgroundColor: isPressed ? colors.NEUTRALS._100 : "none",
+        backgroundColor: "none",
         "&:hover": {
           color: colors.NEUTRALS._300,
           backgroundColor: colors.NEUTRALS._100,
+        },
+        "&:active": {
+          backgroundColor: colors.PRIMATY._100,
         },
         "&:disabled": {
           color: colors.CUSTOM._100,
@@ -70,9 +73,12 @@ export const getButtonStyles = (
         ...commonStyles,
         border: "none",
         color: colors.PRIMATY._300,
-        backgroundColor: isPressed ? colors.PRIMATY._100 : colors.NEUTRALS._100,
+        backgroundColor: colors.NEUTRALS._100,
         "&:hover": {
           backgroundColor: colors.PRIMATY._50,
+        },
+        "&:active": {
+          backgroundColor: colors.PRIMATY._100,
         },
         "&:disabled": {
           color: colors.CUSTOM._100,
@@ -85,14 +91,75 @@ export const getButtonStyles = (
         ...commonStyles,
         border: "none",
         color: colors.NEUTRALS._400,
-        backgroundColor: isPressed ? colors.NEUTRALS._100 : "none",
+        backgroundColor: "none",
         "&:hover": {
           color: colors.NEUTRALS._300,
+          backgroundColor: colors.NEUTRALS._100,
+        },
+        "&:active": {
           backgroundColor: colors.NEUTRALS._100,
         },
         "&:disabled": {
           color: colors.CUSTOM._100,
           backgroundColor: colors.NEUTRALS._100,
+        },
+      };
+    case ButtonType.PRIMARY_XLARGE:
+      return {
+        ...commonStyles,
+        border: "none",
+        color: colors.NEUTRALS.White,
+        backgroundColor: colors.PRIMATY._300,
+        borderRadius: "50px",
+        "&:hover": {
+          backgroundColor: colors.PRIMATY._400,
+        },
+        "&:active": {
+          backgroundColor: colors.PRIMATY._500,
+        },
+        "&:disabled": {
+          border: "none",
+          color: colors.NEUTRALS._200,
+          backgroundColor: colors.CUSTOM._200,
+        },
+      };
+    case ButtonType.SECONDARY_GRAY_XLARGE:
+      return {
+        ...commonStyles,
+        border: "none",
+        color: colors.NEUTRALS._200,
+        backgroundColor: colors.PRIMATY._50,
+        borderRadius: "50px",
+        "&:hover": {
+          color: colors.NEUTRALS._300,
+          backgroundColor: colors.NEUTRALS._100,
+        },
+        "&:active": {
+          backgroundColor: colors.NEUTRALS._300,
+        },
+        "&:disabled": {
+          border: "none",
+          color: colors.NEUTRALS._200,
+          backgroundColor: colors.CUSTOM._200,
+        },
+      };
+    case ButtonType.CIRCULAR:
+      return {
+        ...commonStyles,
+        border: "none",
+        color: colors.NEUTRALS.White,
+        backgroundColor: colors.PRIMATY._300,
+        borderRadius: "50%",
+        "&:hover": {
+          backgroundColor: colors.PRIMATY._400,
+        },
+        "&:active": {
+          backgroundColor: colors.PRIMATY._500,
+        },
+        "&:disabled": {
+          border: "none",
+          color: colors.NEUTRALS._200,
+          backgroundColor: colors.CUSTOM._200,
         },
       };
 
