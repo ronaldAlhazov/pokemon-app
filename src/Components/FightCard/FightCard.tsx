@@ -1,4 +1,4 @@
-import { CardProps } from "./types";
+import { FightCardProps } from "./types";
 import Typography from "../Typography/Typography";
 import { TypographyTypes } from "../Typography/consts";
 import { colors } from "../../global-styles";
@@ -23,7 +23,7 @@ const FightCard = ({
   fightType = FightType.NONE,
   health,
   minHealth,
-}: CardProps) => {
+}: FightCardProps) => {
   return (
     <StyledCard>
       <StyledCardActionArea>

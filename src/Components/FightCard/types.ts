@@ -1,6 +1,6 @@
 import { FightType } from "./consts";
 
-export type CardProps = {
+export type FightCardProps = {
   id: string;
   img: string;
   name: string;
