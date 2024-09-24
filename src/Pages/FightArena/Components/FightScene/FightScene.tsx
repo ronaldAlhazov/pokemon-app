@@ -52,7 +52,7 @@ const FightScene = ({ myPokemon, opponent }: FightSceneProps) => {
       currentHealth: opponent.stats.HP,
       minHealth: 0,
       border: "none",
-      isWinner: "false",
+      isWinner: false,
     });
     setMyPokemonCard({
       id: myPokemon.id.toString(),
@@ -64,7 +64,7 @@ const FightScene = ({ myPokemon, opponent }: FightSceneProps) => {
       currentHealth: myPokemon.stats.HP,
       minHealth: 0,
       border: "none",
-      isWinner: "false",
+      isWinner: false,
     });
   }, []);
 
@@ -145,11 +145,11 @@ const FightScene = ({ myPokemon, opponent }: FightSceneProps) => {
           currentHealth={myPokemonCard.currentHealth}
           minHealth={myPokemonCard.minHealth}
           border={
-            turn === Turn.MY_POKEMON && !startButton
+            turn === Turn.MY_POKEMON && !startButton && !isMatchFinished
               ? "3px solid green"
               : "none"
           }
-          isWinner={opponentCurrentData.isFainted ? "true" : "false"}
+          isWinner={opponentCurrentData.isFainted}
         />
       )}
       {isMatchFinished ? (
@@ -178,9 +178,11 @@ const FightScene = ({ myPokemon, opponent }: FightSceneProps) => {
           currentHealth={opponentCard.currentHealth}
           minHealth={opponentCard.minHealth}
           border={
-            turn === Turn.OPPONENT && !startButton ? "3px solid green" : "none"
+            turn === Turn.OPPONENT && !startButton && !isMatchFinished
+              ? "3px solid green"
+              : "none"
           }
-          isWinner={myPokemonCurrentData.isFainted ? "true" : "false"}
+          isWinner={myPokemonCurrentData.isFainted}
         />
       )}
     </Box>

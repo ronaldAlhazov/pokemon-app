@@ -13,14 +13,10 @@ const ButtonComponent = ({
   disabled,
   onClick,
 }: ButtonProps) => {
-  const handlePress = (event: React.MouseEvent<HTMLButtonElement>) => {
-    onClick(event);
-  };
-
   return (
     <Button
       sx={getButtonStyles(type, size)}
-      onClick={handlePress}
+      onClick={onClick}
       disabled={disabled}
     >
       {size == ButtonSize.XLARGE ? (

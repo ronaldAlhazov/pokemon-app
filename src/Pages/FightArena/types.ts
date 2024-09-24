@@ -1,7 +1,9 @@
+import { PokemonType } from "./Components/FightScene/consts";
+
 export type PokemonFightData = {
   id: number;
   name: string;
-  type: string[];
+  type: PokemonType[];
   img: string;
   stats: {
     HP: number;

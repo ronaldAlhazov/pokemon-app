@@ -15,7 +15,7 @@ export const initialCard: FightCardProps = {
   currentHealth: 0,
   minHealth: 0,
   border: "none",
-  isWinner: "false",
+  isWinner: false,
 };
 export const MAX_CATCH_ATTEMPTS = 3;
 export const initialFightingData: FightingData = {
@@ -25,74 +25,144 @@ export const initialFightingData: FightingData = {
   isFainted: false,
   catchAttempts: 0,
 };
+export enum PokemonType {
+  BUG = "Bug",
+  DARK = "Dark",
+  DRAGON = "Dragon",
+  ELECTRIC = "Electric",
+  FAIRY = "Fairy",
+  FIGHTING = "Fighting",
+  FIRE = "Fire",
+  FLYING = "Flying",
+  GHOST = "Ghost",
+  GRASS = "Grass",
+  GROUND = "Ground",
+  ICE = "Ice",
+  NORMAL = "Normal",
+  POISON = "Poison",
+  PSYCHIC = "Psychic",
+  ROCK = "Rock",
+  STEEL = "Steel",
+  WATER = "Water",
+}
 export const typeAdvantageChart: Record<
-  string,
-  { strongAgainst: string[]; weakAgainst: string[] }
+  PokemonType,
+  { strongAgainst: PokemonType[]; weakAgainst: PokemonType[] }
 > = {
-  Bug: {
-    strongAgainst: ["Grass", "Dark", "Psychic"],
-    weakAgainst: ["Fire", "Flying", "Rock"],
+  [PokemonType.BUG]: {
+    strongAgainst: [PokemonType.GRASS, PokemonType.DARK, PokemonType.PSYCHIC],
+    weakAgainst: [PokemonType.FIRE, PokemonType.FLYING, PokemonType.ROCK],
   },
-  Dark: {
-    strongAgainst: ["Ghost", "Psychic"],
-    weakAgainst: ["Bug", "Fairy", "Fighting"],
+  [PokemonType.DARK]: {
+    strongAgainst: [PokemonType.GHOST, PokemonType.PSYCHIC],
+    weakAgainst: [PokemonType.BUG, PokemonType.FAIRY, PokemonType.FIGHTING],
   },
-  Dragon: {
-    strongAgainst: ["Dragon"],
-    weakAgainst: ["Dragon", "Fairy", "Ice"],
+  [PokemonType.DRAGON]: {
+    strongAgainst: [PokemonType.DRAGON],
+    weakAgainst: [PokemonType.DRAGON, PokemonType.FAIRY, PokemonType.ICE],
   },
-  Electric: { strongAgainst: ["Flying", "Water"], weakAgainst: ["Ground"] },
-  Fairy: {
-    strongAgainst: ["Fighting", "Dark", "Dragon"],
-    weakAgainst: ["Poison", "Steel"],
+  [PokemonType.ELECTRIC]: {
+    strongAgainst: [PokemonType.FLYING, PokemonType.WATER],
+    weakAgainst: [PokemonType.GROUND],
   },
-  Fighting: {
-    strongAgainst: ["Dark", "Ice", "Normal", "Rock", "Steel"],
-    weakAgainst: ["Fairy", "Flying", "Psychic"],
+  [PokemonType.FAIRY]: {
+    strongAgainst: [PokemonType.FIGHTING, PokemonType.DARK, PokemonType.DRAGON],
+    weakAgainst: [PokemonType.POISON, PokemonType.STEEL],
   },
-  Fire: {
-    strongAgainst: ["Bug", "Grass", "Ice", "Steel"],
-    weakAgainst: ["Ground", "Rock", "Water"],
+  [PokemonType.FIGHTING]: {
+    strongAgainst: [
+      PokemonType.DARK,
+      PokemonType.ICE,
+      PokemonType.NORMAL,
+      PokemonType.ROCK,
+      PokemonType.STEEL,
+    ],
+    weakAgainst: [PokemonType.FAIRY, PokemonType.FLYING, PokemonType.PSYCHIC],
   },
-  Flying: {
-    strongAgainst: ["Bug", "Fighting", "Grass"],
-    weakAgainst: ["Electric", "Ice", "Rock"],
+  [PokemonType.FIRE]: {
+    strongAgainst: [
+      PokemonType.BUG,
+      PokemonType.GRASS,
+      PokemonType.ICE,
+      PokemonType.STEEL,
+    ],
+    weakAgainst: [PokemonType.GROUND, PokemonType.ROCK, PokemonType.WATER],
   },
-  Ghost: {
-    strongAgainst: ["Ghost", "Psychic"],
-    weakAgainst: ["Dark", "Ghost"],
+  [PokemonType.FLYING]: {
+    strongAgainst: [PokemonType.BUG, PokemonType.FIGHTING, PokemonType.GRASS],
+    weakAgainst: [PokemonType.ELECTRIC, PokemonType.ICE, PokemonType.ROCK],
   },
-  Grass: {
-    strongAgainst: ["Ground", "Rock", "Water"],
-    weakAgainst: ["Bug", "Fire", "Flying", "Ice", "Poison"],
+  [PokemonType.GHOST]: {
+    strongAgainst: [PokemonType.GHOST, PokemonType.PSYCHIC],
+    weakAgainst: [PokemonType.DARK, PokemonType.GHOST],
   },
-  Ground: {
-    strongAgainst: ["Electric", "Fire", "Poison", "Rock", "Steel"],
-    weakAgainst: ["Grass", "Ice", "Water"],
+  [PokemonType.GRASS]: {
+    strongAgainst: [PokemonType.GROUND, PokemonType.ROCK, PokemonType.WATER],
+    weakAgainst: [
+      PokemonType.BUG,
+      PokemonType.FIRE,
+      PokemonType.FLYING,
+      PokemonType.ICE,
+      PokemonType.POISON,
+    ],
   },
-  Ice: {
-    strongAgainst: ["Dragon", "Flying", "Grass", "Ground"],
-    weakAgainst: ["Fighting", "Fire", "Rock", "Steel"],
+  [PokemonType.GROUND]: {
+    strongAgainst: [
+      PokemonType.ELECTRIC,
+      PokemonType.FIRE,
+      PokemonType.POISON,
+      PokemonType.ROCK,
+      PokemonType.STEEL,
+    ],
+    weakAgainst: [PokemonType.GRASS, PokemonType.ICE, PokemonType.WATER],
   },
-  Normal: { strongAgainst: [], weakAgainst: ["Fighting"] },
-  Poison: {
-    strongAgainst: ["Fairy", "Grass"],
-    weakAgainst: ["Ground", "Psychic"],
+  [PokemonType.ICE]: {
+    strongAgainst: [
+      PokemonType.DRAGON,
+      PokemonType.FLYING,
+      PokemonType.GRASS,
+      PokemonType.GROUND,
+    ],
+    weakAgainst: [
+      PokemonType.FIGHTING,
+      PokemonType.FIRE,
+      PokemonType.ROCK,
+      PokemonType.STEEL,
+    ],
   },
-  Psychic: {
-    strongAgainst: ["Fighting", "Poison"],
-    weakAgainst: ["Bug", "Dark", "Ghost"],
+  [PokemonType.NORMAL]: {
+    strongAgainst: [],
+    weakAgainst: [PokemonType.FIGHTING],
   },
-  Rock: {
-    strongAgainst: ["Bug", "Fire", "Flying", "Ice"],
-    weakAgainst: ["Fighting", "Grass", "Ground", "Steel", "Water"],
+  [PokemonType.POISON]: {
+    strongAgainst: [PokemonType.FAIRY, PokemonType.GRASS],
+    weakAgainst: [PokemonType.GROUND, PokemonType.PSYCHIC],
   },
-  Steel: {
-    strongAgainst: ["Fairy", "Ice", "Rock"],
-    weakAgainst: ["Fighting", "Fire", "Ground"],
+  [PokemonType.PSYCHIC]: {
+    strongAgainst: [PokemonType.FIGHTING, PokemonType.POISON],
+    weakAgainst: [PokemonType.BUG, PokemonType.DARK, PokemonType.GHOST],
   },
-  Water: {
-    strongAgainst: ["Fire", "Ground", "Rock"],
-    weakAgainst: ["Electric", "Grass"],
+  [PokemonType.ROCK]: {
+    strongAgainst: [
+      PokemonType.BUG,
+      PokemonType.FIRE,
+      PokemonType.FLYING,
+      PokemonType.ICE,
+    ],
+    weakAgainst: [
+      PokemonType.FIGHTING,
+      PokemonType.GRASS,
+      PokemonType.GROUND,
+      PokemonType.STEEL,
+      PokemonType.WATER,
+    ],
+  },
+  [PokemonType.STEEL]: {
+    strongAgainst: [PokemonType.FAIRY, PokemonType.ICE, PokemonType.ROCK],
+    weakAgainst: [PokemonType.FIGHTING, PokemonType.FIRE, PokemonType.GROUND],
+  },
+  [PokemonType.WATER]: {
+    strongAgainst: [PokemonType.FIRE, PokemonType.GROUND, PokemonType.ROCK],
+    weakAgainst: [PokemonType.ELECTRIC, PokemonType.GRASS],
   },
 };

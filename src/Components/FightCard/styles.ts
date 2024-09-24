@@ -3,9 +3,11 @@ import { Card as MuiCard } from "@mui/material";
 import { styled } from "styled-components";
 import { colors } from "../../global-styles";
 
-export const StyledCard = muiStyled(MuiCard)<{
+export const StyledCard = muiStyled(MuiCard, {
+  shouldForwardProp: (prop) => prop !== "iswinner",
+})<{
   border: string;
-  iswinner: string;
+  iswinner: boolean;
 }>`
   width: 402px;
   height: 396px;
@@ -15,7 +17,7 @@ export const StyledCard = muiStyled(MuiCard)<{
   transition: transform 0.3s, border 0.3s;
   
   ${(props) =>
-    props.iswinner === "true" &&
+    props.iswinner &&
     `
     border: 3px solid gold; 
     transform: scale(1.05);

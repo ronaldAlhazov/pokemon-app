@@ -23,6 +23,6 @@ export const Primary: Story = {
     currentHealth: 90,
     minHealth: 40,
     border: "none",
-    isWinner: "true",
+    isWinner: true,
   },
 };

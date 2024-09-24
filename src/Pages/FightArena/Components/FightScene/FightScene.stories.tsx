@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import FightScene from "./FightScene";
 import { PokemonFightData } from "../../types";
+import { PokemonType } from "./consts";
 
 const meta: Meta<typeof FightScene> = {
   component: FightScene,
@@ -14,7 +15,7 @@ const sampleRows: PokemonFightData[] = [
   {
     id: 1,
     name: "Bulbasaur",
-    type: ["Grass", "Poison"],
+    type: [PokemonType.GRASS, PokemonType.POISON],
     stats: {
       HP: 45,
       Attack: 49,
@@ -34,7 +35,7 @@ const sampleRows: PokemonFightData[] = [
   {
     id: 2,
     name: "Ivysaur",
-    type: ["Grass", "Poison"],
+    type: [PokemonType.GRASS, PokemonType.POISON],
     stats: {
       HP: 60,
       Attack: 62,
@@ -54,7 +55,7 @@ const sampleRows: PokemonFightData[] = [
   {
     id: 3,
     name: "Venusaur",
-    type: ["Grass", "Poison"],
+    type: [PokemonType.GRASS, PokemonType.POISON],
     stats: {
       HP: 80,
       Attack: 82,
