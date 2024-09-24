@@ -31,6 +31,8 @@ export const colors = {
     _200: "#e3e6e9",
     _300: "#a8aeb5",
     _500: "#0000000D",
+    _600: "#1C1B1F",
+    BLACK: "#000000",
     GREEN: "#87C877",
     RED: "red",
     GRAY: "#ebeff699",

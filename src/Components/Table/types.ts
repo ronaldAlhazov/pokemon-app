@@ -1,6 +1,7 @@
 import { SxProps } from "@mui/material";
 import { MouseEvent } from "react";
 import {
+  GridComparatorFn,
   GridEventListener,
   GridRenderCellParams,
   GridSortModel,

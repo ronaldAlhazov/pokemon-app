@@ -14,7 +14,15 @@ import {
   SelectChangeEvent,
   Typography,
   Pagination,
+  PaginationItem,
 } from "@mui/material";
+import { colors } from "../../../global-styles";
+import {
+  dropDownContainerStyle,
+  footerContainerStyle,
+  formControlStyle,
+  selectStyle,
+} from "./styles";
 
 const CustomFooter = () => {
   const apiRef = useGridApiContext();
@@ -40,23 +48,17 @@ const CustomFooter = () => {
   }, [apiRef, pageSize]);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: 2,
-      }}
-    >
-      <Box sx={{ display: "flex", alignItems: "center" }}>
+    <Box sx={footerContainerStyle}>
+      <Box sx={dropDownContainerStyle}>
         <Typography variant="body2" sx={{ marginRight: 1 }}>
           Rows per page:
         </Typography>
-        <FormControl size="small" sx={{ minWidth: 120 }}>
+        <FormControl size="small" sx={formControlStyle}>
           <Select
             value={pageSize || defaultPageSize}
             onChange={handlePageSizeChange}
             size="small"
+            sx={selectStyle}
           >
             {[10, 25, 50, 100].map((size) => (
               <MenuItem key={size} value={size}>
@@ -75,6 +77,22 @@ const CustomFooter = () => {
           count={pageCount}
           page={paginationModel.page + 1}
           onChange={(event, value) => apiRef.current.setPage(value - 1)}
+          renderItem={(item) => {
+            if (
+              item.type === "start-ellipsis" ||
+              item.type === "end-ellipsis"
+            ) {
+              return null;
+            }
+            return (
+              <PaginationItem
+                {...item}
+                sx={{
+                  display: item.type === "page" ? "none" : "inline-flex",
+                }}
+              />
+            );
+          }}
         />
       </Box>
     </Box>

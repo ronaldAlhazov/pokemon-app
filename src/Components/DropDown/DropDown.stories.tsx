@@ -30,8 +30,8 @@ export const dropdown: Story = {
   args: {
     options: [
       {
-        label: "label 1",
-        value: "value 1",
+        label: "label 112346789",
+        value: "value 112346789",
       },
       {
         label: "label 2",

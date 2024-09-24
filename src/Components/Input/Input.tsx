@@ -31,6 +31,14 @@ const Input = ({
       onClickIconStart(inputValue);
     }
   };
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      if (onClickIconStart) {
+        onClickIconStart(inputValue);
+      }
+    }
+  };
 
   const handleEndClick = () => {
     if (onClickIconEnd) {
@@ -67,6 +75,7 @@ const Input = ({
         onFocus={handleFocus}
         onBlur={handleBlur}
         sx={inputBaseStyle}
+        onKeyDown={handleKeyDown}
       />
       {IconEnd && showIconEnd && (
         <IconButton

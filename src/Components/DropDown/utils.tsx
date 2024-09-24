@@ -1,6 +1,8 @@
-import { TextField, InputAdornment, Box } from "@mui/material";
+import { TextField, InputAdornment, Box, Theme, Popper } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { DropDownType } from "./consts";
+import Typography from "../Typography/Typography";
+import { TypographyTypes } from "../Typography/consts";
 
 export const renderInput = (
   type: DropDownType,
@@ -9,10 +11,12 @@ export const renderInput = (
   style: any,
   showSearchIcon: boolean
 ) => {
-  return type == DropDownType.REGULAR ? (
+  return type === DropDownType.REGULAR ? (
     <TextField
       {...params}
-      label={label}
+      label={
+        <Typography type={TypographyTypes.BODY_REGULAR_14} label={label} />
+      }
       sx={style}
       variant="outlined"
       inputProps={{ ...params.inputProps, readOnly: true }}
@@ -52,7 +56,7 @@ export const renderOption = (props: any, option: any) => {
           style={{ width: 24, height: 24, borderRadius: "50%" }}
         />
       )}
-      {option.label} {option.value}
+      <Typography type={TypographyTypes.BODY_REGULAR} label={option.label} />
     </Box>
   );
 };
