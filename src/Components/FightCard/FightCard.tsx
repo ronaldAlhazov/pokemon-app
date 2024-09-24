@@ -24,9 +24,11 @@ const FightCard = ({
   startHealth,
   currentHealth,
   minHealth,
+  border,
+  isWinner,
 }: FightCardProps) => {
   return (
-    <StyledCard>
+    <StyledCard border={border} iswinner={isWinner}>
       <StyledCardActionArea>
         <Typography
           label={fightType}

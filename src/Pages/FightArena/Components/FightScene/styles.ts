@@ -6,8 +6,8 @@ export const ButtonContainer = styled.div`
   gap: 32px;
 `;
 export const getMainStyle = () => ({
-  width: "100%",
-  height: "100vh",
+  width: "90vw",
+  height: "90vh",
   backgroundImage: "url('/Frame 664.png')",
   backgroundSize: "cover",
   backgroundPosition: "center",
@@ -16,5 +16,4 @@ export const getMainStyle = () => ({
   justifyContent: "center",
   alignItems: "center",
   gap: "80px",
-  padding: "80px",
 });

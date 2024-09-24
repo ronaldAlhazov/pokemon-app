@@ -6,7 +6,10 @@ import { FightType } from "../../../../Components/FightCard/consts";
 import FightCard from "../../../../Components/FightCard/FightCard";
 import { getMainStyle } from "./styles";
 import Buttons from "./Buttons/Buttons";
-import { initialCard, initialFightingData } from "./consts";
+import { initialCard, initialFightingData, Turn } from "./consts";
+import { inAttack, inCatching } from "./FightMechanism";
+import Typography from "../../../../Components/Typography/Typography";
+import { TypographyTypes } from "../../../../Components/Typography/consts";
 
 const FightScene = ({ myPokemon, opponent }: FightSceneProps) => {
   const [myPokemonCard, setMyPokemonCard] =
@@ -17,18 +20,27 @@ const FightScene = ({ myPokemon, opponent }: FightSceneProps) => {
   const [opponentCurrentData, setOpponentCurrentData] =
     useState<FightingData>(initialFightingData);
   const [startButton, setStartButton] = useState<boolean>(true);
+  const [isMatchFinished, setIsMatchFinished] = useState<boolean>(false);
+  const [winnerName, setWinnerName] = useState<string>("");
+  const [turn, setTurn] = useState<Turn>(
+    myPokemon.stats.SpAttack > opponent.stats.SpAttack
+      ? Turn.MY_POKEMON
+      : Turn.OPPONENT
+  );
   useEffect(() => {
     setMyPokemonCurrentData({
       id: myPokemon.id,
       name: myPokemon.name,
       currentHP: myPokemon.stats.HP,
       isFainted: false,
+      catchAttempts: 0,
     });
     setOpponentCurrentData({
       id: opponent.id,
       name: opponent.name,
       currentHP: opponent.stats.HP,
       isFainted: false,
+      catchAttempts: 0,
     });
     setOpponentCard({
       id: opponent.id.toString(),
@@ -39,6 +51,8 @@ const FightScene = ({ myPokemon, opponent }: FightSceneProps) => {
       startHealth: opponent.stats.HP,
       currentHealth: opponent.stats.HP,
       minHealth: 0,
+      border: "none",
+      isWinner: "false",
     });
     setMyPokemonCard({
       id: myPokemon.id.toString(),
@@ -49,28 +63,73 @@ const FightScene = ({ myPokemon, opponent }: FightSceneProps) => {
       startHealth: myPokemon.stats.HP,
       currentHealth: myPokemon.stats.HP,
       minHealth: 0,
+      border: "none",
+      isWinner: "false",
     });
   }, []);
 
   const onAttackClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("On Click");
-    const newCurrentHealth = Math.max(
-      myPokemonCurrentData.currentHP -
-        (opponent.stats.Attack - myPokemon.stats.Defense),
-      0
-    );
-    setMyPokemonCurrentData((prevData) => ({
-      ...prevData,
-      currentHP: myPokemon.stats.HP,
-    }));
+    if (turn == Turn.MY_POKEMON && !startButton) {
+      inAttack(
+        myPokemonCurrentData,
+        opponentCurrentData,
+        setOpponentCurrentData,
+        myPokemon,
+        opponent
+      );
+      setTurn(Turn.OPPONENT);
+    }
+  };
+  useEffect(() => {
+    const handleOpponentTurn = () => {
+      if (turn === Turn.OPPONENT && !startButton) {
+        inAttack(
+          opponentCurrentData,
+          myPokemonCurrentData,
+          setMyPokemonCurrentData,
+          opponent,
+          myPokemon
+        );
+        setTurn(Turn.MY_POKEMON);
+      }
+    };
+    const timeout = setTimeout(handleOpponentTurn, 1500);
+
+    return () => clearTimeout(timeout);
+  }, [turn, startButton]);
+  useEffect(() => {
+    if (myPokemonCurrentData.isFainted == true) {
+      setWinnerName(opponentCurrentData.name);
+      setIsMatchFinished(true);
+    }
     setMyPokemonCard((prevState) => ({
       ...prevState,
-      currentHealth: prevState.currentHealth - 12,
+      currentHealth: myPokemonCurrentData.currentHP,
     }));
-  };
+  }, [myPokemonCurrentData]);
+  useEffect(() => {
+    if (opponentCurrentData.isFainted == true) {
+      setWinnerName(myPokemonCurrentData.name);
+      setIsMatchFinished(true);
+      //add the opponent to my pokemons
+    }
+    setOpponentCard((prev) => ({
+      ...prev,
+      currentHealth: opponentCurrentData.currentHP,
+    }));
+  }, [opponentCurrentData]);
 
   const onCatchClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("On onCatchClick");
+    if (turn == Turn.MY_POKEMON && !startButton) {
+      inCatching(
+        myPokemonCurrentData,
+        setMyPokemonCurrentData,
+        opponentCurrentData,
+        opponent,
+        setOpponentCurrentData
+      );
+      setTurn(Turn.OPPONENT);
+    }
   };
 
   return (
@@ -85,14 +144,29 @@ const FightScene = ({ myPokemon, opponent }: FightSceneProps) => {
           startHealth={myPokemonCard.startHealth}
           currentHealth={myPokemonCard.currentHealth}
           minHealth={myPokemonCard.minHealth}
+          border={
+            turn === Turn.MY_POKEMON && !startButton
+              ? "3px solid green"
+              : "none"
+          }
+          isWinner={opponentCurrentData.isFainted ? "true" : "false"}
         />
       )}
-      <Buttons
-        showStartButton={startButton}
-        setStartButton={setStartButton}
-        onAttackClick={onAttackClick}
-        onCatchClick={onCatchClick}
-      />
+      {isMatchFinished ? (
+        <Box sx={{ textAlign: "center" }}>
+          <Typography
+            type={TypographyTypes.HEADING_LARGE_BOLD}
+            label={`${winnerName} Wins!`}
+          />
+        </Box>
+      ) : (
+        <Buttons
+          showStartButton={startButton}
+          setStartButton={setStartButton}
+          onAttackClick={onAttackClick}
+          onCatchClick={onCatchClick}
+        />
+      )}
       {opponentCard && (
         <FightCard
           id={opponentCard.id}
@@ -103,6 +177,10 @@ const FightScene = ({ myPokemon, opponent }: FightSceneProps) => {
           startHealth={opponentCard.startHealth}
           currentHealth={opponentCard.currentHealth}
           minHealth={opponentCard.minHealth}
+          border={
+            turn === Turn.OPPONENT && !startButton ? "3px solid green" : "none"
+          }
+          isWinner={myPokemonCurrentData.isFainted ? "true" : "false"}
         />
       )}
     </Box>

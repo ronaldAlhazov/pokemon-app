@@ -3,11 +3,23 @@ import { Card as MuiCard } from "@mui/material";
 import { styled } from "styled-components";
 import { colors } from "../../global-styles";
 
-export const StyledCard = muiStyled(MuiCard)`
+export const StyledCard = muiStyled(MuiCard)<{
+  border: string;
+  iswinner: string;
+}>`
   width: 402px;
   height: 396px;
   min-width: 295px;
   min-height: 200px;
+  border: ${(props) => props.border || "none"}; 
+  transition: transform 0.3s, border 0.3s;
+  
+  ${(props) =>
+    props.iswinner === "true" &&
+    `
+    border: 3px solid gold; 
+    transform: scale(1.05);
+  `}
 `;
 
 export const StyledCardActionArea = muiStyled(CardActionArea)`

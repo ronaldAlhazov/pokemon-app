@@ -4,6 +4,7 @@ export type FightingData = {
   name: string;
   currentHP: number;
   isFainted: boolean;
+  catchAttempts: number;
 };
 export type FightSceneProps = {
   myPokemon: PokemonFightData;
