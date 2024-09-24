@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Router,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import "./App.css";
 import PokemonView from "./Pages/PokemonView/PokemonView";
@@ -13,7 +7,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route
-          path="/allpokemones"
+          path="/all-pokemones"
           element={
             <PokemonView
               title="All Pokemones"
@@ -21,7 +15,7 @@ const App = () => {
             />
           }
         />
-        <Route path="/" element={<Navigate to="/allpokemones" replace />} />
+        <Route path="/" element={<Navigate to="/all-pokemones" replace />} />
       </Routes>
     </BrowserRouter>
   );

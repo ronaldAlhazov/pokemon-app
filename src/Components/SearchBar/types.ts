@@ -1,6 +1,6 @@
 export interface SearchBarProps {
+  onSearch: (query: string) => void;
   placeHolder?: string;
   disabled?: boolean;
-  onSearch: (query: string) => void;
   onClear?: () => void;
 }

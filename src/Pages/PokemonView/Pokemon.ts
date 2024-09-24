@@ -1,4 +1,4 @@
-export type BaseStats = {
+export type Stats = {
   HP: number;
   Attack: number;
   Defense: number;
@@ -6,7 +6,12 @@ export type BaseStats = {
   "Sp. Defense": number;
   Speed: number;
 };
-
+export enum Language {
+  ENGLISH = "english",
+  JAPANESE = "japanese",
+  CHINESE = "chinese",
+  FRENCH = "french",
+}
 export type Evolution = {
   prev?: [string, string];
   next?: [string, string][];
@@ -29,13 +34,10 @@ export type Image = {
 export type Pokemon = {
   id: number;
   name: {
-    english: string;
-    japanese?: string;
-    chinese?: string;
-    french?: string;
+    [key in Language]?: string;
   };
   type: string[];
-  base: BaseStats;
+  stats: Stats;
   species: string;
   description: string;
   evolution: Evolution;

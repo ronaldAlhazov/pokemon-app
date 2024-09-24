@@ -1,3 +1,6 @@
+import { DropdownOption } from "../../../../Components/DropDown/types";
+import { sortType } from "../../../../Components/Table/consts";
+
 export enum ViewType {
   TABLE = "Table",
   CARDS = "Cards",

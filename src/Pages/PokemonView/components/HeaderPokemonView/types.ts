@@ -7,3 +7,7 @@ export type HeaderPokemonViewProps = {
   viewType: ViewType;
   setViewType: (viewType: ViewType) => void;
 };
+export type SortOptionType = {
+  title: string;
+  value: sortType;
+};

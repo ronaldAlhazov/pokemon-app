@@ -11,20 +11,13 @@ export const renderInput = (
   style: any,
   showSearchIcon: boolean
 ) => {
-  return type == DropDownType.REGULAR ? (
+  return type === DropDownType.REGULAR ? (
     <TextField
       {...params}
-      label={label}
+      label={
+        <Typography type={TypographyTypes.BODY_REGULAR_14} label={label} />
+      }
       sx={style}
-      InputLabelProps={{
-        style: {
-          fontFamily: "Roboto",
-          fontSize: "14px",
-          fontWeight: 400,
-          lineHeight: "22px",
-          textAlign: "center",
-        },
-      }}
       variant="outlined"
       inputProps={{ ...params.inputProps, readOnly: true }}
     />
@@ -65,27 +58,5 @@ export const renderOption = (props: any, option: any) => {
       )}
       <Typography type={TypographyTypes.BODY_REGULAR} label={option.label} />
     </Box>
-  );
-};
-const styles = (theme: Theme) => ({
-  popper: {
-    maxWidth: "fit-content",
-  },
-});
-
-type OptionType = {
-  title: string;
-};
-
-interface PopperMyProps {}
-
-export const PopperMy: React.FC<PopperMyProps> = (props) => {
-  return (
-    <Popper
-      open={false}
-      {...props}
-      style={styles({} as Theme).popper}
-      placement="bottom-start"
-    />
   );
 };

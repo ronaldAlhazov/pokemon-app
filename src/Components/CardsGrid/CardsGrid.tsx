@@ -3,10 +3,11 @@ import Grid from "@mui/material/Grid";
 import React from "react";
 import Card from "../Card/Card";
 import { CardsGridProps } from "./types";
+import { gridContainerStyle, gridItemStyle } from "./styles";
 
 const CardsGrid = ({ cards }: CardsGridProps) => {
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={gridContainerStyle}>
       <Grid container spacing={2} columns={{ xs: 4, sm: 12, md: 12, lg: 12 }}>
         {cards.map((card, index) => (
           <Grid
@@ -16,15 +17,7 @@ const CardsGrid = ({ cards }: CardsGridProps) => {
             md={4}
             lg={3}
             key={index}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              "& .MuiPaper-root": {
-                width: "322px",
-                boxSizing: "border-box",
-              },
-            }}
+            sx={gridItemStyle}
           >
             <Card {...card} />
           </Grid>

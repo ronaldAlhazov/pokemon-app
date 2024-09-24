@@ -19,6 +19,7 @@ const HeaderPokemonView = ({
   setViewType,
 }: HeaderPokemonViewProps) => {
   const [sortBy, setSortBy] = useState("");
+
   useEffect(() => {
     switch (sortBy) {
       case SortBy.NAME_AZ:

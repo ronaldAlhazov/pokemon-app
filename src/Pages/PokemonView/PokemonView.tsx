@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Typography from "../../Components/Typography/Typography";
 import { TypographyTypes } from "../../Components/Typography/consts";
 import HeaderPokemonView from "./components/HeaderPokemonView/HeaderPokemonView";
@@ -9,19 +9,17 @@ import {
   getCols,
   getRows,
   createPokemonCards,
+  sortCards,
 } from "../dataUtils";
 import Table from "../../Components/Table/Table";
 import { GridEventListener } from "@mui/x-data-grid";
 import { Pokemon } from "./Pokemon";
 import { getTableStyle, MainContainer, TitleContainer } from "./styles";
-import { CardProps } from "../../Components/Card/types";
-import CardsView, { sortCards } from "./components/CradsView/CardsView";
 import { PokemoneViewProps } from "./types";
+import CardsGrid from "../../Components/CardsGrid/CardsGrid";
 
 const PokemonView = ({ title, onPokemonClick }: PokemoneViewProps) => {
   const [searchBy, setSearchBy] = useState("");
-  const [pokemonCards, setPokemonCards] = useState<CardProps[]>([]);
-  const [clickedPokemon, setClickedPokemon] = useState("");
   const [sortBy, setSortBy] = useState({ col: "ID", order: sortType.ASC });
   const [viewOption, setViewOption] = useState<ViewType>(ViewType.TABLE);
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -32,35 +30,26 @@ const PokemonView = ({ title, onPokemonClick }: PokemoneViewProps) => {
       const data = await fetchPokemonData();
       setPokemons(data);
       setRows(getRows(data));
-      setPokemonCards(createPokemonCards(data, onPokemonClick));
     };
 
     loadData();
   }, []);
 
-  const pokemonMemoCards = useMemo(() => {
-    return createPokemonCards(pokemons, onPokemonClick);
-  }, [pokemonCards]);
+  const filteredPokemons = useMemo(() => {
+    return pokemons.filter((pokemon) =>
+      pokemon.name.english?.toLowerCase().includes(searchBy.toLowerCase())
+    );
+  }, [pokemons, searchBy]);
 
-  useEffect(() => {
-    const filteredCards =
-      searchBy.trim() === ""
-        ? pokemonMemoCards
-        : pokemonCards.filter((card) =>
-            card.name.toLowerCase().includes(searchBy.toLowerCase())
-          );
-    const sortedCards = sortCards(filteredCards, sortBy);
+  const sortedPokemons = useMemo(() => {
+    return sortCards(filteredPokemons, sortBy);
+  }, [filteredPokemons, sortBy]);
 
-    setPokemonCards(sortedCards);
-  }, [searchBy, sortBy]);
-
-  const filteredRows = rows.filter((row) => {
-    if (searchBy.trim() === "") {
-      return true;
-    }
-    return row.name.toLowerCase().includes(searchBy.toLowerCase());
-  });
-
+  const filteredRows = useMemo(() => {
+    return rows.filter((row) =>
+      row.name.toLowerCase().includes(searchBy.toLowerCase())
+    );
+  }, [rows, searchBy]);
   const handleRowClick: GridEventListener<"rowClick"> = (params, event) => {
     onPokemonClick(params.row.name);
     //need to add for modal option
@@ -81,7 +70,7 @@ const PokemonView = ({ title, onPokemonClick }: PokemoneViewProps) => {
       {viewOption == ViewType.TABLE ? (
         <div style={{ height: "80vh" }}>
           <Table
-            rows={filteredRows}
+            rows={getRows(filteredPokemons)}
             cols={getCols()}
             handleRowClick={handleRowClick}
             style={getTableStyle}
@@ -90,7 +79,7 @@ const PokemonView = ({ title, onPokemonClick }: PokemoneViewProps) => {
           />
         </div>
       ) : (
-        <CardsView cards={pokemonCards} />
+        <CardsGrid cards={createPokemonCards(sortedPokemons, onPokemonClick)} />
       )}
     </MainContainer>
   );
