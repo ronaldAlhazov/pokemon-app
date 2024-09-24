@@ -1,5 +1,3 @@
-import { FightType } from "../../../../Components/FightCard/consts";
-import { FightCardProps } from "../../../../Components/FightCard/types";
 import { FightingData } from "./types";
 export enum Turn {
   MY_POKEMON = "my pokemon",
