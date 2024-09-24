@@ -112,7 +112,6 @@ export const inCatching = (
         catchAttempts: prev.catchAttempts + 1,
       }));
     }
-
     console.log(`Failed to catch ${defendingPokemon.name}.`);
   }
 };
