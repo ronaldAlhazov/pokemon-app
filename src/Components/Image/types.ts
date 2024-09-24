@@ -6,4 +6,5 @@ export type ImageProps = {
   imgWidth?: string;
   imgHeight?: string;
   backgroundColor?: string;
+  borderRadius?: string;
 };
