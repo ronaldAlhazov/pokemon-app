@@ -9,11 +9,13 @@ interface ImgContainerProps {
 interface StyledImgProps {
   imgWidth?: string;
   imgHeight?: string;
+  borderRadius?: string;
 }
 
 export const StyledImg = styled.img<StyledImgProps>`
   width: ${({ imgWidth }) => imgWidth || "190px"};
   height: ${({ imgHeight }) => imgHeight || "150px"};
+  border-radius: ${({ borderRadius }) => borderRadius || "0%"};
 `;
 
 export const ImgContainer = styled.div<ImgContainerProps>`

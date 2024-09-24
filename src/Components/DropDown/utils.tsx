@@ -4,6 +4,7 @@ import { DropDownType } from "./consts";
 import Typography from "../Typography/Typography";
 import { TypographyTypes } from "../Typography/consts";
 import { useEffect } from "react";
+import Image from "../Image/Image";
 
 export const renderInput = (
   type: DropDownType,
@@ -68,17 +69,24 @@ export const renderOption = (props: any, option: any) => {
             display: "flex",
             alignItems: "center",
             pr: 2,
-            "& > img": {
-              flexShrink: 0,
-              paddingRight: "4px",
-            },
           }}
         >
-          <img
-            src={option.image}
-            alt={option.label}
-            style={{ width: 24, height: 24, borderRadius: "50%" }}
-          />
+          <div
+            style={{
+              paddingRight: "8px",
+              paddingTop: "8px",
+            }}
+          >
+            <Image
+              src={option.image}
+              alt={option.label}
+              imgWidth="26px"
+              imgHeight="26px"
+              containerWidth="26px"
+              containerHeight="26px"
+              backgroundColor="transparent"
+            />
+          </div>
           <Typography
             type={TypographyTypes.BODY_REGULAR}
             label={option.value}
@@ -88,27 +96,5 @@ export const renderOption = (props: any, option: any) => {
 
       <Typography type={TypographyTypes.BODY_REGULAR} label={option.label} />
     </Box>
-  );
-};
-const styles = (theme: Theme) => ({
-  popper: {
-    maxWidth: "fit-content",
-  },
-});
-
-type OptionType = {
-  title: string;
-};
-
-interface PopperMyProps {}
-
-export const PopperMy: React.FC<PopperMyProps> = (props) => {
-  return (
-    <Popper
-      open={false}
-      {...props}
-      style={styles({} as Theme).popper}
-      placement="bottom-start"
-    />
   );
 };

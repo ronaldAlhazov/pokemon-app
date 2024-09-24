@@ -16,10 +16,8 @@ const FightArenaHeader = ({
   selectedPokemon,
 }: FightArenaHeaderProps) => {
   const onPokemonChange = (val: string) => {
-    console.log(val);
-    console.log(selectedPokemon.name);
     const selected = myPokemons.find((pokemon) => pokemon.name === val);
-    console.log(selectedPokemon.name);
+
     if (selected) {
       setMyPokemon(selected);
     }

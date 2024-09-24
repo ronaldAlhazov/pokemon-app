@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Autocomplete } from "@mui/material";
 import { DropdownProps, DropdownOption } from "./types";
 import { DropDownType } from "./consts";
-import { PopperMy, renderInput, renderOption } from "./utils";
+import { renderInput, renderOption } from "./utils";
+import { DropDownPopper } from "./Components/DropDownPopper";
 
 const DropDown = ({
   type = DropDownType.REGULAR,
@@ -27,7 +28,7 @@ const DropDown = ({
 
   return (
     <Autocomplete
-      PopperComponent={PopperMy}
+      PopperComponent={DropDownPopper}
       options={options}
       getOptionLabel={(option) => option.label}
       value={options.find((option) => option.value === value) || null}
