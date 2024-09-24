@@ -3,9 +3,25 @@ import { Card as MuiCard } from "@mui/material";
 import { styled } from "styled-components";
 import { colors } from "../../global-styles";
 
-export const StyledCard = muiStyled(MuiCard)`
+export const StyledCard = muiStyled(MuiCard, {
+  shouldForwardProp: (prop) => prop !== "iswinner",
+})<{
+  border: string;
+  iswinner: boolean;
+}>`
   width: 402px;
   height: 396px;
+  min-width: 295px;
+  min-height: 200px;
+  border: ${(props) => props.border || "none"}; 
+  transition: transform 0.3s, border 0.3s;
+  
+  ${(props) =>
+    props.iswinner &&
+    `
+    border: 3px solid gold; 
+    transform: scale(1.05);
+  `}
 `;
 
 export const StyledCardActionArea = muiStyled(CardActionArea)`
@@ -64,10 +80,15 @@ export const HealthBarContainer = styled.div`
   margin-top: 8px;
 `;
 
-export const HealthBarFill = styled.div<{ health: number; minHealth: number }>`
-  width: ${({ health }) => health}%;
-  background-color: ${({ health, minHealth }) =>
-    health > minHealth ? colors.CUSTOM.GREEN : colors.CUSTOM.RED};
+export const HealthBarFill = styled.div<{
+  starthealth: number;
+  currenthealth: number;
+  minhealth: number;
+}>`
+  width: ${({ currenthealth, starthealth }) =>
+    (currenthealth / starthealth) * 100}%;
+  background-color: ${({ currenthealth, minhealth }) =>
+    currenthealth > minhealth ? colors.CUSTOM.GREEN : colors.CUSTOM.RED};
   height: 100%;
   transition: width 0.3s ease;
 `;

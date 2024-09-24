@@ -6,6 +6,9 @@ export type FightCardProps = {
   name: string;
   power: number;
   fightType?: FightType;
-  health: number;
+  startHealth: number;
+  currentHealth: number;
   minHealth: number;
+  border: string;
+  isWinner: boolean;
 };

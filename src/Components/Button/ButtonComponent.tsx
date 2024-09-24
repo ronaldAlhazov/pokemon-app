@@ -13,27 +13,38 @@ const ButtonComponent = ({
   disabled,
   onClick,
 }: ButtonProps) => {
-  const [isPressed, setIsPressed] = useState(false);
-
-  const handlePress = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setIsPressed((pervState) => !pervState);
-    onClick(event);
-  };
-
   return (
     <Button
-      sx={getButtonStyles(type, size, isPressed)}
-      onClick={handlePress}
+      sx={getButtonStyles(type, size)}
+      onClick={onClick}
       disabled={disabled}
     >
-      <Typography
-        type={
-          size == ButtonSize.SMALL
-            ? TypographyTypes.BUTTON_SMALL
-            : TypographyTypes.BUTTON_MEDIUM_BIG
-        }
-        label={label}
-      />
+      {size == ButtonSize.XLARGE ? (
+        <Typography
+          type={TypographyTypes.CUSTOM}
+          label={label}
+          weight={500}
+          size={40}
+          line={52}
+        />
+      ) : size == ButtonSize.CIRCULAR ? (
+        <Typography
+          type={TypographyTypes.CUSTOM}
+          label={label}
+          weight={700}
+          size={48}
+          line={52}
+        />
+      ) : (
+        <Typography
+          type={
+            size == ButtonSize.SMALL
+              ? TypographyTypes.BUTTON_SMALL
+              : TypographyTypes.BUTTON_MEDIUM_BIG
+          }
+          label={label}
+        />
+      )}
     </Button>
   );
 };

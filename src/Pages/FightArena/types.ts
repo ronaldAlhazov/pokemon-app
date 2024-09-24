@@ -1,7 +1,9 @@
+import { PokemonType } from "./Components/FightScene/consts";
+
 export type PokemonFightData = {
   id: number;
   name: string;
-  type: string[];
+  type: PokemonType[];
   img: string;
   stats: {
     HP: number;
@@ -12,7 +14,6 @@ export type PokemonFightData = {
     Speed: number;
   };
   abilities?: { name: string; hidden: boolean }[];
-  currentHP: number;
   isFainted: boolean;
 };
 
