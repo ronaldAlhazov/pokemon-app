@@ -18,20 +18,21 @@ import { getTableStyle, MainContainer, TitleContainer } from "./styles";
 import { PokemoneViewProps } from "./types";
 import CardsGrid from "../../Components/CardsGrid/CardsGrid";
 
-const PokemonView = ({ title, onPokemonClick }: PokemoneViewProps) => {
+const PokemonView = ({
+  pokemons,
+  title,
+  onPokemonClick,
+}: PokemoneViewProps) => {
   const [searchBy, setSearchBy] = useState("");
   const [sortBy, setSortBy] = useState({ col: "ID", order: sortType.ASC });
   const [viewOption, setViewOption] = useState<ViewType>(ViewType.TABLE);
-  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const [rows, setRows] = useState<any[]>([]);
 
   useEffect(() => {
     const loadData = async () => {
       const data = await fetchPokemonData();
-      setPokemons(data);
-      setRows(getRows(data));
+      setRows(getRows(pokemons));
     };
-
     loadData();
   }, []);
 
@@ -68,7 +69,7 @@ const PokemonView = ({ title, onPokemonClick }: PokemoneViewProps) => {
       />
 
       {viewOption == ViewType.TABLE ? (
-        <div style={{ height: "80vh" }}>
+        <div style={{ height: "75vh" }}>
           <Table
             rows={getRows(filteredPokemons)}
             cols={getCols()}

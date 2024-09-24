@@ -1,5 +1,6 @@
 import { FightType } from "../../../../Components/FightCard/consts";
 import { FightCardProps } from "../../../../Components/FightCard/types";
+import { PokemonType } from "../../../PokemonView/Pokemon";
 import { FightingData } from "./types";
 export enum Turn {
   MY_POKEMON = "my pokemon",
@@ -25,26 +26,7 @@ export const initialFightingData: FightingData = {
   isFainted: false,
   catchAttempts: 0,
 };
-export enum PokemonType {
-  BUG = "Bug",
-  DARK = "Dark",
-  DRAGON = "Dragon",
-  ELECTRIC = "Electric",
-  FAIRY = "Fairy",
-  FIGHTING = "Fighting",
-  FIRE = "Fire",
-  FLYING = "Flying",
-  GHOST = "Ghost",
-  GRASS = "Grass",
-  GROUND = "Ground",
-  ICE = "Ice",
-  NORMAL = "Normal",
-  POISON = "Poison",
-  PSYCHIC = "Psychic",
-  ROCK = "Rock",
-  STEEL = "Steel",
-  WATER = "Water",
-}
+
 export const typeAdvantageChart: Record<
   PokemonType,
   { strongAgainst: PokemonType[]; weakAgainst: PokemonType[] }

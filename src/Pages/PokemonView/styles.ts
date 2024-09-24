@@ -29,6 +29,7 @@ export const MainContainer = styled.div`
   gap: 16px;
   background-color: ${colors.NEUTRALS._100};
   padding: 16px 40px 30px;
+  height: 85vh;
 `;
 export const TitleContainer = styled.div`
   display: flex;

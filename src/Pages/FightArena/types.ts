@@ -1,10 +1,11 @@
-import { PokemonType } from "./Components/FightScene/consts";
+import { PokemonType } from "../PokemonView/Pokemon";
 
 export type PokemonFightData = {
   id: number;
   name: string;
   type: PokemonType[];
-  img: string;
+  imgThumbnails: string;
+  imgHires: string;
   stats: {
     HP: number;
     Attack: number;
@@ -18,7 +19,6 @@ export type PokemonFightData = {
 };
 
 export type FightArenaProps = {
-  myPokemon: PokemonFightData;
-  setMyPokemon: (val: PokemonFightData) => void;
-  opponent: PokemonFightData;
+  myPokemons: PokemonFightData[];
+  id: number;
 };

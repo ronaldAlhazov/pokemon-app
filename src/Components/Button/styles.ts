@@ -1,12 +1,14 @@
 import { buttonSizes, colors } from "../../global-styles";
 import { ButtonSize, ButtonType } from "./consts";
-
+import "@fontsource/roboto";
 export const getButtonStyles = (type: ButtonType, size: ButtonSize) => {
   const commonStyles = {
     width: buttonSizes[size].width,
     height: buttonSizes[size].height,
     textTransform: "none",
     boxShadow: "none",
+    fontFamily: "'Roboto', sans-serif",
+    fontWeight: 400,
   };
 
   switch (type) {
@@ -160,6 +162,27 @@ export const getButtonStyles = (type: ButtonType, size: ButtonSize) => {
           border: "none",
           color: colors.NEUTRALS._200,
           backgroundColor: colors.CUSTOM._200,
+        },
+      };
+    case ButtonType.BUTTON_HEADER:
+      return {
+        ...commonStyles,
+        border: "none",
+        fontWeight: 400,
+        color: colors.PRIMATY._300,
+        backgroundColor: "none",
+        "&:hover": {
+          backgroundColor: colors.PRIMATY._50,
+          fontWeight: 400,
+        },
+        "&:active": {
+          backgroundColor: colors.PRIMATY._50,
+          fontWeight: 700,
+        },
+        "&:disabled": {
+          fontWeight: 400,
+          color: colors.CUSTOM._100,
+          backgroundColor: colors.NEUTRALS._100,
         },
       };
 

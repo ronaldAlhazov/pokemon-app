@@ -44,7 +44,7 @@ const FightScene = ({ myPokemon, opponent }: FightSceneProps) => {
     });
     setOpponentCard({
       id: opponent.id.toString(),
-      img: opponent.img,
+      img: opponent.imgHires,
       name: opponent.name,
       power: opponent.stats.Attack,
       fightType: FightType.OPPONENT,
@@ -56,7 +56,7 @@ const FightScene = ({ myPokemon, opponent }: FightSceneProps) => {
     });
     setMyPokemonCard({
       id: myPokemon.id.toString(),
-      img: myPokemon.img,
+      img: myPokemon.imgHires,
       name: myPokemon.name,
       power: myPokemon.stats.Attack,
       fightType: FightType.ME,

@@ -1,24 +1,8 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-
 import "./App.css";
-import PokemonView from "./Pages/PokemonView/PokemonView";
+
+import MainPage from "./Pages/MainPage";
 const App = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/all-pokemones"
-          element={
-            <PokemonView
-              title="All Pokemones"
-              onPokemonClick={(val: string) => {}}
-            />
-          }
-        />
-        <Route path="/" element={<Navigate to="/all-pokemones" replace />} />
-      </Routes>
-    </BrowserRouter>
-  );
+  return <MainPage />;
 };
 
 export default App;

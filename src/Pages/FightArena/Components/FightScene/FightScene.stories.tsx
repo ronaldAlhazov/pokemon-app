@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import FightScene from "./FightScene";
 import { PokemonFightData } from "../../types";
-import { PokemonType } from "./consts";
+import { PokemonType } from "../../../PokemonView/Pokemon";
 
 const meta: Meta<typeof FightScene> = {
   component: FightScene,
@@ -30,7 +30,10 @@ const sampleRows: PokemonFightData[] = [
       { name: "Overgrow", hidden: false },
       { name: "Chlorophyll", hidden: true },
     ],
-    img: "https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/hires/001.png",
+    imgThumbnails:
+      "https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/thumbnails/001.png",
+    imgHires:
+      "https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/hires/001.png",
   },
   {
     id: 2,
@@ -50,7 +53,10 @@ const sampleRows: PokemonFightData[] = [
       { name: "Overgrow", hidden: false },
       { name: "Chlorophyll", hidden: true },
     ],
-    img: "https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/hires/002.png",
+    imgThumbnails:
+      "https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/thumbnails/002.png",
+    imgHires:
+      "https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/hires/002.png",
   },
   {
     id: 3,
@@ -69,7 +75,10 @@ const sampleRows: PokemonFightData[] = [
       { name: "Overgrow", hidden: false },
       { name: "Chlorophyll", hidden: true },
     ],
-    img: "https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/thumbnails/003.png",
+    imgThumbnails:
+      "https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/thumbnails/003.png",
+    imgHires:
+      "https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/hires/003.png",
   },
 ];
 export const Primary: Story = {

@@ -26,7 +26,7 @@ const FightArenaHeader = ({
     return myPokemons.map((pokemon) => ({
       label: `${pokemon.stats.Attack}px`,
       value: pokemon.name,
-      image: pokemon.img,
+      image: pokemon.imgThumbnails,
     }));
   };
   return (

@@ -7,7 +7,7 @@ export enum ButtonType {
   PRIMARY_XLARGE = "primary xlarge",
   SECONDARY_GRAY_XLARGE = "secondary gray xlarge",
   CIRCULAR = "circular",
-  ButtonType = "ButtonType",
+  BUTTON_HEADER = "button header",
 }
 
 export enum ButtonSize {
@@ -16,4 +16,6 @@ export enum ButtonSize {
   LARGE = "large",
   XLARGE = "xlarge",
   CIRCULAR = "circular",
+  HEADER = "header",
+  HEADER_FIGHT = "header fight",
 }

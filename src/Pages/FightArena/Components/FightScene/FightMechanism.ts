@@ -1,7 +1,8 @@
 import { Dispatch } from "react";
 import { PokemonFightData } from "../../types";
-import { MAX_CATCH_ATTEMPTS, PokemonType, typeAdvantageChart } from "./consts";
+import { MAX_CATCH_ATTEMPTS, typeAdvantageChart } from "./consts";
 import { FightingData } from "./types";
+import { PokemonType } from "../../../PokemonView/Pokemon";
 const checkAttackMiss = (): boolean => {
   const missChance = 0.05;
   return Math.random() < missChance;

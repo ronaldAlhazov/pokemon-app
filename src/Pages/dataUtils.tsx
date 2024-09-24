@@ -1,10 +1,10 @@
 import { GridRenderCellParams } from "@mui/x-data-grid";
 import { TableCol } from "../Components/Table/types";
-import { Language, Pokemon, Stats } from "./PokemonView/Pokemon";
+import { Language, Pokemon, PokemonType, Stats } from "./PokemonView/Pokemon";
 import { CardProps } from "../Components/Card/types";
-import { colors } from "../global-styles";
 import { Circle, CircleContainer } from "../Components/Image/styles";
 import { sortType } from "../Components/Table/consts";
+import { PokemonFightData } from "./FightArena/types";
 
 export const fetchPokemonData = async (): Promise<Pokemon[]> => {
   const response = await fetch("/pokemon.json");
@@ -23,6 +23,34 @@ export const getRows = (data: Pokemon[]) => {
     Power: pokemon.stats?.["Sp. Attack"] ? pokemon.stats.Attack : null,
     description: pokemon.description,
     avatar: pokemon.image.hires,
+  }));
+};
+export const getMyPokemons = (data: Pokemon[]) => {
+  return data.filter((pokemon) => pokemon.belongsToMe === true);
+};
+
+export const getMyPokemonsFightingData = (
+  myPokemons: Pokemon[]
+): PokemonFightData[] => {
+  return myPokemons.map((pokemon) => ({
+    id: pokemon.id,
+    name: pokemon.name[Language.ENGLISH] || "",
+    type: pokemon.type,
+    imgThumbnails: pokemon.image.thumbnail,
+    imgHires: pokemon.image.hires,
+    stats: {
+      HP: pokemon.stats.HP,
+      Attack: pokemon.stats.Attack,
+      Defense: pokemon.stats.Defense,
+      SpAttack: pokemon.stats["Sp. Attack"],
+      SpDefense: pokemon.stats["Sp. Defense"],
+      Speed: pokemon.stats.Speed,
+    },
+    abilities: pokemon.profile.ability.map(([name, hidden]) => ({
+      name,
+      hidden: hidden === "true",
+    })),
+    isFainted: false,
   }));
 };
 
@@ -98,7 +126,7 @@ export const sortCards = (
     if (col === "name") {
       valueA = a.name[Language.ENGLISH];
       valueB = b.name[Language.ENGLISH];
-    } else if (col === "power" || col == "Power") {
+    } else if (col === "power" || col === "Power") {
       valueA = a.stats?.Attack;
       valueB = b.stats?.Attack;
     } else if (col === "hp") {
