@@ -13,10 +13,14 @@ import {
 } from "./styles";
 import StrengthIcon from "./strengthIcon";
 
-const Card = ({ id, img, name, power }: CardProps) => {
+const Card = ({ id, img, name, power, hp, onCardClick }: CardProps) => {
   return (
     <StyledCard>
-      <StyledCardActionArea>
+      <StyledCardActionArea
+        onClick={() => {
+          onCardClick(name);
+        }}
+      >
         <ImgContainer>
           <StyledImg src={img} alt={name} />
           <IconContainer>

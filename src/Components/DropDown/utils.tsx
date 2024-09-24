@@ -13,10 +13,12 @@ export const renderInput = (
   style: any,
   showSearchIcon: boolean
 ) => {
-  return type == DropDownType.REGULAR ? (
+  return type === DropDownType.REGULAR ? (
     <TextField
       {...params}
-      label={label}
+      label={
+        <Typography type={TypographyTypes.BODY_REGULAR_14} label={label} />
+      }
       sx={style}
       InputLabelProps={{
         style: {
@@ -93,7 +95,6 @@ export const renderOption = (props: any, option: any) => {
           />
         </Box>
       )}
-
       <Typography type={TypographyTypes.BODY_REGULAR} label={option.label} />
     </Box>
   );

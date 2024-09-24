@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import { ImageProps } from "./types";
+import { colors } from "../../global-styles";
 interface ImgContainerProps {
   containerWidth?: string;
   containerHeight?: string;
@@ -28,4 +29,21 @@ export const ImgContainer = styled.div<ImgContainerProps>`
   justify-content: center;
   align-items: center;
   position: relative;
+`;
+export const CircleContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+`;
+
+export const Circle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 54px;
+  width: 54px;
+  border-radius: 50%;
+  background-color: ${colors.PRIMATY._50};
+  overflow: hidden;
 `;

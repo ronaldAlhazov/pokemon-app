@@ -1,4 +1,4 @@
-import { PokemonType } from "../FightScene/consts";
+import { PokemonType } from "./Components/FightScene/consts";
 
 export type PokemonFightData = {
   id: number;

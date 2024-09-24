@@ -24,6 +24,7 @@ const SearchBar = ({
 
   const handleClearClick = (input: string) => {
     setInputValue("");
+    onSearch("");
     setShowClearIcon(false);
     if (onClear) {
       onClear();

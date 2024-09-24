@@ -1,7 +1,7 @@
 import "@fontsource/mulish";
 import styled from "styled-components";
 import { TypographyTypes } from "./consts";
-
+import "@fontsource/roboto";
 export const StyledTypography = styled.div<{
   type: TypographyTypes;
   weight?: number;
@@ -149,10 +149,17 @@ export const StyledTypography = styled.div<{
             `;
       case TypographyTypes.CUSTOM:
         return `
-    font-size: ${props.size || 14}px;
-    font-weight: ${props.weight || "normal"};
-    line-height: ${props.line || 22}px;
-  `;
+            font-size: ${props.size || 14}px;
+            font-weight: ${props.weight || "normal"};
+            line-height: ${props.line || 22}px;
+        `;
+      case TypographyTypes.BODY_REGULAR_14:
+        return `
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 22px;
+            font-family: "Roboto", sans-serif;
+        `;
       default:
         return `  
             font-size: 14px;
