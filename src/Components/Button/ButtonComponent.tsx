@@ -4,7 +4,7 @@ import { getButtonStyles } from "./styles";
 import Button from "@mui/material/Button";
 import { TypographyTypes } from "../Typography/consts";
 import Typography from "../Typography/Typography";
-import { ButtonSize } from "./consts";
+import { ButtonSize, ButtonType } from "./consts";
 
 const ButtonComponent = ({
   label,
@@ -12,14 +12,24 @@ const ButtonComponent = ({
   size,
   disabled,
   onClick,
+  isPressed = false,
 }: ButtonProps) => {
   return (
     <Button
-      sx={getButtonStyles(type, size)}
+      sx={getButtonStyles(type, size, isPressed)}
       onClick={onClick}
       disabled={disabled}
     >
-      {size == ButtonSize.XLARGE ? (
+      {type == ButtonType.BUTTON_HEADER ? (
+        <Typography
+          type={
+            isPressed
+              ? TypographyTypes.BODY_HEADER_BOLD
+              : TypographyTypes.BODY_HEADER_14
+          }
+          label={label}
+        />
+      ) : size == ButtonSize.XLARGE ? (
         <Typography
           type={TypographyTypes.CUSTOM}
           label={label}

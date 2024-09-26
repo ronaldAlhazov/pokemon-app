@@ -20,5 +20,7 @@ export type PokemonFightData = {
 
 export type FightArenaProps = {
   myPokemons: PokemonFightData[];
-  id: number;
+  pokemon: PokemonFightData;
+  opponent: PokemonFightData;
+  addToMyPokemon: (id: number) => void;
 };

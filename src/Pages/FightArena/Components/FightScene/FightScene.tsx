@@ -11,7 +11,11 @@ import { inAttack, inCatching } from "./FightMechanism";
 import Typography from "../../../../Components/Typography/Typography";
 import { TypographyTypes } from "../../../../Components/Typography/consts";
 
-const FightScene = ({ myPokemon, opponent }: FightSceneProps) => {
+const FightScene = ({
+  myPokemon,
+  opponent,
+  addToMyPokemon,
+}: FightSceneProps) => {
   const [myPokemonCard, setMyPokemonCard] =
     useState<FightCardProps>(initialCard);
   const [opponentCard, setOpponentCard] = useState<FightCardProps>(initialCard);
@@ -28,13 +32,6 @@ const FightScene = ({ myPokemon, opponent }: FightSceneProps) => {
       : Turn.OPPONENT
   );
   useEffect(() => {
-    setMyPokemonCurrentData({
-      id: myPokemon.id,
-      name: myPokemon.name,
-      currentHP: myPokemon.stats.HP,
-      isFainted: false,
-      catchAttempts: 0,
-    });
     setOpponentCurrentData({
       id: opponent.id,
       name: opponent.name,
@@ -54,6 +51,16 @@ const FightScene = ({ myPokemon, opponent }: FightSceneProps) => {
       border: "none",
       isWinner: false,
     });
+  }, []);
+
+  useEffect(() => {
+    setMyPokemonCurrentData({
+      id: myPokemon.id,
+      name: myPokemon.name,
+      currentHP: myPokemon.stats.HP,
+      isFainted: false,
+      catchAttempts: 0,
+    });
     setMyPokemonCard({
       id: myPokemon.id.toString(),
       img: myPokemon.imgHires,
@@ -66,7 +73,7 @@ const FightScene = ({ myPokemon, opponent }: FightSceneProps) => {
       border: "none",
       isWinner: false,
     });
-  }, []);
+  }, [myPokemon]);
 
   const onAttackClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (turn == Turn.MY_POKEMON && !startButton) {
@@ -108,10 +115,13 @@ const FightScene = ({ myPokemon, opponent }: FightSceneProps) => {
     }));
   }, [myPokemonCurrentData]);
   useEffect(() => {
+    console.log(`in fight ${opponentCurrentData.isFainted}`);
+
     if (opponentCurrentData.isFainted == true) {
       setWinnerName(myPokemonCurrentData.name);
       setIsMatchFinished(true);
-      //add the opponent to my pokemons
+      console.log(opponentCurrentData.id);
+      addToMyPokemon(opponentCurrentData.id);
     }
     setOpponentCard((prev) => ({
       ...prev,

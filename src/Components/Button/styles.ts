@@ -1,7 +1,11 @@
 import { buttonSizes, colors } from "../../global-styles";
 import { ButtonSize, ButtonType } from "./consts";
 import "@fontsource/roboto";
-export const getButtonStyles = (type: ButtonType, size: ButtonSize) => {
+export const getButtonStyles = (
+  type: ButtonType,
+  size: ButtonSize,
+  isPressed: boolean
+) => {
   const commonStyles = {
     width: buttonSizes[size].width,
     height: buttonSizes[size].height,
@@ -170,7 +174,7 @@ export const getButtonStyles = (type: ButtonType, size: ButtonSize) => {
         border: "none",
         fontWeight: 400,
         color: colors.PRIMATY._300,
-        backgroundColor: "none",
+        backgroundColor: isPressed ? colors.PRIMATY._50 : "none",
         "&:hover": {
           backgroundColor: colors.PRIMATY._50,
           fontWeight: 400,

@@ -22,7 +22,7 @@ const DropDown = ({
     const valueToSearch = newValue?.value ?? "";
     onChange(valueToSearch);
     if (!newValue) {
-      setShowSearchIcon(type === DropDownType.SEARCH); // Show search icon again
+      setShowSearchIcon(type === DropDownType.SEARCH);
     }
   };
 
@@ -30,7 +30,7 @@ const DropDown = ({
     <Autocomplete
       PopperComponent={DropDownPopper}
       options={options}
-      getOptionLabel={(option) => option.label}
+      getOptionLabel={(option) => option.value}
       value={options.find((option) => option.value === value) || null}
       onChange={(_, newValue) => handleChange(newValue)}
       renderInput={(params) =>

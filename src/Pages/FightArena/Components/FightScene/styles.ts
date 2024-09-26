@@ -7,7 +7,7 @@ export const ButtonContainer = styled.div`
 `;
 export const getMainStyle = () => ({
   width: "90vw",
-  height: "90vh",
+  height: "70vh",
   backgroundImage: "url('/Frame 664.png')",
   backgroundSize: "cover",
   backgroundPosition: "center",

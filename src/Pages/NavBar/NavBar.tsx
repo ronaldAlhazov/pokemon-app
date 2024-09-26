@@ -1,19 +1,37 @@
 import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ButtonComponent from "../../Components/Button/ButtonComponent";
 import { ButtonSize, ButtonType } from "../../Components/Button/consts";
 import { colors } from "../../global-styles";
 import Image from "../../Components/Image/Image";
-type NavBarProps = {};
+import { Paths } from "./consts";
+type NavBarProps = {
+  setPath: (val: Paths) => void;
+};
 
-const NavBar = ({}: NavBarProps) => {
+const NavBar = ({ setPath }: NavBarProps) => {
   const navigate = useNavigate();
-
+  const [inAllPokemons, setInAllPokemons] = useState<boolean>(true);
+  const [inMyPokemons, setInMyPokemons] = useState<boolean>(false);
   // Function to handle navigation on button click
   const handleNavigation =
     (path: string) => (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
+      if (Paths.ALL_POKEMONS === path) {
+        setPath(Paths.ALL_POKEMONS);
+        setInAllPokemons(true);
+        setInMyPokemons(false);
+      } else if (Paths.MY_POKEMONS === path) {
+        setPath(Paths.MY_POKEMONS);
+        setInAllPokemons(false);
+        setInMyPokemons(true);
+      } else {
+        setPath(Paths.FIGHT_ARENA);
+        setInAllPokemons(false);
+        setInMyPokemons(false);
+      }
+
       navigate(path);
     };
   return (
@@ -44,18 +62,20 @@ const NavBar = ({}: NavBarProps) => {
           </IconButton>
           <Box display="flex" alignItems="center" sx={{ gap: "16px" }}>
             <ButtonComponent
-              label="All Pokémon"
+              label="All Pokemons"
               type={ButtonType.BUTTON_HEADER}
               size={ButtonSize.HEADER}
               disabled={false}
-              onClick={handleNavigation("/all-pokemons")}
+              onClick={handleNavigation(Paths.ALL_POKEMONS)}
+              isPressed={inAllPokemons}
             />
             <ButtonComponent
-              label="My Pokémon"
+              label="My Pokemons"
               type={ButtonType.BUTTON_HEADER}
               size={ButtonSize.HEADER}
               disabled={false}
-              onClick={handleNavigation("/my-pokemons")}
+              onClick={handleNavigation(Paths.MY_POKEMONS)}
+              isPressed={inMyPokemons}
             />
           </Box>
         </Box>
@@ -64,7 +84,7 @@ const NavBar = ({}: NavBarProps) => {
           type={ButtonType.PRIMARY}
           size={ButtonSize.HEADER_FIGHT}
           disabled={false}
-          onClick={handleNavigation("/fight-arena")}
+          onClick={handleNavigation(Paths.FIGHT_ARENA)}
         />
       </Toolbar>
     </AppBar>

@@ -30,4 +30,7 @@ export enum TypographyTypes {
 
   CUSTOM = "Custom",
   BODY_REGULAR_14 = "Body Regular 14",
+  BODY_HEADER_14 = "body header 14",
+  BODY_HEADER_BOLD = "body header BOLD",
+  LARGE_HEADER_REGULAR = "large header regular",
 }

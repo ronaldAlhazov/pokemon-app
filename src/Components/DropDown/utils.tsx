@@ -30,7 +30,7 @@ export const renderInput = (
         },
       }}
       variant="outlined"
-      inputProps={{ ...params.inputProps, readOnly: true }}
+      inputProps={{ ...params.inputProps, height: 100, readOnly: true }}
     />
   ) : showSearchIcon ? (
     <TextField

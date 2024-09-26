@@ -7,13 +7,23 @@ import { sortType } from "../Components/Table/consts";
 import { PokemonFightData } from "./FightArena/types";
 
 export const fetchPokemonData = async (): Promise<Pokemon[]> => {
-  const response = await fetch("/pokemon.json");
-  const data: (Omit<Pokemon, "stats"> & { base: Stats })[] =
-    await response.json();
-  return data.map((pokemon) => ({
-    ...pokemon,
-    stats: pokemon.base,
-  }));
+  const cachedData = localStorage.getItem("pokemonData");
+  if (cachedData) {
+    return JSON.parse(cachedData) as Pokemon[];
+  } else {
+    const response = await fetch("/pokemon.json");
+    const data: (Omit<Pokemon, "stats"> & { base: Stats })[] =
+      await response.json();
+
+    const formattedData = data.map((pokemon) => ({
+      ...pokemon,
+      stats: pokemon.base,
+    }));
+
+    localStorage.setItem("pokemonData", JSON.stringify(formattedData));
+
+    return formattedData;
+  }
 };
 export const getRows = (data: Pokemon[]) => {
   return data.map((pokemon) => ({
@@ -52,6 +62,43 @@ export const getMyPokemonsFightingData = (
     })),
     isFainted: false,
   }));
+};
+export const getOpponent = (pokemons: Pokemon[]): PokemonFightData => {
+  const availablePokemons = pokemons.filter((pokemon) => !pokemon.belongsToMe);
+
+  let pokemon: Pokemon | undefined;
+
+  do {
+    const randomIndex = Math.floor(Math.random() * availablePokemons.length);
+    const candidate = availablePokemons[randomIndex];
+
+    if (candidate.stats && Object.keys(candidate.stats).length > 0) {
+      pokemon = candidate;
+    }
+  } while (!pokemon);
+  return getOpponentData(pokemon);
+};
+export const getOpponentData = (pokemon: Pokemon): PokemonFightData => {
+  return {
+    id: pokemon.id,
+    name: pokemon.name[Language.ENGLISH] || "",
+    type: pokemon.type,
+    imgThumbnails: pokemon.image.thumbnail,
+    imgHires: pokemon.image.hires,
+    stats: {
+      HP: pokemon.stats?.HP ?? "N/A",
+      Attack: pokemon.stats?.Attack ?? "N/A",
+      Defense: pokemon.stats?.Defense ?? "N/A",
+      SpAttack: pokemon.stats ? (pokemon.stats["Sp. Attack"] ?? 0) : 0,
+      SpDefense: pokemon.stats ? (pokemon.stats["Sp. Defense"] ?? 0) : 0,
+      Speed: pokemon.stats?.Speed ?? "N/A",
+    },
+    abilities: pokemon.profile.ability.map(([name, hidden]) => ({
+      name,
+      hidden: hidden === "true",
+    })),
+    isFainted: false,
+  };
 };
 
 export const getCols = (): TableCol[] => [

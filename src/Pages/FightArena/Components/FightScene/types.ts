@@ -9,4 +9,5 @@ export type FightingData = {
 export type FightSceneProps = {
   myPokemon: PokemonFightData;
   opponent: PokemonFightData;
+  addToMyPokemon: (id: number) => void;
 };

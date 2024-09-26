@@ -1,6 +1,7 @@
 import { FightType } from "../../../../Components/FightCard/consts";
 import { FightCardProps } from "../../../../Components/FightCard/types";
 import { PokemonType } from "../../../PokemonView/Pokemon";
+import { PokemonFightData } from "../../types";
 import { FightingData } from "./types";
 export enum Turn {
   MY_POKEMON = "my pokemon",
@@ -25,6 +26,24 @@ export const initialFightingData: FightingData = {
   currentHP: 0,
   isFainted: false,
   catchAttempts: 0,
+};
+
+export const initialPokemonFightingData: PokemonFightData = {
+  id: 0,
+  name: "",
+  type: [PokemonType.BUG],
+  imgThumbnails: "",
+  imgHires: "",
+  stats: {
+    HP: 0,
+    Attack: 0,
+    Defense: 0,
+    SpAttack: 0,
+    SpDefense: 0,
+    Speed: 0,
+  },
+
+  isFainted: false,
 };
 
 export const typeAdvantageChart: Record<

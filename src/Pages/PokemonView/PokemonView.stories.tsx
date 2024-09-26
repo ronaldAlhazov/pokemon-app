@@ -13,7 +13,6 @@ type Story = StoryObj<typeof PokemonView>;
 const Template: Story = {
   args: {
     title: "All Pokemones",
-    onPokemonClick: (val: string) => console.log(val),
   },
 };
 

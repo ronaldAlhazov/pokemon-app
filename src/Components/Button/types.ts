@@ -6,4 +6,5 @@ export type ButtonProps = {
   size: ButtonSize;
   disabled: boolean;
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  isPressed?: boolean;
 };
