@@ -22,6 +22,7 @@ import NavBar from "./NavBar/NavBar";
 import { FightingData } from "./FightArena/Components/FightScene/types";
 import { initialPokemonFightingData } from "./FightArena/Components/FightScene/consts";
 import { Paths } from "./NavBar/consts";
+import { Title } from "./PokemonView/consts";
 
 const MainPage = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -51,9 +52,8 @@ const MainPage = () => {
     return getMyPokemonsFightingData(myPokemons);
   };
   const addToMyPokemons = (id: number) => {
-    console.log(`in main :${id}`);
     const newPokemon = pokemons.at(id - 1);
-    if (newPokemon) {
+    if (newPokemon && !myPokemons.some((pokemon) => pokemon.id === id)) {
       const pokemonCopy = { ...newPokemon };
       pokemonCopy.belongsToMe = true;
       const updatedPokemons = pokemons.map((pokemon, index) =>
@@ -86,7 +86,7 @@ const MainPage = () => {
           element={
             <PokemonView
               pokemons={pokemons}
-              title="All Pokemons"
+              title={Title.ALL_POKEMONS}
               onFightClick={startFight}
             />
           }
@@ -96,7 +96,7 @@ const MainPage = () => {
           element={
             <PokemonView
               pokemons={myPokemons}
-              title="My Pokemons"
+              title={Title.MY_POKEMONS}
               onFightClick={startFight}
             />
           }

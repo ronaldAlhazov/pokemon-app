@@ -1,4 +1,5 @@
-import { SxProps } from "@mui/material";
+import { styled, SxProps } from "@mui/material";
+import { GridOverlay } from "@mui/x-data-grid";
 
 export const footerContainerStyle: SxProps = {
   display: "flex",
@@ -44,3 +45,12 @@ export const dropDownContainerStyle: SxProps = {
   display: "flex",
   alignItems: "center",
 };
+
+export const StyledGridOverlay = styled(GridOverlay)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+`;

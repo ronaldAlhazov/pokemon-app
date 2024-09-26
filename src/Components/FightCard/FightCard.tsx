@@ -23,7 +23,6 @@ const FightCard = ({
   fightType = FightType.NONE,
   startHealth,
   currentHealth,
-  minHealth,
   border,
   isWinner,
 }: FightCardProps) => {
@@ -72,7 +71,6 @@ const FightCard = ({
           <HealthBarFill
             starthealth={startHealth}
             currenthealth={currentHealth}
-            minhealth={minHealth}
           />
         </HealthBarContainer>
       </StyledCardActionArea>

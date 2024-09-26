@@ -14,7 +14,12 @@ import {
 import Table from "../../Components/Table/Table";
 import { GridEventListener } from "@mui/x-data-grid";
 import { Pokemon, PokemonType } from "./Pokemon";
-import { getTableStyle, MainContainer, TitleContainer } from "./styles";
+import {
+  getTableStyle,
+  MainContainer,
+  modalStyle,
+  TitleContainer,
+} from "./styles";
 import { PokemoneViewProps } from "./types";
 import CardsGrid from "../../Components/CardsGrid/CardsGrid";
 import { Box, Button, Modal } from "@mui/material";
@@ -24,14 +29,12 @@ const PokemonView = ({ pokemons, title, onFightClick }: PokemoneViewProps) => {
   const [searchBy, setSearchBy] = useState("");
   const [sortBy, setSortBy] = useState({ col: "ID", order: sortType.ASC });
   const [viewOption, setViewOption] = useState<ViewType>(ViewType.TABLE);
-  const [rows, setRows] = useState<any[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
 
   useEffect(() => {
     const loadData = async () => {
       const data = await fetchPokemonData();
-      setRows(getRows(pokemons));
     };
     loadData();
   }, []);
@@ -46,14 +49,10 @@ const PokemonView = ({ pokemons, title, onFightClick }: PokemoneViewProps) => {
     return sortCards(filteredPokemons, sortBy);
   }, [filteredPokemons, sortBy]);
 
-  const filteredRows = useMemo(() => {
-    return rows.filter((row) =>
-      row.name.toLowerCase().includes(searchBy.toLowerCase())
-    );
-  }, [rows, searchBy]);
   const handleRowClick: GridEventListener<"rowClick"> = (params, event) => {
+    console.log(params.row);
     const clickedPokemon = filteredPokemons.find(
-      (pokemon) => pokemon.name.english === params.row.name
+      (pokemon) => pokemon.id === params.row.id
     );
     setSelectedPokemon(clickedPokemon || null);
     setModalOpen(true);
@@ -87,28 +86,25 @@ const PokemonView = ({ pokemons, title, onFightClick }: PokemoneViewProps) => {
       />
 
       {viewOption == ViewType.TABLE ? (
-        <div style={{ height: "75vh" }}>
+        <div style={{ height: "77vh" }}>
           <Table
-            rows={getRows(filteredPokemons)}
+            rows={getRows(sortedPokemons, title)}
             cols={getCols()}
             handleRowClick={handleRowClick}
             style={getTableStyle}
-            sortBy={sortBy}
             headerClassName={"theme--header"}
+            noRowMessage="No Pokemons were found"
           />
         </div>
       ) : (
-        <CardsGrid cards={createPokemonCards(sortedPokemons, onPokemonClick)} />
+        <div style={{ height: "100%" }}>
+          <CardsGrid
+            cards={createPokemonCards(sortedPokemons, onPokemonClick)}
+          />
+        </div>
       )}
       <Modal open={modalOpen} onClose={handleCloseModal}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-          }}
-        >
+        <Box sx={modalStyle}>
           {selectedPokemon && (
             <ModalCard
               id={`${selectedPokemon.id}`}
@@ -118,7 +114,7 @@ const PokemonView = ({ pokemons, title, onFightClick }: PokemoneViewProps) => {
               hight={2}
               weight={15.2}
               category={selectedPokemon.species.split(" ")[0]}
-              abilities={"aa"}
+              abilities={selectedPokemon.profile.ability[0][0]}
               onStartFightButton={onStartFightButton}
               onClose={setModalOpen}
             />

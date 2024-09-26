@@ -8,7 +8,6 @@ export type FightCardProps = {
   fightType?: FightType;
   startHealth: number;
   currentHealth: number;
-  minHealth: number;
   border: string;
   isWinner: boolean;
 };

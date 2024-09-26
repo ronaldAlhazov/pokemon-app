@@ -5,9 +5,11 @@ import { CardProps } from "../Components/Card/types";
 import { Circle, CircleContainer } from "../Components/Image/styles";
 import { sortType } from "../Components/Table/consts";
 import { PokemonFightData } from "./FightArena/types";
+import { Title } from "./PokemonView/consts";
 
 export const fetchPokemonData = async (): Promise<Pokemon[]> => {
   const cachedData = localStorage.getItem("pokemonData");
+
   if (cachedData) {
     return JSON.parse(cachedData) as Pokemon[];
   } else {
@@ -25,12 +27,78 @@ export const fetchPokemonData = async (): Promise<Pokemon[]> => {
     return formattedData;
   }
 };
-export const getRows = (data: Pokemon[]) => {
+export const getCols = (): TableCol[] => [
+  {
+    title: "",
+    field: "avatar",
+    width: 70,
+    renderCell: (params: GridRenderCellParams) => (
+      <CircleContainer>
+        <Circle>
+          <img
+            src={params.value as string}
+            alt={params.row.name}
+            style={{ width: "44px", height: "44px" }}
+          />
+        </Circle>
+      </CircleContainer>
+    ),
+  },
+  {
+    title: "Pokemon name",
+    field: "name",
+    width: 150,
+  },
+  { title: "ID", field: "id", width: 90 },
+  {
+    title: "Description",
+    field: "description",
+    width: 500,
+    flex: 2,
+    minWidth: 300,
+  },
+  {
+    title: "Power level",
+    field: "Power",
+    width: 130,
+    renderCell: (params) => {
+      return params.value !== null && params.value !== undefined
+        ? `power level ${params.value}`
+        : "N/A";
+    },
+  },
+  {
+    title: "HP level",
+    field: "hp",
+    width: 119,
+    renderCell: (params) => `${params.value} HP`,
+  },
+];
+export const getRows = (data: Pokemon[], title: Title) => {
   return data.map((pokemon) => ({
     id: pokemon.id,
-    name: pokemon.name.english,
-    hp: pokemon.stats?.HP ? pokemon.stats?.HP : null,
-    Power: pokemon.stats?.["Sp. Attack"] ? pokemon.stats.Attack : null,
+    name:
+      title === Title.MY_POKEMONS ? (
+        pokemon.name.english
+      ) : (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          {pokemon.name.english}
+          {pokemon.belongsToMe && (
+            <img
+              src={`${process.env.PUBLIC_URL}/favicon.ico`}
+              alt="Pokéball"
+              style={{
+                width: 16,
+                height: 16,
+                marginLeft: 4,
+                marginRight: 4,
+              }}
+            />
+          )}
+        </div>
+      ),
+    hp: pokemon.stats?.HP || null,
+    Power: pokemon.stats?.["Sp. Attack"] || null,
     description: pokemon.description,
     avatar: pokemon.image.hires,
   }));
@@ -100,50 +168,6 @@ export const getOpponentData = (pokemon: Pokemon): PokemonFightData => {
     isFainted: false,
   };
 };
-
-export const getCols = (): TableCol[] => [
-  {
-    title: "",
-    field: "avatar",
-    width: 70,
-    renderCell: (params: GridRenderCellParams) => (
-      <CircleContainer>
-        <Circle>
-          <img
-            src={params.value as string}
-            alt={params.row.name}
-            style={{ width: "44px", height: "44px" }}
-          />
-        </Circle>
-      </CircleContainer>
-    ),
-  },
-  { title: "Pokemon name", field: "name", width: 150 },
-  { title: "ID", field: "id", width: 90 },
-  {
-    title: "Description",
-    field: "description",
-    width: 500,
-    flex: 2,
-    minWidth: 300,
-  },
-  {
-    title: "Power level",
-    field: "Power",
-    width: 130,
-    renderCell: (params) => {
-      return params.value !== null && params.value !== undefined
-        ? `power level ${params.value}`
-        : "N/A";
-    },
-  },
-  {
-    title: "HP level",
-    field: "hp",
-    width: 119,
-    renderCell: (params) => `${params.value} HP`,
-  },
-];
 
 export const createPokemonCards = (
   pokemonData: Pokemon[],

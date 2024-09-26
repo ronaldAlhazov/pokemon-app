@@ -83,12 +83,13 @@ export const HealthBarContainer = styled.div`
 export const HealthBarFill = styled.div<{
   starthealth: number;
   currenthealth: number;
-  minhealth: number;
 }>`
   width: ${({ currenthealth, starthealth }) =>
     (currenthealth / starthealth) * 100}%;
-  background-color: ${({ currenthealth, minhealth }) =>
-    currenthealth > minhealth ? colors.CUSTOM.GREEN : colors.CUSTOM.RED};
+  background-color: ${({ currenthealth, starthealth }) => {
+    const threshold = starthealth * 0.3;
+    return currenthealth <= threshold ? colors.CUSTOM.RED : colors.CUSTOM.GREEN;
+  }};
   height: 100%;
   transition: width 0.3s ease;
 `;

@@ -7,22 +7,19 @@ export enum Turn {
   MY_POKEMON = "my pokemon",
   OPPONENT = "opponent",
 }
-export const initialCard: FightCardProps = {
-  id: "",
-  img: "",
-  name: "",
-  power: 0,
-  fightType: FightType.ME,
-  startHealth: 0,
-  currentHealth: 0,
-  minHealth: 0,
-  border: "none",
-  isWinner: false,
-};
+
 export const MAX_CATCH_ATTEMPTS = 3;
 export const initialFightingData: FightingData = {
   id: 0,
   name: "",
+  img: "",
+  HP: 0,
+  type: [PokemonType.BUG],
+  Attack: 0,
+  Defense: 0,
+  SpAttack: 0,
+  SpDefense: 0,
+  Speed: 0,
   currentHP: 0,
   isFainted: false,
   catchAttempts: 0,

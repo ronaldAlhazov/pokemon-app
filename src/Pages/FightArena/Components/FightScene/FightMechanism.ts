@@ -25,9 +25,9 @@ const getTypeMultiplier = (
       ] || { strongAgainst: [], weakAgainst: [] };
 
       if (strongAgainst.includes(defenderType)) {
-        multiplier *= 1.5;
+        multiplier *= 1.2;
       } else if (weakAgainst.includes(defenderType)) {
-        multiplier *= 0.5;
+        multiplier *= 0.8;
       }
     }
   }
@@ -36,27 +36,30 @@ const getTypeMultiplier = (
 };
 
 const calculateDamage = (
-  attacker: PokemonFightData,
-  defender: PokemonFightData
+  attacker: FightingData,
+  defender: FightingData
 ): number => {
-  const baseDamage = attacker.stats.Attack - defender.stats.Defense;
+  console.log(`-${attacker.name}`);
+  const baseDamage = attacker.Attack - defender.Defense;
+  console.log(`baseDamage ${baseDamage} `);
   const randomFactor = getRandomFactor();
+  console.log(`randomFactor ${randomFactor} `);
   const typeMultiplier = getTypeMultiplier(attacker.type, defender.type);
+  console.log(`typeMultiplier ${typeMultiplier} `);
   return Math.max(baseDamage * randomFactor * typeMultiplier, 1);
 };
 
 export const inAttack = (
   attackingPokemon: FightingData,
   defendingPokemon: FightingData,
-  setDefendingPokemon: Dispatch<React.SetStateAction<FightingData>>,
-  attackingPokemonData: PokemonFightData,
-  defendingPokemonData: PokemonFightData
+  setDefendingPokemon: Dispatch<React.SetStateAction<FightingData>>
 ) => {
   if (checkAttackMiss()) {
-    return;
+    return true;
   }
 
-  const damage = calculateDamage(attackingPokemonData, defendingPokemonData);
+  const damage = calculateDamage(attackingPokemon, defendingPokemon);
+
   const newHP = Math.round(Math.max(defendingPokemon.currentHP - damage, 0));
 
   setDefendingPokemon((prevState) => ({
@@ -64,11 +67,12 @@ export const inAttack = (
     currentHP: newHP,
     isFainted: newHP === 0,
   }));
+  return false;
 };
 const calculateCatchRate = (defender: FightingData, maxHP: number): number => {
   let baseCatchRate = 0.1;
-  if (defender.currentHP <= 0.2 * maxHP) {
-    baseCatchRate = 0.2;
+  if (defender.currentHP <= 0.25 * maxHP) {
+    baseCatchRate = 0.25;
   }
   return baseCatchRate;
 };
@@ -76,10 +80,9 @@ export const inCatching = (
   attackingPokemon: FightingData,
   setAttackingPokemon: Dispatch<React.SetStateAction<FightingData>>,
   defendingPokemon: FightingData,
-  defendingPokemonData: PokemonFightData,
   setDefendingPokemon: Dispatch<React.SetStateAction<FightingData>>
 ) => {
-  const maxHP = defendingPokemonData.stats.HP;
+  const maxHP = defendingPokemon.HP;
   const currentCatchRate = calculateCatchRate(defendingPokemon, maxHP);
 
   const catchSuccess = Math.random() < currentCatchRate;
@@ -88,6 +91,7 @@ export const inCatching = (
       ...prev,
       isFainted: true,
     }));
+    return true;
   } else {
     if (attackingPokemon.catchAttempts + 1 >= MAX_CATCH_ATTEMPTS) {
       setAttackingPokemon((prev) => ({
@@ -101,5 +105,6 @@ export const inCatching = (
         catchAttempts: prev.catchAttempts + 1,
       }));
     }
+    return false;
   }
 };

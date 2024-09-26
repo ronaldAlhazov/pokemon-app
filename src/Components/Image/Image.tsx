@@ -13,15 +13,15 @@ const Image = ({
 }: ImageProps) => {
   return (
     <ImgContainer
-      containerWidth={containerWidth}
-      containerHeight={containerHeight}
+      containerwidth={containerWidth}
+      containerheight={containerHeight}
       backgroundColor={backgroundColor}
     >
       <StyledImg
         src={src}
         alt={alt}
-        imgWidth={imgWidth}
-        imgHeight={imgHeight}
+        imgwidth={imgWidth}
+        imgheight={imgHeight}
       />
     </ImgContainer>
   );

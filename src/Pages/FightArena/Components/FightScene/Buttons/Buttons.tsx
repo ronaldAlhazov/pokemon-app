@@ -5,20 +5,15 @@ import {
   ButtonSize,
   ButtonType,
 } from "../../../../../Components/Button/consts";
-
-type ButtonsProps = {
-  showStartButton: boolean;
-  setStartButton: (val: boolean) => void;
-
-  onAttackClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  onCatchClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-};
+import { ButtonsProps } from "./types";
 
 const Buttons = ({
   showStartButton,
   setStartButton,
   onAttackClick,
   onCatchClick,
+  isMyPokemonWin,
+  isFightEnded,
 }: ButtonsProps) => {
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setStartButton(!showStartButton);
@@ -40,11 +35,15 @@ const Buttons = ({
             type={ButtonType.PRIMARY_XLARGE}
             label="Attack"
             onClick={onAttackClick}
-            disabled={false}
+            disabled={isFightEnded}
           />
           <ButtonComponent
             size={ButtonSize.XLARGE}
-            type={ButtonType.SECONDARY_GRAY_XLARGE}
+            type={
+              isMyPokemonWin
+                ? ButtonType.PRIMARY_XLARGE
+                : ButtonType.SECONDARY_GRAY_XLARGE
+            }
             label="Catch"
             onClick={onCatchClick}
             disabled={false}

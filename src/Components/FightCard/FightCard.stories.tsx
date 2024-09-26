@@ -21,7 +21,7 @@ export const Primary: Story = {
     fightType: FightType.ME,
     startHealth: 90,
     currentHealth: 90,
-    minHealth: 40,
+
     border: "none",
     isWinner: true,
   },

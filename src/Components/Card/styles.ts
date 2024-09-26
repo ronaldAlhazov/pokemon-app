@@ -4,32 +4,43 @@ import { styled } from "styled-components";
 
 export const StyledCard = muiStyled(MuiCard)`
   width: 322px;
-  height: 308px;
-`;
+  height: 36vh;
+  display: flex;                     
+  flex-direction: row; 
+  box-shadow: none;
+  border-radius: 8px;
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  }
+  `;
 
 export const StyledCardActionArea = muiStyled(CardActionArea)`
   display: flex;
-  flex-direction: column;
+  flex-direction: column;            
   height: 100%;
-  padding: 24px;
   align-items: flex-start; 
-  gap:10px;
+  gap: 10px;                         
 `;
 
 export const StyledImg = styled.img`
   width: 190px;
-  height: 150px;
+  height: 20vh;
 `;
 
 export const ImgContainer = styled.div`
-  width: 274px;
-  height: 188px;
-  border-radius: 8px 8px 0 0;
+  width: 100%;
+  height: 22vh;
+  border-radius: 8px;
   background-color: #ebeff699;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
+`;
+
+export const SideCol = styled.div`
+  width: 10%;
+  cursor: pointer;
 `;
 
 export const IconContainer = styled.div`

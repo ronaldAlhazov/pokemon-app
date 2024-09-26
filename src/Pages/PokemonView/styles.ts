@@ -29,11 +29,18 @@ export const MainContainer = styled.div`
   gap: 16px;
   background-color: ${colors.NEUTRALS._100};
   padding: 16px 40px 30px;
-  height: 85vh;
+  height: 100%;
 `;
 export const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  height: 100%;
+  height: 24px;
 `;
+
+export const modalStyle = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100vh",
+};
