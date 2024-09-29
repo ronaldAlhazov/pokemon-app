@@ -3,6 +3,6 @@ import { PokemonFightData } from "../../types";
 
 export type FightArenaHeaderProps = {
   setMyPokemon: (val: PokemonFightData) => void;
-  myPokemons: PokemonFightData[];
+
   selectedPokemon: PokemonFightData;
 };

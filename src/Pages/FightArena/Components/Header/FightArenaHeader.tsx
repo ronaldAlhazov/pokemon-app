@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FightArenaHeaderProps } from "./types";
 import Typography from "../../../../Components/Typography/Typography";
 import { TypographyTypes } from "../../../../Components/Typography/consts";
@@ -14,12 +14,22 @@ import {
   getTypographyStyle,
 } from "./styels";
 import { Box } from "@mui/material";
+import { PokemonFightData } from "../../types";
+import { getMyPokemonsFightingData, loadMyPokemons } from "../../../dataUtils";
 
 const FightArenaHeader = ({
   setMyPokemon,
-  myPokemons,
   selectedPokemon,
 }: FightArenaHeaderProps) => {
+  const [myPokemons, setMyPokemons] = useState<PokemonFightData[]>([]);
+  useEffect(() => {
+    const fetchedMyPokemons = getMyPokemonsFightingData();
+    setMyPokemons(fetchedMyPokemons);
+    if (selectedPokemon.name === "") {
+      setMyPokemon(fetchedMyPokemons[0]);
+    }
+  }, []);
+
   const onPokemonChange = (val: string) => {
     const selected = myPokemons.find((pokemon) => pokemon.name === val);
     if (selected) {

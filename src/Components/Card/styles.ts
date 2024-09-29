@@ -1,6 +1,7 @@
 import { CardActionArea, styled as muiStyled } from "@mui/material";
 import { Card as MuiCard } from "@mui/material";
 import { styled } from "styled-components";
+import { colors } from "../../global-styles";
 
 export const StyledCard = muiStyled(MuiCard)`
   width: 322px;
@@ -19,7 +20,16 @@ export const StyledCardActionArea = muiStyled(CardActionArea)`
   flex-direction: column;            
   height: 100%;
   align-items: flex-start; 
-  gap: 10px;                         
+  gap: 10px;   
+ 
+.MuiCardActionArea-focusHighlight {
+    background-color: transparent !important;
+    outline: none;
+  }
+
+ &:active {
+   background-color: transparent !important;
+  }      
 `;
 
 export const StyledImg = styled.img`

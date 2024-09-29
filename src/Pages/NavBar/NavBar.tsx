@@ -14,7 +14,6 @@ const NavBar = ({ setPath }: NavBarProps) => {
   const navigate = useNavigate();
   const [inAllPokemons, setInAllPokemons] = useState<boolean>(true);
   const [inMyPokemons, setInMyPokemons] = useState<boolean>(false);
-  // Function to handle navigation on button click
   const handleNavigation =
     (path: string) => (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();

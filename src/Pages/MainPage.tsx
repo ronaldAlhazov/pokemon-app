@@ -45,12 +45,12 @@ const MainPage = () => {
     loadData();
   }, []);
   useEffect(() => {
-    if (path === Paths.FIGHT_ARENA) setOpponent(getOpponent(pokemons));
+    if (path === Paths.FIGHT_ARENA) {
+      const newOpponent = getOpponent(pokemons);
+      setOpponent((prev) => newOpponent);
+    }
   }, [path]);
 
-  const getFightingData = () => {
-    return getMyPokemonsFightingData(myPokemons);
-  };
   const addToMyPokemons = (id: number) => {
     const newPokemon = pokemons.at(id - 1);
     if (newPokemon && !myPokemons.some((pokemon) => pokemon.id === id)) {
@@ -62,6 +62,7 @@ const MainPage = () => {
       setPokemons(updatedPokemons);
       setMyPokemons((prev) => [...prev, pokemonCopy]);
       localStorage.setItem("pokemonData", JSON.stringify(updatedPokemons));
+      localStorage.setItem("myPokemons", JSON.stringify(myPokemons));
     }
   };
   const startFight = (id: number) => {
@@ -105,9 +106,9 @@ const MainPage = () => {
           path="/fight-arena"
           element={
             <FightArena
-              myPokemons={getFightingData()}
               pokemon={pokemonForFight}
               opponent={opponent}
+              setOpponent={setOpponent}
               addToMyPokemon={addToMyPokemons}
             />
           }

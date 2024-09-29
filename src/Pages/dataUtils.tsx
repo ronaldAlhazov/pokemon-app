@@ -6,6 +6,9 @@ import { Circle, CircleContainer } from "../Components/Image/styles";
 import { sortType } from "../Components/Table/consts";
 import { PokemonFightData } from "./FightArena/types";
 import { Title } from "./PokemonView/consts";
+import Typography from "../Components/Typography/Typography";
+import { TypographyTypes } from "../Components/Typography/consts";
+import { ColStyle } from "./PokemonView/styles";
 
 export const fetchPokemonData = async (): Promise<Pokemon[]> => {
   const cachedData = localStorage.getItem("pokemonData");
@@ -27,6 +30,7 @@ export const fetchPokemonData = async (): Promise<Pokemon[]> => {
     return formattedData;
   }
 };
+
 export const getCols = (): TableCol[] => [
   {
     title: "",
@@ -49,68 +53,120 @@ export const getCols = (): TableCol[] => [
     field: "name",
     width: 150,
   },
-  { title: "ID", field: "id", width: 90 },
+  {
+    title: "ID",
+    field: "id",
+    width: 90,
+    renderCell: (params) => {
+      return (
+        <ColStyle>
+          <Typography
+            label={params.value ?? ""}
+            type={TypographyTypes.BODY_REGULAR}
+          />
+        </ColStyle>
+      );
+    },
+  },
   {
     title: "Description",
     field: "description",
     width: 500,
     flex: 2,
     minWidth: 300,
+    renderCell: (params) => {
+      return (
+        <ColStyle>
+          <Typography
+            label={params.value ?? ""}
+            type={TypographyTypes.BODY_REGULAR}
+          />
+        </ColStyle>
+      );
+    },
   },
   {
     title: "Power level",
     field: "Power",
     width: 130,
     renderCell: (params) => {
-      return params.value !== null && params.value !== undefined
-        ? `power level ${params.value}`
-        : "N/A";
+      return (
+        <ColStyle>
+          <Typography
+            label={
+              params.value !== null && params.value !== undefined
+                ? `power level ${params.value}`
+                : "N/A"
+            }
+            type={TypographyTypes.BODY_REGULAR}
+          />
+        </ColStyle>
+      );
     },
   },
   {
     title: "HP level",
     field: "hp",
     width: 119,
-    renderCell: (params) => `${params.value} HP`,
+    renderCell: (params) => {
+      return (
+        <ColStyle>
+          <Typography
+            label={`${params.value} HP`}
+            type={TypographyTypes.BODY_REGULAR}
+          />
+        </ColStyle>
+      );
+    },
   },
 ];
 export const getRows = (data: Pokemon[], title: Title) => {
   return data.map((pokemon) => ({
     id: pokemon.id,
-    name:
-      title === Title.MY_POKEMONS ? (
-        pokemon.name.english
-      ) : (
-        <div style={{ display: "flex", alignItems: "center" }}>
-          {pokemon.name.english}
-          {pokemon.belongsToMe && (
-            <img
-              src={`${process.env.PUBLIC_URL}/favicon.ico`}
-              alt="Pokéball"
-              style={{
-                width: 16,
-                height: 16,
-                marginLeft: 4,
-                marginRight: 4,
-              }}
-            />
-          )}
-        </div>
-      ),
+    name: (
+      <ColStyle>
+        <Typography
+          label={pokemon.name.english ?? ""}
+          type={TypographyTypes.HEADING_MEDIUM_REGULAR}
+        />
+        {title === Title.ALL_POKEMONS && pokemon.belongsToMe && (
+          <img
+            src={`${process.env.PUBLIC_URL}/favicon.ico`}
+            alt="Pokéball"
+            style={{
+              width: 16,
+              height: 16,
+              marginLeft: 4,
+              marginRight: 4,
+            }}
+          />
+        )}
+      </ColStyle>
+    ),
     hp: pokemon.stats?.HP || null,
-    Power: pokemon.stats?.["Sp. Attack"] || null,
+    Power: pokemon.stats?.Attack || null,
     description: pokemon.description,
     avatar: pokemon.image.hires,
   }));
 };
 export const getMyPokemons = (data: Pokemon[]) => {
-  return data.filter((pokemon) => pokemon.belongsToMe === true);
+  const myPokemons = data.filter((pokemon) => pokemon.belongsToMe === true);
+
+  localStorage.setItem("myPokemons", JSON.stringify(myPokemons));
+
+  return myPokemons;
 };
 
-export const getMyPokemonsFightingData = (
-  myPokemons: Pokemon[]
-): PokemonFightData[] => {
-  return myPokemons.map((pokemon) => ({
+export const loadMyPokemons = () => {
+  const storedPokemons = localStorage.getItem("myPokemons");
+  if (storedPokemons) {
+    return JSON.parse(storedPokemons) as Pokemon[];
+  }
+  return [];
+};
+
+export const getMyPokemonsFightingData = (): PokemonFightData[] => {
+  return loadMyPokemons().map((pokemon) => ({
     id: pokemon.id,
     name: pokemon.name[Language.ENGLISH] || "",
     type: pokemon.type,

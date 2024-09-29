@@ -114,6 +114,8 @@ export const getButtonStyles = (
       return {
         ...commonStyles,
         border: "none",
+        boxShadow: "0px 9px 17.6px 0px #00000040",
+
         color: colors.NEUTRALS.White,
         backgroundColor: colors.PRIMATY._300,
         borderRadius: "50px",
@@ -132,11 +134,17 @@ export const getButtonStyles = (
     case ButtonType.SECONDARY_GRAY_XLARGE:
       return {
         ...commonStyles,
+        boxShadow: "0px 9px 17.6px 0px #00000040",
+
         border: "none",
-        color: colors.NEUTRALS._200,
-        backgroundColor: colors.PRIMATY._50,
+        color: colors.NEUTRALS._500,
+        textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)",
+        background:
+          "linear-gradient(to bottom, #DC143C 50%,black 5%, #FFFFFF 55%)",
         borderRadius: "50px",
         "&:hover": {
+          background:
+            "linear-gradient(to bottom, #DC143C 50%,black 5%, #FFFFFF 55%)",
           color: colors.NEUTRALS._300,
           backgroundColor: colors.NEUTRALS._100,
         },
@@ -152,6 +160,7 @@ export const getButtonStyles = (
     case ButtonType.CIRCULAR:
       return {
         ...commonStyles,
+        boxShadow: "0px 9px 17.6px 0px #00000040",
         border: "none",
         color: colors.NEUTRALS.White,
         backgroundColor: colors.PRIMATY._300,

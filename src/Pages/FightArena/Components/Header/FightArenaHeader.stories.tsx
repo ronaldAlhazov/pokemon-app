@@ -88,7 +88,6 @@ export const Header: Story = {
 
     return (
       <FightArenaHeader
-        myPokemons={sampleRows}
         selectedPokemon={myPokemon}
         setMyPokemon={setMyPokemon}
       />

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FightingData, FightSceneProps } from "./types";
 import { Box } from "@mui/material";
-import { FightCardProps } from "../../../../Components/FightCard/types";
 import { FightType } from "../../../../Components/FightCard/consts";
 import FightCard from "../../../../Components/FightCard/FightCard";
 import { CardContainer, getMainStyle } from "./styles";
@@ -11,12 +10,14 @@ import { inAttack, inCatching } from "./FightMechanism";
 import Typography from "../../../../Components/Typography/Typography";
 import { TypographyTypes } from "../../../../Components/Typography/consts";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const FightScene = ({
   myPokemon,
   opponent,
   addToMyPokemon,
 }: FightSceneProps) => {
+  const navigate = useNavigate();
   const [myPokemonCurrentData, setMyPokemonCurrentData] =
     useState<FightingData>(initialFightingData);
   const [opponentCurrentData, setOpponentCurrentData] =
@@ -25,8 +26,9 @@ const FightScene = ({
   const [isMatchFinished, setIsMatchFinished] = useState<boolean>(false);
   const [shakeMyCard, setShakeMyCard] = useState<boolean>(false);
   const [catchMissed, setCatchMissed] = useState<boolean>(false);
+  const [isCatched, setIsCatched] = useState<boolean>(false);
   const [shakeOpponentCard, setShakeOpponentCard] = useState<boolean>(false);
-  const [winnerName, setWinnerName] = useState<string>("");
+  const [endedPokeName, setEndedPokeName] = useState<string>("");
   const [turn, setTurn] = useState<Turn>(
     myPokemon.stats.SpAttack > opponent.stats.SpAttack
       ? Turn.MY_POKEMON
@@ -34,22 +36,36 @@ const FightScene = ({
   );
 
   useEffect(() => {
-    console.log(opponent.name);
-    setOpponentCurrentData({
-      id: opponent.id,
-      name: opponent.name,
-      img: opponent.imgHires,
-      HP: opponent.stats.HP,
-      type: opponent.type,
-      Attack: opponent.stats.Attack,
-      Defense: opponent.stats.Defense,
-      SpAttack: opponent.stats.SpAttack,
-      SpDefense: opponent.stats.SpDefense,
-      Speed: opponent.stats.Speed,
-      currentHP: opponent.stats.HP,
-      isFainted: false,
-      catchAttempts: 0,
-    });
+    const opponentCachedData = localStorage.getItem("opponentFightData");
+
+    if (opponent.name !== "") {
+      const newOpponentData = {
+        id: opponent.id,
+        name: opponent.name,
+        img: opponent.imgHires,
+        HP: opponent.stats.HP,
+        type: opponent.type,
+        Attack: opponent.stats.Attack,
+        Defense: opponent.stats.Defense,
+        SpAttack: opponent.stats.SpAttack,
+        SpDefense: opponent.stats.SpDefense,
+        Speed: opponent.stats.Speed,
+        currentHP: opponent.stats.HP,
+        isFainted: false,
+        catchAttempts: 0,
+      };
+      setOpponentCurrentData(newOpponentData);
+      localStorage.setItem(
+        "opponentFightData",
+        JSON.stringify(newOpponentData)
+      );
+    } else if (opponentCachedData) {
+      const parsedData: FightingData = JSON.parse(opponentCachedData);
+
+      setOpponentCurrentData(parsedData);
+    } else {
+      navigate("/all-pokemons");
+    }
   }, []);
 
   useEffect(() => {
@@ -102,19 +118,19 @@ const FightScene = ({
 
   useEffect(() => {
     if (myPokemonCurrentData.isFainted == true) {
-      setWinnerName(opponentCurrentData.name);
       setIsMatchFinished(true);
     }
   }, [myPokemonCurrentData]);
   useEffect(() => {
     if (opponentCurrentData.isFainted == true) {
-      setWinnerName(myPokemonCurrentData.name);
+      setEndedPokeName(myPokemonCurrentData.name);
       setIsMatchFinished(true);
     }
   }, [opponentCurrentData]);
 
   const onCatchClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (opponentCurrentData.isFainted == true) {
+      setIsCatched(true);
       addToMyPokemon(opponentCurrentData.id);
     } else if (turn == Turn.MY_POKEMON && !startButton) {
       const isCatched = inCatching(
@@ -124,14 +140,18 @@ const FightScene = ({
         setOpponentCurrentData
       );
       if (isCatched) {
+        setIsCatched(isCatched);
         addToMyPokemon(opponentCurrentData.id);
         return;
       }
       setCatchMissed(!isCatched);
+      setTimeout(() => {
+        setCatchMissed(false);
+      }, 1000);
       setTurn(Turn.OPPONENT);
     }
   };
-  const cardVariants = {
+  const variants = {
     initial: { scale: 0.8, opacity: 0 },
     animate: { scale: 1, opacity: 1, transition: { duration: 0.5 } },
   };
@@ -155,13 +175,27 @@ const FightScene = ({
           isWinner={opponentCurrentData.isFainted}
         />
       </CardContainer>
-
       {isMatchFinished && myPokemonCurrentData.isFainted ? (
         <Box sx={{ textAlign: "center" }}>
-          <Typography
-            type={TypographyTypes.HEADING_LARGE_BOLD}
-            label={`${winnerName} Wins!`}
-          />
+          <motion.div variants={variants} initial="initial" animate="animate">
+            <Typography
+              type={TypographyTypes.HEADING_LARGE_BOLD}
+              label={`${myPokemonCurrentData.name} Loses 😢`}
+            />
+          </motion.div>
+        </Box>
+      ) : isMatchFinished && opponentCurrentData.isFainted && isCatched ? (
+        <Box sx={{ textAlign: "center" }}>
+          <motion.div variants={variants} initial="initial" animate="animate">
+            <Typography
+              type={TypographyTypes.HEADING_MEDIUM_BOLD}
+              label={`🏆 ${endedPokeName} Won 🏆`}
+            />
+            <Typography
+              type={TypographyTypes.HEADING_MEDIUM_REGULAR}
+              label={`${opponentCurrentData.name} added to your Pokémon!`}
+            />
+          </motion.div>
         </Box>
       ) : (
         <Buttons

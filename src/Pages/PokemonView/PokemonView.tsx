@@ -86,7 +86,7 @@ const PokemonView = ({ pokemons, title, onFightClick }: PokemoneViewProps) => {
       />
 
       {viewOption == ViewType.TABLE ? (
-        <div style={{ height: "77vh" }}>
+        <div style={{ height: "75vh" }}>
           <Table
             rows={getRows(sortedPokemons, title)}
             cols={getCols()}

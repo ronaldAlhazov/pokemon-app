@@ -13,6 +13,7 @@ export const StyledCard = muiStyled(MuiCard, {
   height: 396px;
   min-width: 295px;
   min-height: 200px;
+  box-shadow: none;
   border: ${(props) => props.border || "none"}; 
   transition: transform 0.3s, border 0.3s;
   

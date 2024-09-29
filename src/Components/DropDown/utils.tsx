@@ -16,11 +16,10 @@ export const renderInput = (
   return type === DropDownType.REGULAR ? (
     <TextField
       {...params}
-      label={
-        <Typography type={TypographyTypes.BODY_REGULAR_14} label={label} />
-      }
+      placeholder={label}
       sx={style}
       InputLabelProps={{
+        shrink: false,
         style: {
           fontFamily: "Roboto",
           fontSize: "14px",
@@ -30,7 +29,11 @@ export const renderInput = (
         },
       }}
       variant="outlined"
-      inputProps={{ ...params.inputProps, height: 100, readOnly: true }}
+      inputProps={{
+        ...params.inputProps,
+        sx: { height: "1.5vh" },
+        readOnly: true,
+      }}
     />
   ) : showSearchIcon ? (
     <TextField
@@ -40,6 +43,7 @@ export const renderInput = (
       sx={style}
       InputProps={{
         ...params.InputProps,
+        sx: { height: "90%" },
         startAdornment: (
           <InputAdornment position="start">
             <SearchIcon style={{ cursor: "pointer" }} />

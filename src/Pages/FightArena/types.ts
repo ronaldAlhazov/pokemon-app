@@ -19,8 +19,8 @@ export type PokemonFightData = {
 };
 
 export type FightArenaProps = {
-  myPokemons: PokemonFightData[];
   pokemon: PokemonFightData;
   opponent: PokemonFightData;
+  setOpponent: React.Dispatch<React.SetStateAction<PokemonFightData>>;
   addToMyPokemon: (id: number) => void;
 };

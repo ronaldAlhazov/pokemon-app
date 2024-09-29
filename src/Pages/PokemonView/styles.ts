@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import { colors } from "../../global-styles";
 
 export const getTableStyle = () => ({
+  boxShadow: "none",
   "& .MuiDataGrid-cell": {
     border: "none",
     textAlign: "left",
@@ -20,6 +21,7 @@ export const getTableStyle = () => ({
   },
   "& .MuiDataGrid-root": {
     width: "100%",
+    boxShadow: "none",
   },
 });
 export const MainContainer = styled.div`
@@ -35,7 +37,7 @@ export const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  height: 24px;
+  height: 30px;
 `;
 
 export const modalStyle = {
@@ -44,3 +46,9 @@ export const modalStyle = {
   alignItems: "center",
   height: "100vh",
 };
+export const ColStyle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+`;
