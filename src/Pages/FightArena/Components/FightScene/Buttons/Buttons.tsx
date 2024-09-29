@@ -39,11 +39,7 @@ const Buttons = ({
           />
           <ButtonComponent
             size={ButtonSize.XLARGE}
-            type={
-              isMyPokemonWin
-                ? ButtonType.PRIMARY_XLARGE
-                : ButtonType.SECONDARY_GRAY_XLARGE
-            }
+            type={ButtonType.SECONDARY_GRAY_XLARGE}
             label="Catch"
             onClick={onCatchClick}
             disabled={false}
