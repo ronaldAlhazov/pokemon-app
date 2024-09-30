@@ -8,7 +8,7 @@ import { gridContainerStyle, gridItemStyle } from "./styles";
 const CardsGrid = ({ cards }: CardsGridProps) => {
   return (
     <Box sx={gridContainerStyle}>
-      <Grid container spacing={2} columns={{ xs: 4, sm: 12, md: 12, lg: 12 }}>
+      <Grid container spacing={3} columns={{ xs: 4, sm: 12, md: 12, lg: 12 }}>
         {cards.map((card, index) => (
           <Grid
             item

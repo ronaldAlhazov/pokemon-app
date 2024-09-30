@@ -160,6 +160,27 @@ export const StyledTypography = styled.div<{
             line-height: 22px;
             font-family: "Roboto", sans-serif;
         `;
+      case TypographyTypes.BODY_HEADER_14:
+        return `
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 14px;
+            font-family: "Roboto", sans-serif;
+        `;
+      case TypographyTypes.BODY_HEADER_BOLD:
+        return `
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 14px;
+            font-family: "Roboto", sans-serif;
+        `;
+      case TypographyTypes.LARGE_HEADER_REGULAR:
+        return `
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 20px;
+            font-family: "Roboto", sans-serif;
+        `;
       default:
         return `  
             font-size: 14px;

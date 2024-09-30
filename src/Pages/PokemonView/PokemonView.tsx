@@ -13,25 +13,29 @@ import {
 } from "../dataUtils";
 import Table from "../../Components/Table/Table";
 import { GridEventListener } from "@mui/x-data-grid";
-import { Pokemon } from "./Pokemon";
-import { getTableStyle, MainContainer, TitleContainer } from "./styles";
+import { Pokemon, PokemonType } from "./Pokemon";
+import {
+  getTableStyle,
+  MainContainer,
+  modalStyle,
+  TitleContainer,
+} from "./styles";
 import { PokemoneViewProps } from "./types";
 import CardsGrid from "../../Components/CardsGrid/CardsGrid";
+import { Box, Button, Modal } from "@mui/material";
+import ModalCard from "../../Components/ModalCard/ModalCard";
 
-const PokemonView = ({ title, onPokemonClick }: PokemoneViewProps) => {
+const PokemonView = ({ pokemons, title, onFightClick }: PokemoneViewProps) => {
   const [searchBy, setSearchBy] = useState("");
   const [sortBy, setSortBy] = useState({ col: "ID", order: sortType.ASC });
   const [viewOption, setViewOption] = useState<ViewType>(ViewType.TABLE);
-  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
-  const [rows, setRows] = useState<any[]>([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
 
   useEffect(() => {
     const loadData = async () => {
       const data = await fetchPokemonData();
-      setPokemons(data);
-      setRows(getRows(data));
     };
-
     loadData();
   }, []);
 
@@ -45,16 +49,30 @@ const PokemonView = ({ title, onPokemonClick }: PokemoneViewProps) => {
     return sortCards(filteredPokemons, sortBy);
   }, [filteredPokemons, sortBy]);
 
-  const filteredRows = useMemo(() => {
-    return rows.filter((row) =>
-      row.name.toLowerCase().includes(searchBy.toLowerCase())
-    );
-  }, [rows, searchBy]);
   const handleRowClick: GridEventListener<"rowClick"> = (params, event) => {
-    onPokemonClick(params.row.name);
-    //need to add for modal option
+    console.log(params.row);
+    const clickedPokemon = filteredPokemons.find(
+      (pokemon) => pokemon.id === params.row.id
+    );
+    setSelectedPokemon(clickedPokemon || null);
+    setModalOpen(true);
+  };
+  const onPokemonClick = (val: string) => {
+    const clickedPokemon = filteredPokemons.find(
+      (pokemon) => pokemon.name.english === val
+    );
+    setSelectedPokemon(clickedPokemon || null);
+    setModalOpen(true);
   };
 
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setSelectedPokemon(null);
+  };
+  const onStartFightButton = (event: React.MouseEvent<HTMLButtonElement>) => {
+    onFightClick(selectedPokemon?.id ?? 0);
+    setModalOpen(false);
+  };
   return (
     <MainContainer>
       <TitleContainer>
@@ -68,19 +86,41 @@ const PokemonView = ({ title, onPokemonClick }: PokemoneViewProps) => {
       />
 
       {viewOption == ViewType.TABLE ? (
-        <div style={{ height: "80vh" }}>
+        <div style={{ height: "75vh" }}>
           <Table
-            rows={getRows(filteredPokemons)}
+            rows={getRows(sortedPokemons, title)}
             cols={getCols()}
             handleRowClick={handleRowClick}
             style={getTableStyle}
-            sortBy={sortBy}
             headerClassName={"theme--header"}
+            noRowMessage="No Pokemons were found"
           />
         </div>
       ) : (
-        <CardsGrid cards={createPokemonCards(sortedPokemons, onPokemonClick)} />
+        <div style={{ height: "100%" }}>
+          <CardsGrid
+            cards={createPokemonCards(sortedPokemons, onPokemonClick)}
+          />
+        </div>
       )}
+      <Modal open={modalOpen} onClose={handleCloseModal}>
+        <Box sx={modalStyle}>
+          {selectedPokemon && (
+            <ModalCard
+              id={`${selectedPokemon.id}`}
+              img={selectedPokemon.image.hires}
+              name={selectedPokemon.name?.english ?? ""}
+              description={selectedPokemon.description}
+              hight={2}
+              weight={15.2}
+              category={selectedPokemon.species.split(" ")[0]}
+              abilities={selectedPokemon.profile.ability[0][0]}
+              onStartFightButton={onStartFightButton}
+              onClose={setModalOpen}
+            />
+          )}
+        </Box>
+      </Modal>
     </MainContainer>
   );
 };

@@ -8,6 +8,7 @@ import { Paper } from "@mui/material";
 import { TableProps } from "./types";
 import CustomFooter from "./Components/CustomFooter";
 import { sortType } from "./consts";
+import CustomNoResultsOverlay from "./Components/CustomNoResultsOverlay";
 
 const Table = ({
   cols,
@@ -18,6 +19,7 @@ const Table = ({
   disableColumnMenu = true,
   disableColumnSorting = true,
   sortBy = { col: "", order: sortType.ASC },
+  noRowMessage = "no rows",
 }: TableProps) => {
   const columns: GridColDef[] = cols.map((col) => ({
     field: col.field,
@@ -28,6 +30,7 @@ const Table = ({
     flex: col.flex || 0,
     getSortComparator: (sortDirection) => {
       const modifier = sortDirection === "desc" ? -1 : 1;
+
       return (value1, value2, cellParams1, cellParams2) => {
         if (value1 === null) {
           return 1;
@@ -75,6 +78,9 @@ const Table = ({
         onRowClick={handleRowClick}
         slots={{
           footer: CustomFooter,
+          noRowsOverlay: () => (
+            <CustomNoResultsOverlay message={noRowMessage} />
+          ),
         }}
         sortModel={sortModel}
         sx={style}

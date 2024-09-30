@@ -10,17 +10,19 @@ import {
   ContentContainer,
   IconContainer,
   PowerText,
+  SideCol,
 } from "./styles";
 import StrengthIcon from "./strengthIcon";
 
 const Card = ({ id, img, name, power, hp, onCardClick }: CardProps) => {
   return (
-    <StyledCard>
-      <StyledCardActionArea
-        onClick={() => {
-          onCardClick(name);
-        }}
-      >
+    <StyledCard
+      onClick={() => {
+        onCardClick(name);
+      }}
+    >
+      <SideCol></SideCol>
+      <StyledCardActionArea>
         <ImgContainer>
           <StyledImg src={img} alt={name} />
           <IconContainer>
@@ -37,6 +39,7 @@ const Card = ({ id, img, name, power, hp, onCardClick }: CardProps) => {
             />
           </PowerText>
         </ImgContainer>
+
         <ContentContainer>
           <Typography
             label={id}
@@ -55,6 +58,7 @@ const Card = ({ id, img, name, power, hp, onCardClick }: CardProps) => {
           />
         </ContentContainer>
       </StyledCardActionArea>
+      <SideCol></SideCol>
     </StyledCard>
   );
 };

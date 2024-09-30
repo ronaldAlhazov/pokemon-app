@@ -19,7 +19,10 @@ export const Primary: Story = {
     id: "#001",
     power: 30,
     fightType: FightType.ME,
-    health: 90,
-    minHealth: 40,
+    startHealth: 90,
+    currentHealth: 90,
+
+    border: "none",
+    isWinner: true,
   },
 };

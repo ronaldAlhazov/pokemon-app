@@ -198,9 +198,10 @@ export const Primary: Story = {
         width: 119,
       },
     ],
-    rows: sampleRows,
+    rows: [],
     handleRowClick: handleRowClick,
     style: {
+      height: "400px",
       "& .MuiDataGrid-cell": {
         border: "none",
         textAlign: "left",

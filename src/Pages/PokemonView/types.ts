@@ -1,4 +1,8 @@
+import { Title } from "./consts";
+import { Pokemon } from "./Pokemon";
+
 export type PokemoneViewProps = {
-  title: string;
-  onPokemonClick: (event: string) => void;
+  title: Title;
+  pokemons: Pokemon[];
+  onFightClick: (id: number) => void;
 };
