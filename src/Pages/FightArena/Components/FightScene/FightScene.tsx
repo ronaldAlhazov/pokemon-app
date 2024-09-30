@@ -86,7 +86,7 @@ const FightScene = ({
     });
   }, [myPokemon]);
 
-  const onAttackClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onAttack = () => {
     if (turn == Turn.MY_POKEMON && !startButton) {
       setShakeOpponentCard(
         inAttack(
@@ -101,7 +101,7 @@ const FightScene = ({
 
   useEffect(() => {
     const handleOpponentTurn = () => {
-      if (turn === Turn.OPPONENT && !startButton) {
+      if (turn === Turn.OPPONENT && !startButton && !isMatchFinished) {
         setShakeMyCard(
           inAttack(
             opponentCurrentData,
@@ -156,6 +156,23 @@ const FightScene = ({
     animate: { scale: 1, opacity: 1, transition: { duration: 0.5 } },
   };
 
+  const handleSpacebarAttack = (event: KeyboardEvent) => {
+    if (
+      event.code === "Space" &&
+      turn === Turn.MY_POKEMON &&
+      !isMatchFinished
+    ) {
+      onAttack();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleSpacebarAttack);
+    return () => {
+      window.removeEventListener("keydown", handleSpacebarAttack);
+    };
+  }, [turn, startButton, myPokemonCurrentData, opponentCurrentData]);
+
   return (
     <Box sx={getMainStyle}>
       <CardContainer shake={shakeMyCard}>
@@ -201,10 +218,9 @@ const FightScene = ({
         <Buttons
           showStartButton={startButton}
           setStartButton={setStartButton}
-          onAttackClick={onAttackClick}
           onCatchClick={onCatchClick}
-          isMyPokemonWin={opponentCurrentData.isFainted}
-          isFightEnded={isMatchFinished}
+          isMyPokemonTurn={turn === Turn.MY_POKEMON}
+          isMatchFinished={isMatchFinished}
         />
       )}
       <CardContainer shake={shakeOpponentCard} rotate={catchMissed}>

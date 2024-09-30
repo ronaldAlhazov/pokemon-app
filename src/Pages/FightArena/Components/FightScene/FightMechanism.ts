@@ -3,9 +3,22 @@ import { PokemonFightData } from "../../types";
 import { MAX_CATCH_ATTEMPTS, typeAdvantageChart } from "./consts";
 import { FightingData } from "./types";
 import { PokemonType } from "../../../PokemonView/Pokemon";
-const checkAttackMiss = (): boolean => {
-  const missChance = 0.05;
-  return Math.random() < missChance;
+export const checkAttackMiss = (
+  attackingPokemon: FightingData,
+  defendingPokemon: FightingData
+): boolean => {
+  const baseMissChance = 0.05;
+
+  const speedDifference = attackingPokemon.Speed - defendingPokemon.Speed;
+
+  const adjustedMissChance = Math.max(
+    0,
+    baseMissChance - speedDifference * 0.01
+  );
+
+  const finalMissChance = Math.min(adjustedMissChance, 1);
+
+  return Math.random() < finalMissChance;
 };
 const getRandomFactor = (): number => {
   const factor = Math.random() * 0.6;
@@ -39,13 +52,12 @@ const calculateDamage = (
   attacker: FightingData,
   defender: FightingData
 ): number => {
-  console.log(`-${attacker.name}`);
   const baseDamage = attacker.Attack - defender.Defense;
-  console.log(`baseDamage ${baseDamage} `);
+
   const randomFactor = getRandomFactor();
-  console.log(`randomFactor ${randomFactor} `);
+
   const typeMultiplier = getTypeMultiplier(attacker.type, defender.type);
-  console.log(`typeMultiplier ${typeMultiplier} `);
+
   return Math.max(baseDamage * randomFactor * typeMultiplier, 1);
 };
 
@@ -54,7 +66,7 @@ export const inAttack = (
   defendingPokemon: FightingData,
   setDefendingPokemon: Dispatch<React.SetStateAction<FightingData>>
 ) => {
-  if (checkAttackMiss()) {
+  if (checkAttackMiss(attackingPokemon, defendingPokemon)) {
     return true;
   }
 
