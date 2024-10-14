@@ -32,7 +32,7 @@ const ModalCard = ({
     <StyledCard>
       <StyledCardActionArea>
         <IconContainer>
-          <CloseIcon onClick={onClose} sx={getCloseIconStyles} />
+          <CloseIcon onClick={() => onClose(false)} sx={getCloseIconStyles} />{" "}
         </IconContainer>
         <HeaderContainer>
           <Typography
@@ -70,7 +70,7 @@ const ModalCard = ({
           <ButtonComponent
             label="Start a Fight"
             type={ButtonType.PRIMARY}
-            size={ButtonSize.MEDIUM}
+            size={ButtonSize.HEADER_FIGHT}
             disabled={false}
             onClick={onStartFightButton}
           />

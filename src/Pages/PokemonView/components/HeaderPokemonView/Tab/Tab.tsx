@@ -26,6 +26,7 @@ const Tab = ({ setTypeView }: CustomTabsProps) => {
     <Tabs
       value={currentView}
       onChange={handleChange}
+      sx={{ width: "60vh" }}
       TabIndicatorProps={{
         style: { display: "none" },
       }}

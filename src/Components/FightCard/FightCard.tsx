@@ -1,4 +1,4 @@
-import { CardProps } from "./types";
+import { FightCardProps } from "./types";
 import Typography from "../Typography/Typography";
 import { TypographyTypes } from "../Typography/consts";
 import { colors } from "../../global-styles";
@@ -11,6 +11,7 @@ import {
   PowerText,
   HealthBarContainer,
   HealthBarFill,
+  SpeedText,
 } from "./styles";
 
 import { FightType } from "./consts";
@@ -20,12 +21,15 @@ const FightCard = ({
   img,
   name,
   power,
+  speedAttack,
   fightType = FightType.NONE,
-  health,
-  minHealth,
-}: CardProps) => {
+  startHealth,
+  currentHealth,
+  border,
+  isWinner,
+}: FightCardProps) => {
   return (
-    <StyledCard>
+    <StyledCard border={border} iswinner={isWinner}>
       <StyledCardActionArea>
         <Typography
           label={fightType}
@@ -37,6 +41,16 @@ const FightCard = ({
         />
         <ImgContainer>
           <StyledImg src={img} alt={name} />
+          <SpeedText>
+            <Typography
+              label={`${speedAttack}sp`}
+              type={TypographyTypes.CUSTOM}
+              weight={700}
+              size={12}
+              line={19}
+              color={colors.NEUTRALS._500}
+            />
+          </SpeedText>
           <PowerText>
             <Typography
               label={`${power}pwr`}
@@ -66,7 +80,10 @@ const FightCard = ({
           />
         </ContentContainer>
         <HealthBarContainer>
-          <HealthBarFill health={health} minHealth={minHealth} />
+          <HealthBarFill
+            starthealth={startHealth}
+            currenthealth={currentHealth}
+          />
         </HealthBarContainer>
       </StyledCardActionArea>
     </StyledCard>

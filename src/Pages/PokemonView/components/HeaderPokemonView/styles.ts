@@ -26,16 +26,18 @@ export const getDropdownStyle = (sortByLength: number) => ({
 
 export const TabAndSearchBarContainer = styled.div`
   height: 38px;
+  width: auto;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   position: relative;
   gap: 32px;
 `;
 
 export const HeaderContainer = styled.div`
   display: flex;
+
   justify-content: space-between;
   align-items: center;
   height: 38px;

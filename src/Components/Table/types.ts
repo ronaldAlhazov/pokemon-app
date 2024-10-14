@@ -25,4 +25,5 @@ export type TableProps = {
   disableColumnSorting?: boolean;
   disableColumnMenu?: boolean;
   sortBy?: { col: string; order: sortType };
+  noRowMessage?: string;
 };

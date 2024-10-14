@@ -2,7 +2,7 @@ import { colors } from "../../../../../global-styles";
 
 export const getTabStyle = () => ({
   width: "71px",
-  height: "38px",
+  height: "40px",
   minHeight: "38px",
   padding: "0",
   textTransform: "none",

@@ -2,10 +2,30 @@ export type Stats = {
   HP: number;
   Attack: number;
   Defense: number;
-  "Sp. Attack": number;
-  "Sp. Defense": number;
+  SpAttack: number;
+  SpDefense: number;
   Speed: number;
 };
+export enum PokemonType {
+  BUG = "Bug",
+  DARK = "Dark",
+  DRAGON = "Dragon",
+  ELECTRIC = "Electric",
+  FAIRY = "Fairy",
+  FIGHTING = "Fighting",
+  FIRE = "Fire",
+  FLYING = "Flying",
+  GHOST = "Ghost",
+  GRASS = "Grass",
+  GROUND = "Ground",
+  ICE = "Ice",
+  NORMAL = "Normal",
+  POISON = "Poison",
+  PSYCHIC = "Psychic",
+  ROCK = "Rock",
+  STEEL = "Steel",
+  WATER = "Water",
+}
 export enum Language {
   ENGLISH = "english",
   JAPANESE = "japanese",
@@ -33,10 +53,11 @@ export type Image = {
 
 export type Pokemon = {
   id: number;
-  name: {
-    [key in Language]?: string;
-  };
-  type: string[];
+  nameEnglish: string;
+  nameJapanese: string;
+  nameChinese: string;
+  nameFrench: string;
+  type: PokemonType[];
   stats: Stats;
   species: string;
   description: string;

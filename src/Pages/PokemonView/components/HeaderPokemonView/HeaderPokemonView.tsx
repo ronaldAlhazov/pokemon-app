@@ -10,42 +10,30 @@ import {
 } from "./styles";
 import Tab from "./Tab/Tab";
 import { HeaderPokemonViewProps } from "./types";
-import { sortType } from "../../../../Components/Table/consts";
+import { fetchPokemonData } from "../../../dataUtils";
+import { Title } from "../../consts";
 
 const HeaderPokemonView = ({
-  setSearchBy,
-  setSortOrder,
-  viewType,
   setViewType,
+  setPokemons,
+  title,
 }: HeaderPokemonViewProps) => {
   const [sortBy, setSortBy] = useState("");
+  const [searchBy, setSearchBy] = useState("");
 
-  useEffect(() => {
-    switch (sortBy) {
-      case SortBy.NAME_AZ:
-        setSortOrder({ col: "name", order: sortType.ASC });
-        break;
-      case SortBy.NAME_ZA:
-        setSortOrder({ col: "name", order: sortType.DESC });
-        break;
-      case SortBy.POWER_HL:
-        setSortOrder({ col: "Power", order: sortType.DESC });
-        break;
-      case SortBy.POWER_LH:
-        setSortOrder({ col: "Power", order: sortType.ASC });
-        break;
-      case SortBy.HP_HL:
-        console.log("DESC");
-        setSortOrder({ col: "hp", order: sortType.DESC });
-        break;
-      case SortBy.HP_LH:
-        console.log("ASC");
-        setSortOrder({ col: "hp", order: sortType.ASC });
-        break;
-      default:
-        setSortOrder({ col: "ID", order: sortType.ASC });
+  const fetchPokemons = async () => {
+    try {
+      let username = "";
+      if (title === Title.MY_POKEMONS) username = "roni23";
+      const data = await fetchPokemonData(sortBy, searchBy, username);
+      setPokemons(data);
+    } catch (error) {
+      console.error("Error fetching pokemons:", error);
     }
-  }, [sortBy]);
+  };
+  useEffect(() => {
+    fetchPokemons();
+  }, [sortBy, searchBy]);
   return (
     <HeaderContainer>
       <TabAndSearchBarContainer>

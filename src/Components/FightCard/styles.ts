@@ -3,9 +3,26 @@ import { Card as MuiCard } from "@mui/material";
 import { styled } from "styled-components";
 import { colors } from "../../global-styles";
 
-export const StyledCard = muiStyled(MuiCard)`
+export const StyledCard = muiStyled(MuiCard, {
+  shouldForwardProp: (prop) => prop !== "iswinner",
+})<{
+  border: string;
+  iswinner: boolean;
+}>`
   width: 402px;
   height: 396px;
+  min-width: 295px;
+  min-height: 200px;
+  box-shadow: none;
+  border: ${(props) => props.border || "none"}; 
+  transition: transform 0.3s, border 0.3s;
+  
+  ${(props) =>
+    props.iswinner &&
+    `
+    border: 3px solid gold; 
+    transform: scale(1.05);
+  `}
 `;
 
 export const StyledCardActionArea = muiStyled(CardActionArea)`
@@ -39,6 +56,12 @@ export const PowerText = styled.div`
   top: 7px;
   right: 10px;
 `;
+export const SpeedText = styled.div`
+  display: flex;
+  position: absolute;
+  top: 7px;
+  left: 10px;
+`;
 
 export const ContentContainer = styled.div`
   display: flex;
@@ -64,10 +87,16 @@ export const HealthBarContainer = styled.div`
   margin-top: 8px;
 `;
 
-export const HealthBarFill = styled.div<{ health: number; minHealth: number }>`
-  width: ${({ health }) => health}%;
-  background-color: ${({ health, minHealth }) =>
-    health > minHealth ? colors.CUSTOM.GREEN : colors.CUSTOM.RED};
+export const HealthBarFill = styled.div<{
+  starthealth: number;
+  currenthealth: number;
+}>`
+  width: ${({ currenthealth, starthealth }) =>
+    (currenthealth / starthealth) * 100}%;
+  background-color: ${({ currenthealth, starthealth }) => {
+    const threshold = starthealth * 0.3;
+    return currenthealth <= threshold ? colors.CUSTOM.RED : colors.CUSTOM.GREEN;
+  }};
   height: 100%;
   transition: width 0.3s ease;
 `;

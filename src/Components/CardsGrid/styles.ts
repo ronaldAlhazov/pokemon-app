@@ -9,7 +9,7 @@ export const gridItemStyle: SxProps<Theme> = {
   justifyContent: "center",
   alignItems: "center",
   "& .MuiPaper-root": {
-    width: "322px",
+    width: "100%",
     boxSizing: "border-box",
   },
 };
