@@ -11,6 +11,7 @@ import {
   PowerText,
   HealthBarContainer,
   HealthBarFill,
+  SpeedText,
 } from "./styles";
 
 import { FightType } from "./consts";
@@ -20,6 +21,7 @@ const FightCard = ({
   img,
   name,
   power,
+  speedAttack,
   fightType = FightType.NONE,
   startHealth,
   currentHealth,
@@ -39,6 +41,16 @@ const FightCard = ({
         />
         <ImgContainer>
           <StyledImg src={img} alt={name} />
+          <SpeedText>
+            <Typography
+              label={`${speedAttack}sp`}
+              type={TypographyTypes.CUSTOM}
+              weight={700}
+              size={12}
+              line={19}
+              color={colors.NEUTRALS._500}
+            />
+          </SpeedText>
           <PowerText>
             <Typography
               label={`${power}pwr`}

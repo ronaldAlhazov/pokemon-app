@@ -10,25 +10,36 @@ import Typography from "../Components/Typography/Typography";
 import { TypographyTypes } from "../Components/Typography/consts";
 import { ColStyle } from "./PokemonView/styles";
 
-export const fetchPokemonData = async (): Promise<Pokemon[]> => {
-  const cachedData = localStorage.getItem("pokemonData");
+export const fetchPokemonData = async (
+  sortBy?: string,
+  filter?: string,
+  username?: string
+): Promise<Pokemon[]> => {
+  const params: URLSearchParams = new URLSearchParams();
 
-  if (cachedData) {
-    return JSON.parse(cachedData) as Pokemon[];
-  } else {
-    const response = await fetch("/pokemon.json");
-    const data: (Omit<Pokemon, "stats"> & { base: Stats })[] =
-      await response.json();
-
-    const formattedData = data.map((pokemon) => ({
-      ...pokemon,
-      stats: pokemon.base,
-    }));
-
-    localStorage.setItem("pokemonData", JSON.stringify(formattedData));
-
-    return formattedData;
+  if (sortBy) {
+    params.append("sortBy", sortBy);
   }
+
+  if (filter) {
+    params.append("filter", filter);
+  }
+  if (username) {
+    params.append("username", username);
+  }
+
+  const response = await fetch(
+    `${process.env.REACT_APP_BASE_URL}/getPokemons?${params.toString()}`
+  );
+
+  const data: (Omit<Pokemon, "stats"> & { base: Stats })[] =
+    await response.json();
+
+  const formattedData = data.map((pokemon) => ({
+    ...pokemon,
+    stats: pokemon.base,
+  }));
+  return formattedData;
 };
 
 export const getCols = (): TableCol[] => [
@@ -120,92 +131,118 @@ export const getCols = (): TableCol[] => [
     },
   },
 ];
-export const getRows = (data: Pokemon[], title: Title) => {
-  return data.map((pokemon) => ({
-    id: pokemon.id,
-    name: (
-      <ColStyle>
-        <Typography
-          label={pokemon.name.english ?? ""}
-          type={TypographyTypes.HEADING_MEDIUM_REGULAR}
-        />
-        {title === Title.ALL_POKEMONS && pokemon.belongsToMe && (
-          <img
-            src={`${process.env.PUBLIC_URL}/favicon.ico`}
-            alt="Pokéball"
-            style={{
-              width: 16,
-              height: 16,
-              marginLeft: 4,
-              marginRight: 4,
-            }}
+export const getRows = async (data: Pokemon[], title: Title) => {
+  const myPokemons = await getMyPokemons();
+
+  return data.map((pokemon) => {
+    const belongsToMe = myPokemons.some(
+      (myPokemon) => myPokemon.id === pokemon.id
+    );
+
+    return {
+      id: pokemon.id,
+      name: (
+        <ColStyle>
+          <Typography
+            label={pokemon.nameEnglish ?? ""}
+            type={TypographyTypes.HEADING_MEDIUM_REGULAR}
           />
-        )}
-      </ColStyle>
-    ),
-    hp: pokemon.stats?.HP || null,
-    Power: pokemon.stats?.Attack || null,
-    description: pokemon.description,
-    avatar: pokemon.image.hires,
+          {title === Title.ALL_POKEMONS && belongsToMe && (
+            <img
+              src={`${process.env.PUBLIC_URL}/favicon.ico`}
+              alt="Pokéball"
+              style={{
+                width: 16,
+                height: 16,
+                marginLeft: 4,
+                marginRight: 4,
+              }}
+            />
+          )}
+        </ColStyle>
+      ),
+      hp: pokemon.stats?.HP || null,
+      Power: pokemon.stats?.Attack || null,
+      description: pokemon.description,
+      avatar: pokemon.image.hires,
+    };
+  });
+};
+
+export const getMyPokemons = async (): Promise<Pokemon[]> => {
+  const response = await fetch(
+    `${process.env.REACT_APP_BASE_URL}/getPokemons?username=roni23`
+  );
+  const data: (Omit<Pokemon, "stats"> & { base: Stats })[] =
+    await response.json();
+
+  const formattedData = data.map((pokemon) => ({
+    ...pokemon,
+    stats: pokemon.base,
   }));
-};
-export const getMyPokemons = (data: Pokemon[]) => {
-  const myPokemons = data.filter((pokemon) => pokemon.belongsToMe === true);
 
-  localStorage.setItem("myPokemons", JSON.stringify(myPokemons));
-
-  return myPokemons;
+  return formattedData;
 };
 
-export const loadMyPokemons = () => {
-  const storedPokemons = localStorage.getItem("myPokemons");
-  if (storedPokemons) {
-    return JSON.parse(storedPokemons) as Pokemon[];
+export const getMyPokemonsFightingData = async (): Promise<
+  PokemonFightData[]
+> => {
+  try {
+    const storedPokemons = await getMyPokemons();
+    return storedPokemons.map((pokemon) => ({
+      id: pokemon.id,
+      name: pokemon.nameEnglish || "",
+      type: pokemon.type,
+      imgThumbnails: pokemon.image.thumbnail,
+      imgHires: pokemon.image.hires,
+      stats: {
+        HP: pokemon.stats.HP,
+        Attack: pokemon.stats.Attack,
+        Defense: pokemon.stats.Defense,
+        SpAttack: pokemon.stats.SpAttack,
+        SpDefense: pokemon.stats.SpDefense,
+        Speed: pokemon.stats.Speed,
+      },
+      abilities: pokemon.profile.ability.map(([name, hidden]) => ({
+        name,
+        hidden: hidden === "true",
+      })),
+      isFainted: false,
+    }));
+  } catch (error) {
+    console.error("Error fetching fighting data:", error);
+    return [];
   }
-  return [];
 };
+export const getOpponent = async (
+  username: string
+): Promise<PokemonFightData> => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/getOpponent?username=${username}`
+    );
 
-export const getMyPokemonsFightingData = (): PokemonFightData[] => {
-  return loadMyPokemons().map((pokemon) => ({
-    id: pokemon.id,
-    name: pokemon.name[Language.ENGLISH] || "",
-    type: pokemon.type,
-    imgThumbnails: pokemon.image.thumbnail,
-    imgHires: pokemon.image.hires,
-    stats: {
-      HP: pokemon.stats.HP,
-      Attack: pokemon.stats.Attack,
-      Defense: pokemon.stats.Defense,
-      SpAttack: pokemon.stats["Sp. Attack"],
-      SpDefense: pokemon.stats["Sp. Defense"],
-      Speed: pokemon.stats.Speed,
-    },
-    abilities: pokemon.profile.ability.map(([name, hidden]) => ({
-      name,
-      hidden: hidden === "true",
-    })),
-    isFainted: false,
-  }));
-};
-export const getOpponent = (pokemons: Pokemon[]): PokemonFightData => {
-  const availablePokemons = pokemons.filter((pokemon) => !pokemon.belongsToMe);
-
-  let pokemon: Pokemon | undefined;
-
-  do {
-    const randomIndex = Math.floor(Math.random() * availablePokemons.length);
-    const candidate = availablePokemons[randomIndex];
-
-    if (candidate.stats && Object.keys(candidate.stats).length > 0) {
-      pokemon = candidate;
+    if (!response.ok) {
+      throw new Error("Failed to fetch opponent Pokémon");
     }
-  } while (!pokemon);
-  return getOpponentData(pokemon);
+    const data: Omit<Pokemon, "stats"> & { base: Stats } =
+      await response.json();
+
+    const opponentPokemon: Pokemon = {
+      ...data,
+      stats: data.base,
+    };
+
+    return getOpponentData(opponentPokemon);
+  } catch (error) {
+    console.error("Error fetching opponent:", error);
+    throw new Error("Error fetching opponent data");
+  }
 };
 export const getOpponentData = (pokemon: Pokemon): PokemonFightData => {
   return {
     id: pokemon.id,
-    name: pokemon.name[Language.ENGLISH] || "",
+    name: pokemon.nameEnglish || "",
     type: pokemon.type,
     imgThumbnails: pokemon.image.thumbnail,
     imgHires: pokemon.image.hires,
@@ -213,8 +250,8 @@ export const getOpponentData = (pokemon: Pokemon): PokemonFightData => {
       HP: pokemon.stats?.HP ?? "N/A",
       Attack: pokemon.stats?.Attack ?? "N/A",
       Defense: pokemon.stats?.Defense ?? "N/A",
-      SpAttack: pokemon.stats ? (pokemon.stats["Sp. Attack"] ?? 0) : 0,
-      SpDefense: pokemon.stats ? (pokemon.stats["Sp. Defense"] ?? 0) : 0,
+      SpAttack: pokemon.stats ? (pokemon.stats.SpAttack ?? 0) : 0,
+      SpDefense: pokemon.stats ? (pokemon.stats.SpDefense ?? 0) : 0,
       Speed: pokemon.stats?.Speed ?? "N/A",
     },
     abilities: pokemon.profile.ability.map(([name, hidden]) => ({
@@ -232,7 +269,7 @@ export const createPokemonCards = (
   return pokemonData.map((pokemon) => ({
     id: `#${pokemon.id.toString().padStart(3, "0")}`,
     img: pokemon.image.hires,
-    name: pokemon.name[Language.ENGLISH] || "Unknown",
+    name: pokemon.nameEnglish || "Unknown",
     power: pokemon.stats?.Attack ? pokemon.stats.Attack : undefined,
     hp: pokemon.stats?.HP ? pokemon.stats?.HP : undefined,
     onCardClick: (val: string) => {
@@ -251,8 +288,8 @@ export const sortCards = (
     let valueB: string | number | undefined;
 
     if (col === "name") {
-      valueA = a.name[Language.ENGLISH];
-      valueB = b.name[Language.ENGLISH];
+      valueA = a.nameEnglish;
+      valueB = b.nameEnglish;
     } else if (col === "power" || col === "Power") {
       valueA = a.stats?.Attack;
       valueB = b.stats?.Attack;

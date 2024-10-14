@@ -16,6 +16,7 @@ const FightScene = ({
   myPokemon,
   opponent,
   addToMyPokemon,
+  setIsMatchStarted,
 }: FightSceneProps) => {
   const navigate = useNavigate();
   const [myPokemonCurrentData, setMyPokemonCurrentData] =
@@ -29,11 +30,7 @@ const FightScene = ({
   const [isCatched, setIsCatched] = useState<boolean>(false);
   const [shakeOpponentCard, setShakeOpponentCard] = useState<boolean>(false);
   const [endedPokeName, setEndedPokeName] = useState<string>("");
-  const [turn, setTurn] = useState<Turn>(
-    myPokemon.stats.SpAttack > opponent.stats.SpAttack
-      ? Turn.MY_POKEMON
-      : Turn.OPPONENT
-  );
+  const [turn, setTurn] = useState<Turn>();
 
   useEffect(() => {
     const opponentCachedData = localStorage.getItem("opponentFightData");
@@ -69,7 +66,7 @@ const FightScene = ({
   }, []);
 
   useEffect(() => {
-    setMyPokemonCurrentData({
+    const newPokemonData = {
       id: myPokemon.id,
       img: myPokemon.imgHires,
       name: myPokemon.name,
@@ -83,7 +80,13 @@ const FightScene = ({
       currentHP: myPokemon.stats.HP,
       isFainted: false,
       catchAttempts: 0,
-    });
+    };
+    setMyPokemonCurrentData(newPokemonData);
+    setTurn(
+      newPokemonData.SpAttack > opponentCurrentData.SpAttack
+        ? Turn.MY_POKEMON
+        : Turn.OPPONENT
+    );
   }, [myPokemon]);
 
   const onAttack = () => {
@@ -127,6 +130,9 @@ const FightScene = ({
       setIsMatchFinished(true);
     }
   }, [opponentCurrentData]);
+  useEffect(() => {
+    setIsMatchStarted(!startButton);
+  }, [startButton]);
 
   const onCatchClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (opponentCurrentData.isFainted == true) {
@@ -181,6 +187,7 @@ const FightScene = ({
           img={myPokemonCurrentData.img}
           name={myPokemonCurrentData.name}
           power={myPokemonCurrentData.Attack}
+          speedAttack={myPokemonCurrentData.SpAttack}
           fightType={FightType.ME}
           startHealth={myPokemonCurrentData.HP}
           currentHealth={myPokemonCurrentData.currentHP}
@@ -229,6 +236,7 @@ const FightScene = ({
           img={opponentCurrentData.img}
           name={opponentCurrentData.name}
           power={opponentCurrentData.Attack}
+          speedAttack={opponentCurrentData.SpAttack}
           fightType={FightType.OPPONENT}
           startHealth={opponentCurrentData.HP}
           currentHealth={opponentCurrentData.currentHP}

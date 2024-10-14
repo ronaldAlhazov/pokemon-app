@@ -19,4 +19,5 @@ export type FightSceneProps = {
   myPokemon: PokemonFightData;
   opponent: PokemonFightData;
   addToMyPokemon: (id: number) => void;
+  setIsMatchStarted: React.Dispatch<React.SetStateAction<boolean>>;
 };

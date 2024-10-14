@@ -5,6 +5,7 @@ export type FightCardProps = {
   img: string;
   name: string;
   power: number;
+  speedAttack: number;
   fightType?: FightType;
   startHealth: number;
   currentHealth: number;

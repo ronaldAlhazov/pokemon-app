@@ -19,7 +19,6 @@ import {
 import FightArena from "./FightArena/FightArena";
 import { PokemonFightData } from "./FightArena/types";
 import NavBar from "./NavBar/NavBar";
-import { FightingData } from "./FightArena/Components/FightScene/types";
 import { initialPokemonFightingData } from "./FightArena/Components/FightScene/consts";
 import { Paths } from "./NavBar/consts";
 import { Title } from "./PokemonView/consts";
@@ -39,38 +38,62 @@ const MainPage = () => {
     const loadData = async () => {
       const data = await fetchPokemonData();
       setPokemons(data);
-      setMyPokemons(getMyPokemons(data));
-      setOpponent(getOpponent(data));
+      const myPokemonsData = await getMyPokemons();
+      setMyPokemons(myPokemonsData);
+      setOpponent(await getOpponent("roni23"));
     };
     loadData();
   }, []);
   useEffect(() => {
     if (path === Paths.FIGHT_ARENA) {
-      const newOpponent = getOpponent(pokemons);
-      setOpponent((prev) => newOpponent);
+      fetchOpponent();
     }
   }, [path]);
+  const fetchOpponent = async () => {
+    const username = "roni23";
+    try {
+      const opponentData = await getOpponent(username);
+      setOpponent(opponentData);
+    } catch (error) {
+      console.error("Error fetching opponent:", error);
+    }
+  };
 
-  const addToMyPokemons = (id: number) => {
-    const newPokemon = pokemons.at(id - 1);
-    if (newPokemon && !myPokemons.some((pokemon) => pokemon.id === id)) {
-      const pokemonCopy = { ...newPokemon };
-      pokemonCopy.belongsToMe = true;
-      const updatedPokemons = pokemons.map((pokemon, index) =>
-        index === id - 1 ? pokemonCopy : pokemon
+  const addToMyPokemons = async (id: number) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BASE_URL}/addToMyPokemons?username=roni23&pokemonId=${id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
-      setPokemons(updatedPokemons);
-      setMyPokemons((prev) => [...prev, pokemonCopy]);
-      localStorage.setItem("pokemonData", JSON.stringify(updatedPokemons));
-      localStorage.setItem("myPokemons", JSON.stringify(myPokemons));
+      setMyPokemons(await getMyPokemons());
+
+      if (response.ok) {
+        console.log("Pokémon added to collection");
+      } else {
+        console.error("Failed to add Pokémon:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error adding Pokémon:", error);
     }
   };
   const startFight = (id: number) => {
+    console.log(id);
     const newPokemon = pokemons.at(id - 1);
+    console.log(newPokemon);
     if (newPokemon) {
-      if (newPokemon.belongsToMe) {
+      const isInMyPokemons = myPokemons.some(
+        (pokemon) => pokemon.id === newPokemon.id
+      );
+      console.log(isInMyPokemons);
+
+      if (isInMyPokemons) {
         setPokemonForFight(getOpponentData(newPokemon));
-        setOpponent(getOpponent(pokemons));
+        fetchOpponent();
       } else {
         setOpponent(getOpponentData(newPokemon));
       }
@@ -87,6 +110,7 @@ const MainPage = () => {
           element={
             <PokemonView
               pokemons={pokemons}
+              setPokemons={setPokemons}
               title={Title.ALL_POKEMONS}
               onFightClick={startFight}
             />
@@ -97,6 +121,7 @@ const MainPage = () => {
           element={
             <PokemonView
               pokemons={myPokemons}
+              setPokemons={setMyPokemons}
               title={Title.MY_POKEMONS}
               onFightClick={startFight}
             />

@@ -56,6 +56,12 @@ export const PowerText = styled.div`
   top: 7px;
   right: 10px;
 `;
+export const SpeedText = styled.div`
+  display: flex;
+  position: absolute;
+  top: 7px;
+  left: 10px;
+`;
 
 export const ContentContainer = styled.div`
   display: flex;

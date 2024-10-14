@@ -25,12 +25,16 @@ import CardsGrid from "../../Components/CardsGrid/CardsGrid";
 import { Box, Button, Modal } from "@mui/material";
 import ModalCard from "../../Components/ModalCard/ModalCard";
 
-const PokemonView = ({ pokemons, title, onFightClick }: PokemoneViewProps) => {
-  const [searchBy, setSearchBy] = useState("");
-  const [sortBy, setSortBy] = useState({ col: "ID", order: sortType.ASC });
+const PokemonView = ({
+  pokemons,
+  title,
+  onFightClick,
+  setPokemons,
+}: PokemoneViewProps) => {
   const [viewOption, setViewOption] = useState<ViewType>(ViewType.TABLE);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
+  const [rows, setRows] = useState<any[]>([]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -38,28 +42,29 @@ const PokemonView = ({ pokemons, title, onFightClick }: PokemoneViewProps) => {
     };
     loadData();
   }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchedRows = await getRows(pokemons, title);
+        setRows(fetchedRows);
+      } catch (error) {
+        console.error("Error fetching rows:", error);
+      }
+    };
 
-  const filteredPokemons = useMemo(() => {
-    return pokemons.filter((pokemon) =>
-      pokemon.name.english?.toLowerCase().includes(searchBy.toLowerCase())
-    );
-  }, [pokemons, searchBy]);
-
-  const sortedPokemons = useMemo(() => {
-    return sortCards(filteredPokemons, sortBy);
-  }, [filteredPokemons, sortBy]);
+    fetchData();
+  }, [pokemons, title]);
 
   const handleRowClick: GridEventListener<"rowClick"> = (params, event) => {
-    console.log(params.row);
-    const clickedPokemon = filteredPokemons.find(
+    const clickedPokemon = pokemons.find(
       (pokemon) => pokemon.id === params.row.id
     );
     setSelectedPokemon(clickedPokemon || null);
     setModalOpen(true);
   };
   const onPokemonClick = (val: string) => {
-    const clickedPokemon = filteredPokemons.find(
-      (pokemon) => pokemon.name.english === val
+    const clickedPokemon = pokemons.find(
+      (pokemon) => pokemon.nameEnglish === val
     );
     setSelectedPokemon(clickedPokemon || null);
     setModalOpen(true);
@@ -79,16 +84,15 @@ const PokemonView = ({ pokemons, title, onFightClick }: PokemoneViewProps) => {
         <Typography type={TypographyTypes.HEADING_LARGE_MEDIUM} label={title} />
       </TitleContainer>
       <HeaderPokemonView
-        setSearchBy={setSearchBy}
-        setSortOrder={setSortBy}
-        viewType={viewOption}
+        setPokemons={setPokemons}
         setViewType={setViewOption}
+        title={title}
       />
 
       {viewOption == ViewType.TABLE ? (
         <div style={{ height: "75vh" }}>
           <Table
-            rows={getRows(sortedPokemons, title)}
+            rows={rows}
             cols={getCols()}
             handleRowClick={handleRowClick}
             style={getTableStyle}
@@ -98,9 +102,7 @@ const PokemonView = ({ pokemons, title, onFightClick }: PokemoneViewProps) => {
         </div>
       ) : (
         <div style={{ height: "100%" }}>
-          <CardsGrid
-            cards={createPokemonCards(sortedPokemons, onPokemonClick)}
-          />
+          <CardsGrid cards={createPokemonCards(pokemons, onPokemonClick)} />
         </div>
       )}
       <Modal open={modalOpen} onClose={handleCloseModal}>
@@ -109,7 +111,7 @@ const PokemonView = ({ pokemons, title, onFightClick }: PokemoneViewProps) => {
             <ModalCard
               id={`${selectedPokemon.id}`}
               img={selectedPokemon.image.hires}
-              name={selectedPokemon.name?.english ?? ""}
+              name={selectedPokemon.nameEnglish ?? ""}
               description={selectedPokemon.description}
               hight={2}
               weight={15.2}

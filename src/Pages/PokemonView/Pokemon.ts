@@ -2,8 +2,8 @@ export type Stats = {
   HP: number;
   Attack: number;
   Defense: number;
-  "Sp. Attack": number;
-  "Sp. Defense": number;
+  SpAttack: number;
+  SpDefense: number;
   Speed: number;
 };
 export enum PokemonType {
@@ -53,9 +53,10 @@ export type Image = {
 
 export type Pokemon = {
   id: number;
-  name: {
-    [key in Language]?: string;
-  };
+  nameEnglish: string;
+  nameJapanese: string;
+  nameChinese: string;
+  nameFrench: string;
   type: PokemonType[];
   stats: Stats;
   species: string;
@@ -63,5 +64,4 @@ export type Pokemon = {
   evolution: Evolution;
   profile: Profile;
   image: Image;
-  belongsToMe?: boolean;
 };

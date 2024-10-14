@@ -85,9 +85,11 @@ const sampleRows: PokemonFightData[] = [
 export const Header: Story = {
   render: (args) => {
     const [myPokemon, setMyPokemon] = useState<PokemonFightData>(sampleRows[0]);
+    const [isMatchStarted, setIsMatchStarted] = useState<boolean>(false);
 
     return (
       <FightArenaHeader
+        isMatchStarted={isMatchStarted}
         selectedPokemon={myPokemon}
         setMyPokemon={setMyPokemon}
       />

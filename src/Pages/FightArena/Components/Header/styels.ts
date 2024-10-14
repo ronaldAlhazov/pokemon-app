@@ -10,7 +10,7 @@ export const getTypographyStyle = () => ({
   flexDirection: "column",
   alignItems: "center",
   textAlign: "center",
-  gap: "8px",
+  gap: "17px",
 });
 export const getFooterStyle = () => ({
   display: "flex",

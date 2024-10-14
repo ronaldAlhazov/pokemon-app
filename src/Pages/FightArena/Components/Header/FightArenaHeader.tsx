@@ -15,24 +15,34 @@ import {
 } from "./styels";
 import { Box } from "@mui/material";
 import { PokemonFightData } from "../../types";
-import { getMyPokemonsFightingData, loadMyPokemons } from "../../../dataUtils";
+import { getMyPokemonsFightingData } from "../../../dataUtils";
 
 const FightArenaHeader = ({
   setMyPokemon,
   selectedPokemon,
+  isMatchStarted,
 }: FightArenaHeaderProps) => {
   const [myPokemons, setMyPokemons] = useState<PokemonFightData[]>([]);
+
   useEffect(() => {
-    const fetchedMyPokemons = getMyPokemonsFightingData();
-    setMyPokemons(fetchedMyPokemons);
-    if (selectedPokemon.name === "") {
-      setMyPokemon(fetchedMyPokemons[0]);
-    }
-  }, []);
+    const fetchMyPokemons = async () => {
+      try {
+        const fetchedMyPokemons = await getMyPokemonsFightingData();
+        setMyPokemons(fetchedMyPokemons);
+        if (selectedPokemon?.name === "") {
+          setMyPokemon(fetchedMyPokemons[0]);
+        }
+      } catch (error) {
+        console.error("Error fetching Pokémon:", error);
+      }
+    };
+
+    fetchMyPokemons(); // Call the async function
+  }, [selectedPokemon]);
 
   const onPokemonChange = (val: string) => {
     const selected = myPokemons.find((pokemon) => pokemon.name === val);
-    if (selected) {
+    if (selected && !isMatchStarted) {
       setMyPokemon(selected);
     }
   };
@@ -51,7 +61,7 @@ const FightArenaHeader = ({
           type={TypographyTypes.CUSTOM}
           weight={700}
           size={40}
-          line={30}
+          line={20}
           color={colors.NEUTRALS._400}
         />
         <Typography
