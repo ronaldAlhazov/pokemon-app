@@ -8,6 +8,7 @@ import {
 import { ButtonsProps } from "./types";
 import Typography from "../../../../../Components/Typography/Typography";
 import { TypographyTypes } from "../../../../../Components/Typography/consts";
+import { Box } from "@mui/material";
 
 const Buttons = ({
   showStartButton,
@@ -31,21 +32,35 @@ const Buttons = ({
           disabled={false}
         />
       ) : (
-        <ButtonContainer>
-          <ButtonComponent
-            size={ButtonSize.XLARGE}
-            type={ButtonType.PRIMARY_XLARGE}
-            label="Catch"
-            onClick={onCatchClick}
-            disabled={!isMyPokemonTurn && !isMatchFinished}
-          />
-          <TypographyContainer disabled={!isMyPokemonTurn || isMatchFinished}>
-            <Typography
-              type={TypographyTypes.HEADING_MEDIUM_BOLD}
-              label="Press the space button to attack"
+        <Box sx={{ textAlign: "center", gap: "10px" }}>
+          {isMatchFinished && (
+            <div style={{ marginBottom: "16px" }}>
+              <Typography
+                type={TypographyTypes.HEADING_MEDIUM_BOLD}
+                label={`🏆 You Won 🏆`}
+              />
+              <Typography
+                type={TypographyTypes.HEADING_MEDIUM_REGULAR}
+                label={`Press catch to add to your Pokémon!`}
+              />
+            </div>
+          )}
+          <ButtonContainer>
+            <ButtonComponent
+              size={ButtonSize.XLARGE}
+              type={ButtonType.PRIMARY_XLARGE}
+              label="Catch"
+              onClick={onCatchClick}
+              disabled={!isMyPokemonTurn && !isMatchFinished}
             />
-          </TypographyContainer>
-        </ButtonContainer>
+            <TypographyContainer disabled={!isMyPokemonTurn || isMatchFinished}>
+              <Typography
+                type={TypographyTypes.HEADING_MEDIUM_BOLD}
+                label="Press the space button to attack"
+              />
+            </TypographyContainer>
+          </ButtonContainer>
+        </Box>
       )}
     </>
   );

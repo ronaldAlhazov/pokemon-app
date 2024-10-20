@@ -1,6 +1,6 @@
 import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import ButtonComponent from "../../Components/Button/ButtonComponent";
 import { ButtonSize, ButtonType } from "../../Components/Button/consts";
 import { colors } from "../../global-styles";
@@ -8,31 +8,45 @@ import Image from "../../Components/Image/Image";
 import { Paths } from "./consts";
 type NavBarProps = {
   setPath: (val: Paths) => void;
+  path: Paths;
 };
 
-const NavBar = ({ setPath }: NavBarProps) => {
+const NavBar = ({ setPath, path }: NavBarProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [inAllPokemons, setInAllPokemons] = useState<boolean>(true);
   const [inMyPokemons, setInMyPokemons] = useState<boolean>(false);
-  const handleNavigation =
-    (path: string) => (event: React.MouseEvent<HTMLButtonElement>) => {
-      event.preventDefault();
-      if (Paths.ALL_POKEMONS === path) {
-        setPath(Paths.ALL_POKEMONS);
-        setInAllPokemons(true);
-        setInMyPokemons(false);
-      } else if (Paths.MY_POKEMONS === path) {
-        setPath(Paths.MY_POKEMONS);
-        setInAllPokemons(false);
-        setInMyPokemons(true);
-      } else {
-        setPath(Paths.FIGHT_ARENA);
-        setInAllPokemons(false);
-        setInMyPokemons(false);
-      }
+  // const handleNavigation =
+  //   (newPath: string) => (event: React.MouseEvent<HTMLButtonElement>) => {
+  //     event.preventDefault();
+  //     if (Paths.ALL_POKEMONS === newPath) {
+  //       setPath(Paths.ALL_POKEMONS);
+  //       setInAllPokemons(true);
+  //       setInMyPokemons(false);
+  //     } else if (Paths.MY_POKEMONS === newPath) {
+  //       setPath(Paths.MY_POKEMONS);
+  //       setInAllPokemons(false);
+  //       setInMyPokemons(true);
+  //     } else {
+  //       setPath(Paths.FIGHT_ARENA);
+  //       setInAllPokemons(false);
+  //       setInMyPokemons(false);
+  //     }
 
-      navigate(path);
+  //     navigate(newPath);
+  //   };
+  const currentPath = location.pathname as Paths;
+
+  const handleNavigation =
+    (newPath: Paths) => (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      setPath(newPath);
+      navigate(newPath);
     };
+
+  const isAllPokemonsActive = currentPath === Paths.ALL_POKEMONS;
+  const isMyPokemonsActive = currentPath === Paths.MY_POKEMONS;
+
   return (
     <AppBar position="static" color="default">
       <Toolbar
@@ -66,7 +80,7 @@ const NavBar = ({ setPath }: NavBarProps) => {
               size={ButtonSize.HEADER}
               disabled={false}
               onClick={handleNavigation(Paths.ALL_POKEMONS)}
-              isPressed={inAllPokemons}
+              isPressed={isAllPokemonsActive}
             />
             <ButtonComponent
               label="My Pokemons"
@@ -74,7 +88,7 @@ const NavBar = ({ setPath }: NavBarProps) => {
               size={ButtonSize.HEADER}
               disabled={false}
               onClick={handleNavigation(Paths.MY_POKEMONS)}
-              isPressed={inMyPokemons}
+              isPressed={isMyPokemonsActive}
             />
           </Box>
         </Box>

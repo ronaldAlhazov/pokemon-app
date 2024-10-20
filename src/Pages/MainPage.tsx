@@ -82,9 +82,7 @@ const MainPage = () => {
     }
   };
   const startFight = (id: number) => {
-    console.log(id);
     const newPokemon = pokemons.at(id - 1);
-    console.log(newPokemon);
     if (newPokemon) {
       const isInMyPokemons = myPokemons.some(
         (pokemon) => pokemon.id === newPokemon.id
@@ -103,7 +101,7 @@ const MainPage = () => {
 
   return (
     <div>
-      <NavBar setPath={setPath} />
+      <NavBar setPath={setPath} path={path} />
       <Routes>
         <Route
           path="/all-pokemons"

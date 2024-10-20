@@ -12,6 +12,7 @@ const DropDown = ({
   onChange,
   label = "",
   style,
+  disabled = false,
 }: DropdownProps) => {
   const [showSearchIcon, setShowSearchIcon] = useState(
     type === DropDownType.SEARCH
@@ -37,6 +38,7 @@ const DropDown = ({
         renderInput(type, params, label, style, showSearchIcon)
       }
       renderOption={renderOption}
+      disabled={disabled}
     />
   );
 };

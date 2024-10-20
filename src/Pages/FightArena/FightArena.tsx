@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { FightArenaProps, PokemonFightData } from "./types";
 import FightArenaHeader from "./Components/Header/FightArenaHeader";
 import FightScene from "./Components/FightScene/FightScene";
-import { initialPokemonFightingData } from "./Components/FightScene/consts";
 
 const FightArena = ({
   pokemon,

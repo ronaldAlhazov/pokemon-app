@@ -94,7 +94,7 @@ const Content: React.FC<ContentContainerProps> = ({
           </PairContainer>
           <PairContainer>
             <Typography
-              label={`Abilities`}
+              label={`Type`}
               type={TypographyTypes.CUSTOM}
               weight={400}
               size={14}

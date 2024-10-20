@@ -14,4 +14,5 @@ export type DropdownProps = {
   onChange: (value: string) => void;
   label: string;
   style: SxProps;
+  disabled?: boolean;
 };

@@ -37,7 +37,7 @@ const FightArenaHeader = ({
       }
     };
 
-    fetchMyPokemons(); // Call the async function
+    fetchMyPokemons();
   }, [selectedPokemon]);
 
   const onPokemonChange = (val: string) => {
@@ -81,6 +81,7 @@ const FightArenaHeader = ({
             onChange={onPokemonChange}
             value={selectedPokemon.name}
             style={getDropdownStyle(selectedPokemon.name.length)}
+            disabled={isMatchStarted}
           />
         </Box>
       </Box>

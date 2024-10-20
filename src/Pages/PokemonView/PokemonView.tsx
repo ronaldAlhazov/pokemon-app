@@ -116,7 +116,7 @@ const PokemonView = ({
               hight={2}
               weight={15.2}
               category={selectedPokemon.species.split(" ")[0]}
-              abilities={selectedPokemon.profile.ability[0][0]}
+              abilities={selectedPokemon.type[0]}
               onStartFightButton={onStartFightButton}
               onClose={setModalOpen}
             />

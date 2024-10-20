@@ -24,6 +24,7 @@ const HeaderPokemonView = ({
   const fetchPokemons = async () => {
     try {
       let username = "";
+      console.log(sortBy);
       if (title === Title.MY_POKEMONS) username = "roni23";
       const data = await fetchPokemonData(sortBy, searchBy, username);
       setPokemons(data);
@@ -34,6 +35,11 @@ const HeaderPokemonView = ({
   useEffect(() => {
     fetchPokemons();
   }, [sortBy, searchBy]);
+  useEffect(() => {
+    setSortBy("");
+    setSearchBy("");
+    fetchPokemons();
+  }, [title]);
   return (
     <HeaderContainer>
       <TabAndSearchBarContainer>

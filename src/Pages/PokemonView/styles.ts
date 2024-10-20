@@ -4,8 +4,14 @@ import { colors } from "../../global-styles";
 export const getTableStyle = () => ({
   boxShadow: "none",
   "& .MuiDataGrid-cell": {
-    border: "none",
     textAlign: "left",
+    "&.Mui-selected": {
+      border: "none !important",
+    },
+    "&:focus": {
+      outline: "none",
+      border: "none !important",
+    },
   },
   "& .MuiDataGrid-columnSeparator": {
     display: "none",
